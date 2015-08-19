@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-use Exception;
+use InvalidArgumentException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 
@@ -11,6 +11,10 @@ class Client
 	const API_BASE = 'https://api.invoiced.com';
 
 	const VERSION = '0.0.1';
+
+	var $Customer;
+	var $Invoice;
+	var $Transaction;
 
 	/**
 	 * @var string
@@ -30,11 +34,15 @@ class Client
 	function __construct($apiKey)
 	{
 		if (empty($apiKey)) {
-			throw new Exception('You must provide an API Key');
+			throw new InvalidArgumentException('You must provide an API Key');
 		}
 
 		$this->apiKey = $apiKey;
 		$this->client = new GuzzleClient(['base_uri' => self::API_BASE]);
+
+		$this->Customer = new Customer($this);
+		$this->Invoice = new Invoice($this);
+		$this->Transaction = new Transaction($this);
 	}
 
 	function apiKey()
@@ -91,9 +99,14 @@ class Client
 				}
 			}
 
+			$parsedHeaders = [];
+			foreach ($response->getHeaders() as $k => $v) {
+				$parsedHeaders[$k] = implode(', ', $v);
+			}
+
 			return [
 				'code' => $code,
-				'headers' => $response->getHeaders(),
+				'headers' => $parsedHeaders,
 				'body' => $parsed
 			];
 		} else {

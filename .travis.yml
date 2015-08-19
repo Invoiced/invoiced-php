@@ -1,0 +1,22 @@
+language: php
+
+php:
+    - 5.4
+    - 5.5
+    - 5.6
+    - hhvm
+    - nightly
+
+allow_failures:
+  matrix:
+    php: nightly
+
+before_script:
+    - composer install
+    - mkdir -p build/logs
+
+script:
+    - phpunit
+
+after_script:
+    - vendor/bin/coveralls
