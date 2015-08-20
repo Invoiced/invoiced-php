@@ -39,4 +39,28 @@ class CustomerTest extends PHPUnit_Framework_TestCase
 		$customer = new Customer(self::$invoiced, 'test');
 		$this->assertTrue($customer->delete());
 	}
+
+	function testSendStatement()
+	{
+		$customer = new Customer(self::$invoiced, 'test');
+		$emails = $customer->sendStatement();
+	}
+
+	function testBalance()
+	{
+		$customer = new Customer(self::$invoiced, 'test');
+
+		$expected = new stdClass;
+		$expected->past_due = false;
+		$expected->available_credits = 0;
+		$expected->total_outstanding = 0;
+
+		$this->assertEquals($expected, $customer->balance());
+	}
+
+	function testSubscriptions()
+	{
+		$customer = new Customer(self::$invoiced, 'test');
+		list($subscriptions, $metadata) = $customer->subscriptions();
+	}
 }
