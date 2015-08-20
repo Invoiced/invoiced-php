@@ -70,10 +70,12 @@ class Object implements ArrayAccess, JsonSerializable
             );
         }
 
-        $this->_values[$k] = $v;
+        if (!in_array($k, static::$permanentAttributes)) {
+            $this->_values[$k] = $v;
 
-        if (!in_array($k, self::$permanentAttributes) && !in_array($k, $this->_unsaved)) {
-            $this->_unsaved[] = $k;
+            if (!in_array($k, $this->_unsaved)) {
+                $this->_unsaved[] = $k;
+            }
         }
     }
 
@@ -85,8 +87,8 @@ class Object implements ArrayAccess, JsonSerializable
     public function __unset($k)
     {
         unset($this->_values[$k]);
-        if ($key = array_search($k, $this->_unsaved) !== false) {
-            unset($this->_unsaved[$key]);
+        if ($index = array_search($k, $this->_unsaved) !== false) {
+            unset($this->_unsaved[$index]);
         }
     }
 
@@ -179,6 +181,6 @@ class Object implements ArrayAccess, JsonSerializable
 
         $response = $this->_client->request('get', "{$this->_endpoint}/$id", $opts);
 
-        return new self($this->_client, $id, $response['body']);
+        return new static($this->_client, $id, $response['body']);
     }
 }

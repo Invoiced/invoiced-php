@@ -35,7 +35,8 @@ class Customer extends Object
     {
         $response = $this->_client->request('get', $this->_endpoint.'/balance');
 
-        return $response['body'];
+        // we actually want an object instead of an array...
+        return json_decode(json_encode($response['body']), false);
     }
 
     /**
