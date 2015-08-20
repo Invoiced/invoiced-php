@@ -10,6 +10,12 @@ allow_failures:
   matrix:
     php: nightly
 
+sudo: false
+
+cache:
+  directories:
+  - vendor
+
 before_script:
     - composer install
     - mkdir -p build/logs
