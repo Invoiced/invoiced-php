@@ -4,6 +4,11 @@ namespace Invoiced\Operations;
 
 trait Delete
 {
+	/**
+	 * Deletes the object
+	 *
+	 * @return boolean
+	 */
 	function delete()
 	{
 		$response = $this->_client->request('delete', $this->_endpoint);

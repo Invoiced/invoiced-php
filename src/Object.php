@@ -99,6 +99,12 @@ class Object implements ArrayAccess, JsonSerializable
         }
     }
 
+    public function __toString()
+    {
+        $class = get_class($this);
+        return $class . ' JSON: ' . $this->__toJSON();
+    }
+
     // implements ArrayAccess
 
     function offsetSet($k, $v)
@@ -125,6 +131,25 @@ class Object implements ArrayAccess, JsonSerializable
     {
         return array_keys($this->_values);
     }
+
+    // implements JsonSerializable
+
+    public function jsonSerialize()
+    {
+        return $this->__toArray(true);
+    }
+
+    public function __toJSON()
+    {
+        return json_encode($this->__toArray(true), JSON_PRETTY_PRINT);
+    }
+
+    public function __toArray()
+    {
+        return $this->_values;
+    }
+
+    // Object getters
 
     /**
      * Gets the client instance used by this object
@@ -153,26 +178,5 @@ class Object implements ArrayAccess, JsonSerializable
         $response = $this->_client->request('get', "{$this->_endpoint}/$id", $opts);
 
         return new self($this->_client, $id, $response['body']);
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->__toArray(true);
-    }
-
-    public function __toJSON()
-    {
-        return json_encode($this->__toArray(true), JSON_PRETTY_PRINT);
-    }
-
-    public function __toString()
-    {
-        $class = get_class($this);
-        return $class . ' JSON: ' . $this->__toJSON();
-    }
-
-    public function __toArray()
-    {
-        return $this->_values;
     }
 }

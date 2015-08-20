@@ -6,6 +6,13 @@ use Invoiced\Util;
 
 trait Create
 {
+	/**
+	 * Creates an object
+	 *
+	 * @param array $params
+	 *
+	 * @return Object newly created object
+	 */
 	function create(array $params = [])
 	{
 		$response = $this->_client->request('post', $this->_endpoint, $params);

@@ -4,6 +4,13 @@ namespace Invoiced\Operations;
 
 trait Update
 {
+	/**
+	 * Saves the object
+	 *
+	 * @param array $params
+	 *
+	 * @return boolean
+	 */
 	function save(array $params = [])
 	{
 		$update = [];

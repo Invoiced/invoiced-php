@@ -7,6 +7,13 @@ use Invoiced\Util;
 
 trait All
 {
+	/**
+	 * Fetches a collection of objects
+	 *
+	 * @param array $opts
+	 *
+	 * @return [array(Invoiced\Object), Invoiced\Collection]
+	 */
 	function all(array $opts = [])
 	{
 		$response = $this->_client->request('get', $this->_endpoint, $opts);
