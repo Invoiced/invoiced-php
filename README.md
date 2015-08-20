@@ -11,7 +11,7 @@ This repository contains the PHP client library for the [Invoiced](https://invoi
 The Invoiced package can be installed with composer:
 
 ```
-composer install invoiced/invoiced
+composer require invoiced/invoiced
 ```
 
 ## Requirements
