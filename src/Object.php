@@ -37,16 +37,16 @@ class Object implements ArrayAccess, JsonSerializable
 
     /**
      * @param Invoiced\Client $client API client instance
-     * @param string $id
-     * @param array $values
+     * @param string          $id
+     * @param array           $values
      */
-    function __construct(Client $client, $id = null, array $values = [])
+    public function __construct(Client $client, $id = null, array $values = [])
     {
         $this->_client = $client;
 
         // generate the endpoint based on class name
         $inflector = Inflector::get();
-        $classname = join('', array_slice(explode('\\', get_class($this)), -1));
+        $classname = implode('', array_slice(explode('\\', get_class($this)), -1));
         $this->_endpoint = strtolower($inflector->pluralize($inflector->underscore($classname)));
 
         $this->_values = [];
@@ -60,7 +60,7 @@ class Object implements ArrayAccess, JsonSerializable
 
     // PHP magic methods
 
-    function __set($k, $v)
+    public function __set($k, $v)
     {
         if ($v === "") {
             throw new InvalidArgumentException(
@@ -77,12 +77,12 @@ class Object implements ArrayAccess, JsonSerializable
         }
     }
 
-    function __isset($k)
+    public function __isset($k)
     {
         return isset($this->_values[$k]);
     }
 
-    function __unset($k)
+    public function __unset($k)
     {
         unset($this->_values[$k]);
         if ($key = array_search($k, $this->_unsaved) !== false) {
@@ -90,7 +90,7 @@ class Object implements ArrayAccess, JsonSerializable
         }
     }
 
-    function &__get($k)
+    public function &__get($k)
     {
         if (array_key_exists($k, $this->_values)) {
             return $this->_values[$k];
@@ -103,32 +103,33 @@ class Object implements ArrayAccess, JsonSerializable
     public function __toString()
     {
         $class = get_class($this);
-        return $class . ' JSON: ' . $this->__toJSON();
+
+        return $class.' JSON: '.$this->__toJSON();
     }
 
     // implements ArrayAccess
 
-    function offsetSet($k, $v)
+    public function offsetSet($k, $v)
     {
         $this->$k = $v;
     }
 
-    function offsetExists($k)
+    public function offsetExists($k)
     {
         return array_key_exists($k, $this->_values);
     }
 
-    function offsetUnset($k)
+    public function offsetUnset($k)
     {
         unset($this->$k);
     }
 
-    function offsetGet($k)
+    public function offsetGet($k)
     {
         return array_key_exists($k, $this->_values) ? $this->_values[$k] : null;
     }
 
-    function keys()
+    public function keys()
     {
         return array_keys($this->_values);
     }
@@ -153,24 +154,24 @@ class Object implements ArrayAccess, JsonSerializable
     // Object getters
 
     /**
-     * Gets the client instance used by this object
+     * Gets the client instance used by this object.
      *
      * @return Invoiced\Client
      */
-    function getClient()
+    public function getClient()
     {
         return $this->_client;
     }
 
     /**
-     * Retrieves an instance of this object given an ID
+     * Retrieves an instance of this object given an ID.
      *
      * @param string $id
-     * @param array $opts optional options to pass on
+     * @param array  $opts optional options to pass on
      *
      * @return Invoiced\Object
      */
-    function retrieve($id, array $opts = [])
+    public function retrieve($id, array $opts = [])
     {
         if (!$id) {
             throw new InvalidArgumentException("Missing ID.");

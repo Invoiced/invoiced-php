@@ -6,14 +6,14 @@ use Exception;
 
 class ErrorBase extends Exception
 {
-	private $statusCode;
-	private $error;
+    private $statusCode;
+    private $error;
 
-	function __construct($message, $statusCode = null, $error = null)
-	{
-		parent::__construct($message);
+    public function __construct($message, $statusCode = null, $error = null)
+    {
+        parent::__construct($message);
 
-		$this->statusCode = $statusCode;
-		$this->error = $error;
-	}
+        $this->statusCode = $statusCode;
+        $this->error = $error;
+    }
 }
