@@ -3,6 +3,7 @@
 namespace Invoiced;
 
 use ArrayAccess;
+use Exception;
 use InvalidArgumentException;
 use JsonSerializable;
 use ICanBoogie\Inflector;

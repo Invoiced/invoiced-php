@@ -2,6 +2,7 @@
 
 namespace Invoiced;
 
+use Exception;
 use InvalidArgumentException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
