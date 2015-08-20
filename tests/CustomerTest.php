@@ -50,6 +50,12 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Pied Piper', $customer->name);
     }
 
+    public function testUpdateNoValue()
+    {
+        $customer = new Customer(self::$invoiced, 'test');
+        $this->assertFalse($customer->save());
+    }
+
     public function testUpdate()
     {
         $customer = new Customer(self::$invoiced, 'test');
