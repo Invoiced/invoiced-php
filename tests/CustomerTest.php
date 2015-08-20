@@ -20,7 +20,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"total_outstanding":1000,"available_credits":0,"past_due":true}'),
-            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.comcustomers/123/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.comcustomers/123/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":456}]'),
+            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":456}]'),
         ]);
 
         self::$invoiced = new Client('API_KEY', $mock);
@@ -52,13 +52,13 @@ class CustomerTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateNoValue()
     {
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
         $this->assertFalse($customer->save());
     }
 
     public function testUpdate()
     {
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
         $customer->notes = 'Terrible customer';
         $this->assertTrue($customer->save());
 
@@ -69,7 +69,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
 
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
         $customer->notes = 'Great customer';
         $customer->save();
     }
@@ -88,23 +88,24 @@ class CustomerTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
         $this->assertTrue($customer->delete());
     }
 
     public function testSendStatement()
     {
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
         $emails = $customer->sendStatement();
 
         $this->assertTrue(is_array($emails));
         $this->assertCount(1, $emails);
+        $this->assertInstanceOf('Invoiced\\Email', $emails[0]);
         $this->assertEquals(4567, $emails[0]->id);
     }
 
     public function testBalance()
     {
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
 
         $expected = new stdClass();
         $expected->past_due = true;
@@ -118,7 +119,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
 
     public function testSubscriptions()
     {
-        $customer = new Customer(self::$invoiced, 'test');
+        $customer = new Customer(self::$invoiced, 123);
         list($subscriptions, $metadata) = $customer->subscriptions();
 
         $this->assertTrue(is_array($subscriptions));
