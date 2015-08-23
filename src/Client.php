@@ -92,7 +92,7 @@ class Client
             // perform the request
             $response = $this->client->$method($endpoint, $request);
         } catch (RequestException $e) {
-            throw new Error\ApiError('There was an error connecting to the Invoiced API.');
+            throw new Error\ApiConnectionError('There was an error connecting to the Invoiced API.');
         }
 
         // validate response

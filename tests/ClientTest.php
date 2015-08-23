@@ -145,7 +145,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function testRequestConnectionError()
     {
-        $this->setExpectedException('Invoiced\\Error\\ApiError');
+        $this->setExpectedException('Invoiced\\Error\\ApiConnectionError');
 
         $request = new Request('GET', 'https://api.invoiced.com');
         $mock = new MockHandler([
