@@ -71,22 +71,19 @@ class Client
             'User-Agent' => 'Invoiced PHP/'.self::VERSION,
         ];
 
-        $query = ['envelope' => false];
-
         $request = [
             'auth' => [$this->apiKey, ''],
             'headers' => $headers,
+            'query' => [],
             'http_errors' => false,
         ];
 
         // these methods have no request body
         if ($method === 'get' || $method === 'delete') {
-            $query = array_replace($query, $params);
+            $request['query'] = array_replace($request['query'], $params);
         } else {
             $request['json'] = $params;
         }
-
-        $request['query'] = $query;
 
         try {
             // perform the request
