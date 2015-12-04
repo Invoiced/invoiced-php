@@ -16,7 +16,6 @@ class Client
     public $Customer;
     public $Invoice;
     public $Transaction;
-    public $Plan;
     public $Subscription;
 
     /**
@@ -53,7 +52,6 @@ class Client
         $this->Customer = new Customer($this);
         $this->Invoice = new Invoice($this);
         $this->Transaction = new Transaction($this);
-        $this->Plan = new Plan($this);
         $this->Subscription = new Subscription($this);
     }
 

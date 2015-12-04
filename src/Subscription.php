@@ -8,4 +8,14 @@ class Subscription extends Object
     use Operations\All;
     use Operations\Update;
     use Operations\Delete;
+
+    /**
+     * Cancels the subscription.
+     *
+     * @return bool
+     */
+    public function cancel()
+    {
+        return $this->delete();
+    }
 }
