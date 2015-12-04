@@ -11,7 +11,7 @@ class Client
 {
     const API_BASE = 'https://api.invoiced.com';
 
-    const VERSION = '0.0.1';
+    const VERSION = '0.1.0';
 
     public $Customer;
     public $Invoice;
