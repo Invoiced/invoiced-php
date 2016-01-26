@@ -20,7 +20,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             new Response(204),
         ]);
 
-        self::$invoiced = new Client('API_KEY', $mock);
+        self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
     public function testCreate()

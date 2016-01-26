@@ -23,7 +23,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":456}]'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', $mock);
+        self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
     public function testCreate()

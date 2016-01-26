@@ -39,6 +39,12 @@ $transaction = $invoiced->Transaction->create([
 ]);
 ```
 
+If you want to use the sandbox API instead then you must set the second argument on the client to `true` like this:
+
+```php
+$invoiced = new Invoiced\Client("{SANDBOX_API_KEY}", true);
+```
+
 ## Developing
 
 The test suite can be ran with `phpunit`

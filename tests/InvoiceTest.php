@@ -22,7 +22,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"paid":true}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', $mock);
+        self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
     public function testCreate()

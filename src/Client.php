@@ -10,6 +10,7 @@ use GuzzleHttp\HandlerStack;
 class Client
 {
     const API_BASE = 'https://api.invoiced.com';
+    const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
     const VERSION = '0.1.0';
 
@@ -24,6 +25,11 @@ class Client
     private $apiKey;
 
     /**
+     * @var bool
+     */
+    private $sandbox;
+
+    /**
      * @var GuzzleHttp\Client
      */
     private $client;
@@ -32,9 +38,10 @@ class Client
      * Instantiates a new client.
      *
      * @param string             $apiKey
+     * @param bool               $sandbox when true uses the sandbox API endpoint
      * @param GuzzleHttp\Handler $handler
      */
-    public function __construct($apiKey, $handler = null)
+    public function __construct($apiKey, $sandbox = false, $handler = null)
     {
         if (empty($apiKey)) {
             throw new InvalidArgumentException('You must provide an API Key');
@@ -44,10 +51,12 @@ class Client
         $handlerStack = ($handler) ? HandlerStack::create($handler) : HandlerStack::create();
 
         $this->apiKey = $apiKey;
+        $this->sandbox = $sandbox;
 
         $this->client = new GuzzleClient([
-            'base_uri' => self::API_BASE,
-            'handler' => $handlerStack, ]);
+            'base_uri' => $this->endpoint(),
+            'handler' => $handlerStack,
+        ]);
 
         $this->Customer = new Customer($this);
         $this->Invoice = new Invoice($this);
@@ -58,6 +67,11 @@ class Client
     public function apiKey()
     {
         return $this->apiKey;
+    }
+
+    public function endpoint()
+    {
+        return $this->sandbox ? self::API_BASE_SANDBOX : self::API_BASE;
     }
 
     public function request($method, $endpoint, $params = [])

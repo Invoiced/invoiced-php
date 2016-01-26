@@ -19,6 +19,13 @@ class ClientTest extends PHPUnit_Framework_TestCase
     {
         $client = new Client('test');
         $this->assertEquals('test', $client->apiKey());
+        $this->assertEquals('https://api.invoiced.com', $client->endpoint());
+    }
+
+    public function testSandbox()
+    {
+        $client = new Client('test', true);
+        $this->assertEquals('https://api.sandbox.invoiced.com', $client->endpoint());
     }
 
     public function testRequest()
@@ -27,7 +34,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(200, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $response = $client->request('GET', '/invoices', ['per_page' => 3]);
 
@@ -49,7 +56,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(201, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $response = $client->request('POST', '/invoices', ['customer' => 123]);
 
@@ -73,7 +80,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(200, [], 'not valid json'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -86,7 +93,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(401, [], '{"error":"invalid_request","message":"invalid api key"}'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -99,7 +106,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(400, [], '{"error":"invalid_request","message":"not found"}'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -112,7 +119,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(500, [], '{"error":"api","message":"idk"}'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -125,7 +132,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(502, [], '{"error":"api","message":"idk"}'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -138,7 +145,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(500, [], 'not valid json'),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -152,7 +159,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new RequestException('Could not connect', $request),
         ]);
 
-        $client = new Client('API_KEY', $mock);
+        $client = new Client('API_KEY', false, $mock);
 
         $client->request('GET', '/invoices');
     }
