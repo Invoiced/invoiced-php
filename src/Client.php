@@ -30,6 +30,11 @@ class Client
     private $sandbox;
 
     /**
+     * @var string
+     */
+    private $caBundleFile;
+
+    /**
      * @var GuzzleHttp\Client
      */
     private $client;
@@ -52,6 +57,7 @@ class Client
 
         $this->apiKey = $apiKey;
         $this->sandbox = $sandbox;
+        $this->caBundleFile = dirname(__DIR__).'/data/ca-bundle.crt';
 
         $this->client = new GuzzleClient([
             'base_uri' => $this->endpoint(),
@@ -88,6 +94,7 @@ class Client
             'headers' => $headers,
             'query' => [],
             'http_errors' => false,
+            'verify' => $this->caBundleFile,
         ];
 
         // these methods have no request body
