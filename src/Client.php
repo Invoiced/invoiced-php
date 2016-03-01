@@ -70,16 +70,37 @@ class Client
         $this->Subscription = new Subscription($this);
     }
 
+    /**
+     * Gets the API key used by this client.
+     *
+     * @return string
+     */
     public function apiKey()
     {
         return $this->apiKey;
     }
 
+    /**
+     * Gets the API endpoint used by this client.
+     *
+     * @return string
+     */
     public function endpoint()
     {
         return $this->sandbox ? self::API_BASE_SANDBOX : self::API_BASE;
     }
 
+    /**
+     * Performs an API request.
+     *
+     * @param string $method
+     * @param string $endpoint
+     * @param array  $params
+     *
+     * @throws Error\ErrorBase when the API request is not successful for any reason.
+     *
+     * @return array
+     */
     public function request($method, $endpoint, $params = [])
     {
         $method = strtolower($method);
@@ -158,6 +179,14 @@ class Client
         return $response;
     }
 
+    /**
+     * Throws a generic API error.
+     *
+     * @param int    $code
+     * @param string $body
+     *
+     * @return Error\ApiError
+     */
     private function generalApiError($code, $body)
     {
         return new Error\ApiError("API Error $code - $body", $code);
