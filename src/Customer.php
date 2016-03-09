@@ -59,4 +59,31 @@ class Customer extends Object
 
         return [$subscriptions, $metadata];
     }
+
+    /**
+     * Gets a line item object for this customer.
+     *
+     * @return LineItem
+     */
+    public function lineItems()
+    {
+        return new LineItem($this->_client, null, [], $this);
+    }
+
+    /**
+     * Creates an invoice from pending line items.
+     *
+     * @param array $opts
+     *
+     * @return Invoice
+     */
+    public function invoice(array $opts = [])
+    {
+        $response = $this->_client->request('post', $this->_endpoint.'/invoices', $opts);
+
+        # build invoice object
+        $invoice = new Invoice($this->_client);
+
+        return Util::convertToObject($invoice, $response['body']);
+    }
 }

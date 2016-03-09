@@ -21,6 +21,10 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"total_outstanding":1000,"available_credits":0,"past_due":true}'),
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":456}]'),
+            new Response(201, [], '{"id":123,"amount":500}'),
+            new Response(200, [], '{"id":"123","amount":500}'),
+            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="last"'], '[{"id":123,"amount":500}]'),
+            new Response(201, [], '{"id":456,"total":500}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, $mock);
@@ -128,5 +132,48 @@ class CustomerTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Invoiced\\Collection', $metadata);
         $this->assertEquals(10, $metadata->total_count);
+    }
+
+    public function testCreatePendingLineItem()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $lineItem = $customer->lineItems()->create(['amount' => 500]);
+
+        $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
+        $this->assertEquals(123, $lineItem->id);
+        $this->assertEquals(500, $lineItem->amount);
+    }
+
+    public function testRetrievePendingLineItem()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $lineItem = $customer->lineItems()->retrieve(123);
+
+        $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
+        $this->assertEquals(123, $lineItem->id);
+        $this->assertEquals(500, $lineItem->amount);
+    }
+
+    public function testAllPendingLineItems()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        list($invoices, $metadata) = $customer->lineItems()->all();
+
+        $this->assertTrue(is_array($invoices));
+        $this->assertCount(1, $invoices);
+        $this->assertEquals(123, $invoices[0]->id);
+
+        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
+        $this->assertEquals(10, $metadata->total_count);
+    }
+
+    public function testInvoice()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $invoice = $customer->invoice();
+
+        $this->assertInstanceOf('Invoiced\\Invoice', $invoice);
+        $this->assertEquals(456, $invoice->id);
+        $this->assertEquals(500, $invoice->total);
     }
 }
