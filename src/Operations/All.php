@@ -16,7 +16,7 @@ trait All
      */
     public function all(array $opts = [])
     {
-        $response = $this->_client->request('get', $this->_endpoint, $opts);
+        $response = $this->_client->request('get', $this->getEndpoint(), $opts);
 
         // build objects
         $objects = Util::buildObjects($this, $response['body']);

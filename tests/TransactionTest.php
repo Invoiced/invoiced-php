@@ -25,6 +25,12 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
+    public function testGetEndpoint()
+    {
+        $transaction = new Transaction(self::$invoiced, 123);
+        $this->assertEquals('/transactions/123', $transaction->getEndpoint());
+    }
+
     public function testCreate()
     {
         $transaction = self::$invoiced->Transaction->create(['customer' => 123]);

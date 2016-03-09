@@ -13,7 +13,7 @@ class Object implements ArrayAccess, JsonSerializable
     /**
      * @staticvar array properties that cannot be updated
      */
-    static $permanentAttributes = ['id'];
+    public static $permanentAttributes = ['id'];
 
     /**
      * @var Client
@@ -24,6 +24,11 @@ class Object implements ArrayAccess, JsonSerializable
      * @var string
      */
     protected $_endpoint;
+
+    /**
+     * @var string
+     */
+    protected $_endpointBase;
 
     /**
      * @var array
@@ -47,7 +52,7 @@ class Object implements ArrayAccess, JsonSerializable
         // generate the endpoint based on class name
         $inflector = Inflector::get();
         $classname = implode('', array_slice(explode('\\', get_class($this)), -1));
-        $this->_endpoint = strtolower($inflector->pluralize($inflector->underscore($classname)));
+        $this->_endpoint = '/'.strtolower($inflector->pluralize($inflector->underscore($classname)));
 
         $this->_values = [];
 
@@ -58,11 +63,25 @@ class Object implements ArrayAccess, JsonSerializable
         }
     }
 
+    /**
+     * Sets the endpoint base for this object.
+     *
+     * @param string $base
+     *
+     * @return self
+     */
+    public function setEndpointBase($base)
+    {
+        $this->_endpointBase = $base;
+
+        return $this;
+    }
+
     // PHP magic methods
 
     public function __set($k, $v)
     {
-        if ($v === "") {
+        if ($v === '') {
             throw new InvalidArgumentException(
                 'You cannot set \''.$k.'\'to an empty string. '
                 .'We interpret empty strings as NULL in requests. '
@@ -166,6 +185,26 @@ class Object implements ArrayAccess, JsonSerializable
     }
 
     /**
+     * Gets the endpoint for this object.
+     *
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return $this->_endpointBase.$this->_endpoint;
+    }
+
+    /**
+     * Gets the endpoint base for this object. Defaults to blank.
+     *
+     * @return string
+     */
+    public function getEndpointBase()
+    {
+        return $this->_endpointBase;
+    }
+
+    /**
      * Retrieves an instance of this object given an ID.
      *
      * @param string $id
@@ -176,11 +215,11 @@ class Object implements ArrayAccess, JsonSerializable
     public function retrieve($id, array $opts = [])
     {
         if (!$id) {
-            throw new InvalidArgumentException("Missing ID.");
+            throw new InvalidArgumentException('Missing ID.');
         }
 
-        $response = $this->_client->request('get', "{$this->_endpoint}/$id", $opts);
+        $response = $this->_client->request('get', $this->getEndpoint()."/$id", $opts);
 
-        return new static($this->_client, $id, $response['body']);
+        return Util::convertToObject($this, $response['body']);
     }
 }

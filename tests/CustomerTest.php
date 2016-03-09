@@ -30,6 +30,12 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
+    public function testGetEndpoint()
+    {
+        $customer = new Customer(self::$invoiced, 123);
+        $this->assertEquals('/customers/123', $customer->getEndpoint());
+    }
+
     public function testCreate()
     {
         $customer = self::$invoiced->Customer->create(['name' => 'Pied Piper']);
@@ -142,6 +148,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
         $this->assertEquals(123, $lineItem->id);
         $this->assertEquals(500, $lineItem->amount);
+        $this->assertEquals('/customers/456/line_items/123', $lineItem->getEndpoint());
     }
 
     public function testRetrievePendingLineItem()
@@ -152,16 +159,18 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
         $this->assertEquals(123, $lineItem->id);
         $this->assertEquals(500, $lineItem->amount);
+        $this->assertEquals('/customers/456/line_items/123', $lineItem->getEndpoint());
     }
 
     public function testAllPendingLineItems()
     {
         $customer = new Customer(self::$invoiced, 456);
-        list($invoices, $metadata) = $customer->lineItems()->all();
+        list($lines, $metadata) = $customer->lineItems()->all();
 
-        $this->assertTrue(is_array($invoices));
-        $this->assertCount(1, $invoices);
-        $this->assertEquals(123, $invoices[0]->id);
+        $this->assertTrue(is_array($lines));
+        $this->assertCount(1, $lines);
+        $this->assertEquals(123, $lines[0]->id);
+        $this->assertEquals('/customers/456/line_items/123', $lines[0]->getEndpoint());
 
         $this->assertInstanceOf('Invoiced\\Collection', $metadata);
         $this->assertEquals(10, $metadata->total_count);

@@ -9,7 +9,7 @@ trait Update
      *
      * @param array $params
      *
-     * @return boolean
+     * @return bool
      */
     public function save(array $params = [])
     {
@@ -23,7 +23,7 @@ trait Update
 
         // perform the update if there are any changes
         if (count($update) > 0) {
-            $response = $this->_client->request('patch', $this->_endpoint, $update);
+            $response = $this->_client->request('patch', $this->getEndpoint(), $update);
 
             // update the local values with the response
             $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);

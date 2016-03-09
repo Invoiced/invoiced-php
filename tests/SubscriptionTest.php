@@ -23,6 +23,12 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
+    public function testGetEndpoint()
+    {
+        $subscription = new Subscription(self::$invoiced, 123);
+        $this->assertEquals('/subscriptions/123', $subscription->getEndpoint());
+    }
+
     public function testCreate()
     {
         $subscription = self::$invoiced->Subscription->create(['customer' => 123, 'plan' => 'starter']);

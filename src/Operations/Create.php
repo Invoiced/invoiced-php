@@ -11,11 +11,11 @@ trait Create
      *
      * @param array $params
      *
-     * @return Object newly created object
+     * @return object newly created object
      */
     public function create(array $params = [])
     {
-        $response = $this->_client->request('post', $this->_endpoint, $params);
+        $response = $this->_client->request('post', $this->getEndpoint(), $params);
 
         return Util::convertToObject($this, $response['body']);
     }

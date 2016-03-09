@@ -18,7 +18,7 @@ class Transaction extends Object
      */
     public function send(array $opts = [])
     {
-        $response = $this->_client->request('post', $this->_endpoint.'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
 
         // build email objects
         $email = new Email($this->_client);
@@ -35,7 +35,7 @@ class Transaction extends Object
      */
     public function refund(array $opts = [])
     {
-        $response = $this->_client->request('post', $this->_endpoint.'/refunds', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/refunds', $opts);
 
         return Util::convertToObject($this, $response['body']);
     }

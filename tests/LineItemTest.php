@@ -3,7 +3,6 @@
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
-use Invoiced\Customer;
 use Invoiced\LineItem;
 
 class LineItemTest extends PHPUnit_Framework_TestCase
@@ -24,10 +23,15 @@ class LineItemTest extends PHPUnit_Framework_TestCase
         self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
+    public function testGetEndpoint()
+    {
+        $line = new LineItem(self::$invoiced, 123);
+        $this->assertEquals('/line_items/123', $line->getEndpoint());
+    }
+
     public function testCreate()
     {
-        $customer = new Customer(self::$invoiced, 123);
-        $line = new LineItem(self::$invoiced, null, [], $customer);
+        $line = new LineItem(self::$invoiced, null, []);
         $lineItem = $line->create(['amount' => 500]);
 
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
@@ -38,15 +42,13 @@ class LineItemTest extends PHPUnit_Framework_TestCase
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $customer = new Customer(self::$invoiced, 123);
-        $lineItem = new LineItem(self::$invoiced, null, [], $customer);
+        $lineItem = new LineItem(self::$invoiced, null, []);
         $lineItem->retrieve(false);
     }
 
     public function testRetrieve()
     {
-        $customer = new Customer(self::$invoiced, 123);
-        $line = new LineItem(self::$invoiced, null, [], $customer);
+        $line = new LineItem(self::$invoiced, null, []);
         $lineItem = $line->retrieve(456);
 
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
@@ -56,15 +58,13 @@ class LineItemTest extends PHPUnit_Framework_TestCase
 
     public function testUpdateNoValue()
     {
-        $customer = new Customer(self::$invoiced, 123);
-        $lineItem = new LineItem(self::$invoiced, 456, [], $customer);
+        $lineItem = new LineItem(self::$invoiced, 456, []);
         $this->assertFalse($lineItem->save());
     }
 
     public function testUpdate()
     {
-        $customer = new Customer(self::$invoiced, 123);
-        $lineItem = new LineItem(self::$invoiced, 456, [], $customer);
+        $lineItem = new LineItem(self::$invoiced, 456, []);
         $lineItem->amount = 600;
         $this->assertTrue($lineItem->save());
 
@@ -75,16 +75,14 @@ class LineItemTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
 
-        $customer = new Customer(self::$invoiced, 123);
-        $lineItem = new LineItem(self::$invoiced, 456, [], $customer);
+        $lineItem = new LineItem(self::$invoiced, 456, []);
         $lineItem->amount = 600;
         $lineItem->save();
     }
 
     public function testAll()
     {
-        $customer = new Customer(self::$invoiced, 123);
-        $lineItem = new LineItem(self::$invoiced, 456, [], $customer);
+        $lineItem = new LineItem(self::$invoiced, 456, []);
         list($lineItems, $metadata) = $lineItem->all();
 
         $this->assertTrue(is_array($lineItems));
@@ -97,8 +95,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $customer = new Customer(self::$invoiced, 123);
-        $lineItem = new LineItem(self::$invoiced, 456, [], $customer);
+        $lineItem = new LineItem(self::$invoiced, 456, []);
         $this->assertTrue($lineItem->delete());
     }
 }

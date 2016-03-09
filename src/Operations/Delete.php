@@ -7,11 +7,11 @@ trait Delete
     /**
      * Deletes the object.
      *
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
-        $response = $this->_client->request('delete', $this->_endpoint);
+        $response = $this->_client->request('delete', $this->getEndpoint());
 
         if ($response['code'] == 204) {
             $this->_values = ['id' => $this->id];

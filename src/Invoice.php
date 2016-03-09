@@ -11,7 +11,7 @@ class Invoice extends Object
 
     public function send(array $opts = [])
     {
-        $response = $this->_client->request('post', $this->_endpoint.'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
 
         // build email objects
         $email = new Email($this->_client);
@@ -21,7 +21,7 @@ class Invoice extends Object
 
     public function pay()
     {
-        $response = $this->_client->request('post', $this->_endpoint.'/pay');
+        $response = $this->_client->request('post', $this->getEndpoint().'/pay');
 
         // update the local values with the response
         $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);

@@ -18,7 +18,7 @@ class Customer extends Object
      */
     public function sendStatement(array $opts = [])
     {
-        $response = $this->_client->request('post', $this->_endpoint.'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
 
         # build email objects
         $email = new Email($this->_client);
@@ -33,7 +33,7 @@ class Customer extends Object
      */
     public function balance()
     {
-        $response = $this->_client->request('get', $this->_endpoint.'/balance');
+        $response = $this->_client->request('get', $this->getEndpoint().'/balance');
 
         // we actually want an object instead of an array...
         return json_decode(json_encode($response['body']), false);
@@ -48,7 +48,7 @@ class Customer extends Object
      */
     public function subscriptions(array $opts = [])
     {
-        $response = $this->_client->request('get', $this->_endpoint.'/subscriptions', $opts);
+        $response = $this->_client->request('get', $this->getEndpoint().'/subscriptions', $opts);
 
         # build objects
         $subscription = new Subscription($this->_client);
@@ -67,7 +67,10 @@ class Customer extends Object
      */
     public function lineItems()
     {
-        return new LineItem($this->_client, null, [], $this);
+        $line = new LineItem($this->_client);
+        $line->setEndpointBase($this->getEndpoint());
+
+        return $line;
     }
 
     /**
@@ -79,7 +82,7 @@ class Customer extends Object
      */
     public function invoice(array $opts = [])
     {
-        $response = $this->_client->request('post', $this->_endpoint.'/invoices', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/invoices', $opts);
 
         # build invoice object
         $invoice = new Invoice($this->_client);

@@ -4,14 +4,33 @@ namespace Invoiced;
 
 class Util
 {
-    public static function convertToObject($class, array $object)
+    /**
+     * Converts values into an Invoiced object.
+     *
+     * @param object $class
+     * @param array  $values
+     *
+     * @return object
+     */
+    public static function convertToObject($class, array $values)
     {
-        $_class = get_class($class);
+        $className = get_class($class);
 
-        return new $_class($class->getClient(), $object['id'], $object);
+        $object = new $className($class->getClient(), $values['id'], $values);
+        $object->setEndpointBase($class->getEndpointBase());
+
+        return $object;
     }
 
-    public static function buildObjects($class, $objects)
+    /**
+     * Converts a list of object values into object classes.
+     *
+     * @param object|string $class
+     * @param array         $objects
+     *
+     * @return array array(Object)
+     */
+    public static function buildObjects($class, array $objects)
     {
         return array_map(function ($object) use ($class) {
             return self::convertToObject($class, $object);

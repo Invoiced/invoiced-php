@@ -25,6 +25,12 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         self::$invoiced = new Client('API_KEY', false, $mock);
     }
 
+    public function testGetEndpoint()
+    {
+        $invoice = new Invoice(self::$invoiced, 123);
+        $this->assertEquals('/invoices/123', $invoice->getEndpoint());
+    }
+
     public function testCreate()
     {
         $invoice = self::$invoiced->Invoice->create(['customer' => 123]);

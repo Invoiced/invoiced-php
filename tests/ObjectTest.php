@@ -18,6 +18,16 @@ class ObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(self::$invoiced, $object->getClient());
     }
 
+    public function testGetEndpoint()
+    {
+        $object = new Object(self::$invoiced, 123);
+        $this->assertEquals('/objects/123', $object->getEndpoint());
+
+        $object->setEndpointBase('/blah');
+        $this->assertEquals('/blah', $object->getEndpointBase());
+        $this->assertEquals('/blah/objects/123', $object->getEndpoint());
+    }
+
     public function testMagic()
     {
         $this->setExpectedException('Exception');
@@ -58,10 +68,10 @@ class ObjectTest extends PHPUnit_Framework_TestCase
         ];
         $this->assertEquals($expected, $object->jsonSerialize());
 
-        $expected = "{
-    \"test\": true,
-    \"id\": 123
-}";
+        $expected = '{
+    "test": true,
+    "id": 123
+}';
         $this->assertEquals($expected, $object->__toJSON());
     }
 
