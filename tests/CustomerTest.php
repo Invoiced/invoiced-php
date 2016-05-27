@@ -20,7 +20,6 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"total_outstanding":1000,"available_credits":0,"past_due":true}'),
-            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":456}]'),
             new Response(201, [], '{"id":123,"amount":500}'),
             new Response(200, [], '{"id":"123","amount":500}'),
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="last"'], '[{"id":123,"amount":500}]'),
@@ -125,19 +124,6 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $balance = $customer->balance();
         $this->assertInstanceOf('stdClass', $balance);
         $this->assertEquals($expected, $balance);
-    }
-
-    public function testSubscriptions()
-    {
-        $customer = new Customer(self::$invoiced, 123);
-        list($subscriptions, $metadata) = $customer->subscriptions();
-
-        $this->assertTrue(is_array($subscriptions));
-        $this->assertCount(1, $subscriptions);
-        $this->assertEquals(123, $subscriptions[0]->id);
-
-        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
-        $this->assertEquals(10, $metadata->total_count);
     }
 
     public function testCreatePendingLineItem()
