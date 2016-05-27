@@ -40,6 +40,19 @@ class Customer extends Object
     }
 
     /**
+     * Gets a contact object for this customer.
+     *
+     * @return Contact
+     */
+    public function contacts()
+    {
+        $line = new Contact($this->_client);
+        $line->setEndpointBase($this->getEndpoint());
+
+        return $line;
+    }
+
+    /**
      * Gets a line item object for this customer.
      *
      * @return LineItem

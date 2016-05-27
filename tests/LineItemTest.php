@@ -12,11 +12,11 @@ class LineItemTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(201, [], '{"id":456,"amount":500}'),
-            new Response(200, [], '{"id":456,"amount":500}'),
-            new Response(200, [], '{"id":456,"amount":600}'),
+            new Response(201, [], '{"id":456,"unit_cost":500}'),
+            new Response(200, [], '{"id":456,"unit_cost":500}'),
+            new Response(200, [], '{"id":456,"unit_cost":600}'),
             new Response(401),
-            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/line_items?per_page=25&page=1>; rel="last"'], '[{"id":456,"amount":500}]'),
+            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/line_items?per_page=25&page=1>; rel="last"'], '[{"id":456,"unit_cost":500}]'),
             new Response(204),
         ]);
 
@@ -32,11 +32,11 @@ class LineItemTest extends PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $line = new LineItem(self::$invoiced, null, []);
-        $lineItem = $line->create(['amount' => 500]);
+        $lineItem = $line->create(['unit_cost' => 500]);
 
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
         $this->assertEquals(456, $lineItem->id);
-        $this->assertEquals(500, $lineItem->amount);
+        $this->assertEquals(500, $lineItem->unit_cost);
     }
 
     public function testRetrieveNoId()
@@ -53,7 +53,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
         $this->assertEquals(456, $lineItem->id);
-        $this->assertEquals(500, $lineItem->amount);
+        $this->assertEquals(500, $lineItem->unit_cost);
     }
 
     public function testUpdateNoValue()
@@ -65,10 +65,10 @@ class LineItemTest extends PHPUnit_Framework_TestCase
     public function testUpdate()
     {
         $lineItem = new LineItem(self::$invoiced, 456, []);
-        $lineItem->amount = 600;
+        $lineItem->unit_cost = 600;
         $this->assertTrue($lineItem->save());
 
-        $this->assertEquals(600, $lineItem->amount);
+        $this->assertEquals(600, $lineItem->unit_cost);
     }
 
     public function testUpdateFail()
@@ -76,7 +76,7 @@ class LineItemTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('Invoiced\\Error\\ApiError');
 
         $lineItem = new LineItem(self::$invoiced, 456, []);
-        $lineItem->amount = 600;
+        $lineItem->unit_cost = 600;
         $lineItem->save();
     }
 

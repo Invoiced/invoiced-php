@@ -20,9 +20,12 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"total_outstanding":1000,"available_credits":0,"past_due":true}'),
-            new Response(201, [], '{"id":123,"amount":500}'),
-            new Response(200, [], '{"id":"123","amount":500}'),
-            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="last"'], '[{"id":123,"amount":500}]'),
+            new Response(201, [], '{"id":123,"name":"Nancy"}'),
+            new Response(200, [], '{"id":"123","name":"Nancy"}'),
+            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="last"'], '[{"id":123,"name":"Nancy"}]'),
+            new Response(201, [], '{"id":123,"unit_cost":500}'),
+            new Response(200, [], '{"id":"123","unit_cost":500}'),
+            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="last"'], '[{"id":123,"unit_cost":500}]'),
             new Response(201, [], '{"id":456,"total":500}'),
         ]);
 
@@ -126,14 +129,50 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $balance);
     }
 
+    public function testCreateContact()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $contact = $customer->contacts()->create(['name' => 'Nancy']);
+
+        $this->assertInstanceOf('Invoiced\\Contact', $contact);
+        $this->assertEquals(123, $contact->id);
+        $this->assertEquals('Nancy', $contact->name);
+        $this->assertEquals('/customers/456/contacts/123', $contact->getEndpoint());
+    }
+
+    public function testRetrieveContact()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $contact = $customer->contacts()->retrieve(123);
+
+        $this->assertInstanceOf('Invoiced\\Contact', $contact);
+        $this->assertEquals(123, $contact->id);
+        $this->assertEquals('Nancy', $contact->name);
+        $this->assertEquals('/customers/456/contacts/123', $contact->getEndpoint());
+    }
+
+    public function testAllContacts()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        list($contacts, $metadata) = $customer->contacts()->all();
+
+        $this->assertTrue(is_array($contacts));
+        $this->assertCount(1, $contacts);
+        $this->assertEquals(123, $contacts[0]->id);
+        $this->assertEquals('/customers/456/contacts/123', $contacts[0]->getEndpoint());
+
+        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
+        $this->assertEquals(10, $metadata->total_count);
+    }
+
     public function testCreatePendingLineItem()
     {
         $customer = new Customer(self::$invoiced, 456);
-        $lineItem = $customer->lineItems()->create(['amount' => 500]);
+        $lineItem = $customer->lineItems()->create(['unit_cost' => 500]);
 
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
         $this->assertEquals(123, $lineItem->id);
-        $this->assertEquals(500, $lineItem->amount);
+        $this->assertEquals(500, $lineItem->unit_cost);
         $this->assertEquals('/customers/456/line_items/123', $lineItem->getEndpoint());
     }
 
@@ -144,7 +183,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Invoiced\\LineItem', $lineItem);
         $this->assertEquals(123, $lineItem->id);
-        $this->assertEquals(500, $lineItem->amount);
+        $this->assertEquals(500, $lineItem->unit_cost);
         $this->assertEquals('/customers/456/line_items/123', $lineItem->getEndpoint());
     }
 
