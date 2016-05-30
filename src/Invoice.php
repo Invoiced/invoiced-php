@@ -9,6 +9,13 @@ class Invoice extends Object
     use Operations\Update;
     use Operations\Delete;
 
+    /*
+     * Sends the invoice to the customer,
+     *
+     * @param array $opts
+     *
+     * @return array(Invoiced\Email)
+     */
     public function send(array $opts = [])
     {
         $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
@@ -19,6 +26,11 @@ class Invoice extends Object
         return Util::buildObjects($email, $response['body']);
     }
 
+    /**
+     * Attempts to collect payment on the invoice.
+     *
+     * @return bool
+     */
     public function pay()
     {
         $response = $this->_client->request('post', $this->getEndpoint().'/pay');
