@@ -15,6 +15,7 @@ class Client
     const VERSION = '0.4.0';
 
     public $Customer;
+    public $File;
     public $Invoice;
     public $Transaction;
     public $Subscription;
@@ -64,7 +65,9 @@ class Client
             'handler' => $handlerStack,
         ]);
 
+        // object endpoints
         $this->Customer = new Customer($this);
+        $this->File = new File($this);
         $this->Invoice = new Invoice($this);
         $this->Transaction = new Transaction($this);
         $this->Subscription = new Subscription($this);
