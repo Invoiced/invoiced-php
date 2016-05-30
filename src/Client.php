@@ -12,7 +12,7 @@ class Client
     const API_BASE = 'https://api.invoiced.com';
     const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
-    const VERSION = '0.4.0';
+    const VERSION = '0.5.0';
 
     public $Customer;
     public $File;
