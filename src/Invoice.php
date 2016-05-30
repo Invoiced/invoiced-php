@@ -29,4 +29,33 @@ class Invoice extends Object
 
         return $response['code'] == 200;
     }
+
+    /**
+     * Fetches the invoice's file attachments.
+     *
+     * @param array $opts
+     *
+     * @return [array(Invoiced\Object), Invoiced\Collection]
+     */
+    public function attachments(array $opts = [])
+    {
+        $response = $this->_client->request('get', $this->getEndpoint().'/attachments', $opts);
+
+        // ensure each attachment has an ID
+        $body = $response['body'];
+        foreach ($body as &$obj) {
+            if (!isset($obj['id'])) {
+                $obj['id'] = $obj['file']['id'];
+            }
+        }
+
+        // build attachment objects
+        $attachment = new Attachment($this->_client);
+        $attachments = Util::buildObjects($attachment, $body);
+
+        // store the metadata from the list operation
+        $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']);
+
+        return [$attachments, $metadata];
+    }
 }

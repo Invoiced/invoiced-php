@@ -20,6 +20,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"paid":true}'),
+            new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/invoices/123/attachments?per_page=25&page=1>; rel="self", <https://api.invoiced.com/invoices/123/attachments?per_page=25&page=1>; rel="first", <https://api.invoiced.com/invoices/123/attachments?per_page=25&page=1>; rel="last"'], '[{"file":{"id":456}}]'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, $mock);
@@ -113,5 +114,16 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $invoice = new Invoice(self::$invoiced, 123);
         $this->assertTrue($invoice->pay());
         $this->assertTrue($invoice->paid);
+    }
+
+    public function testAttachments()
+    {
+        $customer = new Invoice(self::$invoiced, 123);
+        list($attachments, $metadata) = $customer->attachments();
+        $this->assertTrue(is_array($attachments));
+        $this->assertCount(1, $attachments);
+        $this->assertEquals(456, $attachments[0]->id);
+        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
+        $this->assertEquals(10, $metadata->total_count);
     }
 }
