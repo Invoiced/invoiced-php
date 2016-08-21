@@ -15,8 +15,12 @@ trait Delete
 
         if ($response['code'] == 204) {
             $this->_values = ['id' => $this->id];
+        } elseif ($response['code'] == 200) {
+            // update the local values with the response
+            $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
+            $this->_unsaved = [];
         }
 
-        return $response['code'] == 204;
+        return in_array($response['code'], [200, 204]);
     }
 }

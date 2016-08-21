@@ -17,7 +17,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":123,"plan":"pro"}'),
             new Response(401),
             new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":"pro"}]'),
-            new Response(204),
+            new Response(200, [], '{"id":123,"plan":"pro","status":"canceled"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, $mock);
@@ -87,5 +87,6 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     {
         $subscription = new Subscription(self::$invoiced, 123);
         $this->assertTrue($subscription->cancel());
+        $this->assertEquals('canceled', $subscription->status);
     }
 }
