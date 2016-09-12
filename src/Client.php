@@ -15,10 +15,11 @@ class Client
     const VERSION = '0.6.0';
 
     public $Customer;
+    public $Event;
     public $File;
     public $Invoice;
-    public $Transaction;
     public $Subscription;
+    public $Transaction;
 
     /**
      * @var string
@@ -67,10 +68,11 @@ class Client
 
         // object endpoints
         $this->Customer = new Customer($this);
+        $this->Event = new Event($this);
         $this->File = new File($this);
         $this->Invoice = new Invoice($this);
-        $this->Transaction = new Transaction($this);
         $this->Subscription = new Subscription($this);
+        $this->Transaction = new Transaction($this);
     }
 
     /**
