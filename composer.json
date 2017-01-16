@@ -4,7 +4,13 @@
   "keywords": [
     "invoiced",
     "api",
-    "invoicing"
+    "invoicing",
+    "billing",
+    "subscription billing",
+    "metered billing",
+    "estimates",
+    "usage billing",
+    "payments"
   ],
   "homepage": "https://invoiced.com/",
   "license": "MIT",
