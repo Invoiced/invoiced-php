@@ -4,12 +4,16 @@
   "keywords": [
     "invoiced",
     "api",
+    "sdk",
     "invoicing",
     "billing",
     "subscription billing",
     "metered billing",
     "estimates",
+    "credit notes",
     "usage billing",
+    "recurring billing",
+    "payment plans",
     "payments"
   ],
   "homepage": "https://invoiced.com/",
