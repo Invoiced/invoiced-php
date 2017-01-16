@@ -12,7 +12,7 @@ class EventTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/events?per_page=25&page=1>; rel="self", <https://api.invoiced.com/events?per_page=25&page=1>; rel="first", <https://api.invoiced.com/events?per_page=25&page=1>; rel="last"'], '[{"id":123,"name":"Pied Piper"}]'),
+            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/events?per_page=25&page=1>; rel="self", <https://api.invoiced.com/events?per_page=25&page=1>; rel="first", <https://api.invoiced.com/events?per_page=25&page=1>; rel="last"'], '[{"id":123,"type":"customer.created"}]'),
 
         ]);
 

@@ -14,6 +14,7 @@ class Client
 
     const VERSION = '0.7.0';
 
+    public $CreditNote;
     public $Customer;
     public $Event;
     public $File;
@@ -67,6 +68,7 @@ class Client
         ]);
 
         // object endpoints
+        $this->CreditNote = new CreditNote($this);
         $this->Customer = new Customer($this);
         $this->Event = new Event($this);
         $this->File = new File($this);
