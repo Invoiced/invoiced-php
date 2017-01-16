@@ -70,4 +70,17 @@ class Invoice extends Object
 
         return [$attachments, $metadata];
     }
+
+    /**
+     * Gets a payment plan object for this invoice.
+     *
+     * @return PaymentPlan
+     */
+    public function paymentPlan()
+    {
+        $paymentPlan = new PaymentPlan($this->_client);
+        $paymentPlan->setEndpointBase($this->getEndpoint());
+
+        return $paymentPlan;
+    }
 }

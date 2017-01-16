@@ -21,6 +21,8 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"paid":true}'),
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/invoices/123/attachments?per_page=25&page=1>; rel="self", <https://api.invoiced.com/invoices/123/attachments?per_page=25&page=1>; rel="first", <https://api.invoiced.com/invoices/123/attachments?per_page=25&page=1>; rel="last"'], '[{"file":{"id":456}}]'),
+            new Response(201, [], '{"id":123,"status":"active"}'),
+            new Response(200, [], '{"id":"123","status":"active"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, $mock);
@@ -125,5 +127,27 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(456, $attachments[0]->id);
         $this->assertInstanceOf('Invoiced\\Collection', $metadata);
         $this->assertEquals(10, $metadata->total_count);
+    }
+
+    public function testCreatePaymentPlan()
+    {
+        $invoice = new Invoice(self::$invoiced, 456);
+        $paymentPlan = $invoice->paymentPlan()->create(['date' => 1234, 'amount' => 100]);
+
+        $this->assertInstanceOf('Invoiced\\PaymentPlan', $paymentPlan);
+        $this->assertEquals(123, $paymentPlan->id);
+        $this->assertEquals('active', $paymentPlan->status);
+        $this->assertEquals('/invoices/456/payment_plan', $paymentPlan->getEndpoint());
+    }
+
+    public function testRetrievePaymentPlan()
+    {
+        $invoice = new invoice(self::$invoiced, 456);
+        $paymentPlan = $invoice->paymentPlan()->get();
+
+        $this->assertInstanceOf('Invoiced\\PaymentPlan', $paymentPlan);
+        $this->assertEquals(123, $paymentPlan->id);
+        $this->assertEquals('active', $paymentPlan->status);
+        $this->assertEquals('/invoices/456/payment_plan', $paymentPlan->getEndpoint());
     }
 }
