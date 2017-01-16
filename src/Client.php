@@ -12,7 +12,7 @@ class Client
     const API_BASE = 'https://api.invoiced.com';
     const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
-    const VERSION = '0.7.0';
+    const VERSION = '0.8.0';
 
     public $CreditNote;
     public $Customer;
