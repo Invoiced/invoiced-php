@@ -118,8 +118,8 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
 
     public function testAttachments()
     {
-        $customer = new Invoice(self::$invoiced, 123);
-        list($attachments, $metadata) = $customer->attachments();
+        $invoice = new Invoice(self::$invoiced, 123);
+        list($attachments, $metadata) = $invoice->attachments();
         $this->assertTrue(is_array($attachments));
         $this->assertCount(1, $attachments);
         $this->assertEquals(456, $attachments[0]->id);

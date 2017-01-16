@@ -110,8 +110,8 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
 
     public function testAttachments()
     {
-        $customer = new CreditNote(self::$invoiced, 123);
-        list($attachments, $metadata) = $customer->attachments();
+        $creditNote = new CreditNote(self::$invoiced, 123);
+        list($attachments, $metadata) = $creditNote->attachments();
         $this->assertTrue(is_array($attachments));
         $this->assertCount(1, $attachments);
         $this->assertEquals(456, $attachments[0]->id);

@@ -16,6 +16,7 @@ class Client
 
     public $CreditNote;
     public $Customer;
+    public $Estimate;
     public $Event;
     public $File;
     public $Invoice;
@@ -70,6 +71,7 @@ class Client
         // object endpoints
         $this->CreditNote = new CreditNote($this);
         $this->Customer = new Customer($this);
+        $this->Estimate = new Estimate($this);
         $this->Event = new Event($this);
         $this->File = new File($this);
         $this->Invoice = new Invoice($this);
