@@ -7,10 +7,6 @@ php:
     - 7.1
     - hhvm
 
-allow_failures:
-  matrix:
-    php: nightly
-
 sudo: false
 
 cache:
