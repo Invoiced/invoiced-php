@@ -2,3 +2,4 @@
 /vendor
 /build
 /example.php
+.php_cs.cache
