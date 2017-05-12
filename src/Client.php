@@ -14,12 +14,14 @@ class Client
 
     const VERSION = '0.9.0';
 
+    public $CatalogItem;
     public $CreditNote;
     public $Customer;
     public $Estimate;
     public $Event;
     public $File;
     public $Invoice;
+    public $Plan;
     public $Subscription;
     public $Transaction;
 
@@ -69,12 +71,14 @@ class Client
         ]);
 
         // object endpoints
+        $this->CatalogItem = new CatalogItem($this);
         $this->CreditNote = new CreditNote($this);
         $this->Customer = new Customer($this);
         $this->Estimate = new Estimate($this);
         $this->Event = new Event($this);
         $this->File = new File($this);
         $this->Invoice = new Invoice($this);
+        $this->Plan = new Plan($this);
         $this->Subscription = new Subscription($this);
         $this->Transaction = new Transaction($this);
     }
