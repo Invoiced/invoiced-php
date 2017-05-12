@@ -16,7 +16,8 @@ composer require invoiced/invoiced
 
 ## Requirements
 
-- >= PHP 5.5
+- PHP 5.5+ or HHVM 3.3+
+- [Composer](https://getcomposer.org/)
 
 ## Usage
 
