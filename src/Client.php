@@ -2,17 +2,17 @@
 
 namespace Invoiced;
 
-use InvalidArgumentException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
+use InvalidArgumentException;
 
 class Client
 {
     const API_BASE = 'https://api.invoiced.com';
     const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
-    const VERSION = '0.9.0';
+    const VERSION = '0.10.0';
 
     public $CatalogItem;
     public $CreditNote;
@@ -110,7 +110,7 @@ class Client
      * @param string $endpoint
      * @param array  $params
      *
-     * @throws Error\ErrorBase when the API request is not successful for any reason.
+     * @throws Error\ErrorBase when the API request is not successful for any reason
      *
      * @return array
      */
