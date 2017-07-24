@@ -182,6 +182,8 @@ class Client
                 throw new Error\AuthenticationError($error['message'], $code, $error);
             } elseif (in_array($code, [400, 403, 404])) {
                 throw new Error\InvalidRequest($error['message'], $code, $error);
+            } elseif ($code == 429) {
+                throw new Error\RateLimitError($error['message'], $code, $error);
             } elseif ($code == 500) {
                 throw new Error\ApiError($error['message'], $code, $error);
             } else {

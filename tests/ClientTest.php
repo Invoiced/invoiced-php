@@ -1,9 +1,9 @@
 <?php
 
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Exception\RequestException;
 use Invoiced\Client;
 
 class ClientTest extends PHPUnit_Framework_TestCase
@@ -103,7 +103,20 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('Invoiced\\Error\\InvalidRequest');
 
         $mock = new MockHandler([
-            new Response(400, [], '{"error":"invalid_request","message":"not found"}'),
+            new Response(400, [], '{"error":"rate_limit","message":"not found"}'),
+        ]);
+
+        $client = new Client('API_KEY', false, $mock);
+
+        $client->request('GET', '/invoices');
+    }
+
+    public function testRequestRateLimitError()
+    {
+        $this->setExpectedException('Invoiced\\Error\\RateLimitError');
+
+        $mock = new MockHandler([
+            new Response(429, [], '{"error":"rate_limit_error","message":"rate limit reached"}'),
         ]);
 
         $client = new Client('API_KEY', false, $mock);
