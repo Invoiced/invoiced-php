@@ -14,6 +14,9 @@ class Client
 
     const VERSION = '0.10.0';
 
+    const CONNECT_TIMEOUT = 30;
+    const READ_TIMEOUT = 60;
+
     public $CatalogItem;
     public $CreditNote;
     public $Customer;
@@ -129,6 +132,8 @@ class Client
             'query' => [],
             'http_errors' => false,
             'verify' => $this->caBundleFile,
+            'connect_timeout' => self::CONNECT_TIMEOUT,
+            'read_timeout' => self::READ_TIMEOUT,
         ];
 
         // these methods have no request body
