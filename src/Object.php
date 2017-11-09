@@ -4,9 +4,9 @@ namespace Invoiced;
 
 use ArrayAccess;
 use Exception;
+use ICanBoogie\Inflector;
 use InvalidArgumentException;
 use JsonSerializable;
-use ICanBoogie\Inflector;
 
 class Object implements ArrayAccess, JsonSerializable
 {
