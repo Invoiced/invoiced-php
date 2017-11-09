@@ -2,6 +2,7 @@
 
 namespace Invoiced;
 
+use Firebase\JWT\JWT;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
@@ -41,21 +42,27 @@ class Client
     /**
      * @var string
      */
+    private $ssoKey;
+
+    /**
+     * @var string
+     */
     private $caBundleFile;
 
     /**
-     * @var GuzzleHttp\Client
+     * @var GuzzleClient
      */
     private $client;
 
     /**
      * Instantiates a new client.
      *
-     * @param string             $apiKey
-     * @param bool               $sandbox when true uses the sandbox API endpoint
-     * @param GuzzleHttp\Handler $handler
+     * @param string   $apiKey
+     * @param bool     $sandbox when true uses the sandbox API endpoint
+     * @param string   $ssoKey  Single Sign-On key if generating sign in links
+     * @param callable $handler optional Guzzle handler
      */
-    public function __construct($apiKey, $sandbox = false, $handler = null)
+    public function __construct($apiKey, $sandbox = false, $ssoKey = false, $handler = null)
     {
         if (empty($apiKey)) {
             throw new InvalidArgumentException('You must provide an API Key');
@@ -66,6 +73,7 @@ class Client
 
         $this->apiKey = $apiKey;
         $this->sandbox = $sandbox;
+        $this->ssoKey = $ssoKey;
         $this->caBundleFile = dirname(__DIR__).'/data/ca-bundle.crt';
 
         $this->client = new GuzzleClient([
@@ -210,5 +218,31 @@ class Client
     private function generalApiError($code, $body)
     {
         return new Error\ApiError("API Error $code - $body", $code);
+    }
+
+    /**
+     * Generates a single sign-on token for a customer.
+     *
+     * @param int $customerId customer ID on Invoiced
+     * @param int $ttl        seconds until the login token expires
+     *
+     * @throws InvalidArgumentException when the token cannot be jenerated
+     *
+     * @return string
+     */
+    public function generateSignInToken($customerId, $ttl)
+    {
+        if (!$this->ssoKey) {
+            throw new InvalidArgumentException('Please provide a single sign-on key! You can find this value in Settings > Developers > Single Sign-On of the Invoiced application.');
+        }
+
+        $params = [
+            'iss' => 'Invoiced PHP/'.self::VERSION,
+            'sub' => $customerId,
+            'iat' => time(),
+            'exp' => time() + $ttl,
+        ];
+
+        return JWT::encode($params, $this->ssoKey);
     }
 }

@@ -25,7 +25,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":"123","status":"active"}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, $mock);
+        self::$invoiced = new Client('API_KEY', false, false, $mock);
     }
 
     public function testGetEndpoint()

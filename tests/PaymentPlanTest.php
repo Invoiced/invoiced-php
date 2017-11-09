@@ -17,7 +17,7 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
             new Response(204),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, $mock);
+        self::$invoiced = new Client('API_KEY', false, false, $mock);
     }
 
     public function testGetEndpoint()

@@ -22,7 +22,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":456}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, $mock);
+        self::$invoiced = new Client('API_KEY', false, false, $mock);
     }
 
     public function testGetEndpoint()

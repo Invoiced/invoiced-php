@@ -23,7 +23,7 @@ class EstimateTest extends PHPUnit_Framework_TestCase
             new Response(201, [], '{"id":456,"total":500}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, $mock);
+        self::$invoiced = new Client('API_KEY', false, false, $mock);
     }
 
     public function testGetEndpoint()

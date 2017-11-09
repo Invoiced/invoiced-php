@@ -13,10 +13,9 @@ class EventTest extends PHPUnit_Framework_TestCase
     {
         $mock = new MockHandler([
             new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/events?per_page=25&page=1>; rel="self", <https://api.invoiced.com/events?per_page=25&page=1>; rel="first", <https://api.invoiced.com/events?per_page=25&page=1>; rel="last"'], '[{"id":123,"type":"customer.created"}]'),
-
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, $mock);
+        self::$invoiced = new Client('API_KEY', false, false, $mock);
     }
 
     public function testGetEndpoint()

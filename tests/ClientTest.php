@@ -1,5 +1,6 @@
 <?php
 
+use Firebase\JWT\JWT;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
@@ -34,7 +35,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(200, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $response = $client->request('GET', '/invoices', ['per_page' => 3]);
 
@@ -56,7 +57,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(201, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $response = $client->request('POST', '/invoices', ['customer' => 123]);
 
@@ -80,7 +81,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(200, [], 'not valid json'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -93,7 +94,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(401, [], '{"error":"invalid_request","message":"invalid api key"}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -106,7 +107,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(400, [], '{"error":"rate_limit","message":"not found"}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -119,7 +120,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(429, [], '{"error":"rate_limit_error","message":"rate limit reached"}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -132,7 +133,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(500, [], '{"error":"api","message":"idk"}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -145,7 +146,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(502, [], '{"error":"api","message":"idk"}'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -158,7 +159,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(500, [], 'not valid json'),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
     }
@@ -172,8 +173,37 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new RequestException('Could not connect', $request),
         ]);
 
-        $client = new Client('API_KEY', false, $mock);
+        $client = new Client('API_KEY', false, false, $mock);
 
         $client->request('GET', '/invoices');
+    }
+
+    public function testGenerateLoginToken()
+    {
+        $ssoKey = '8baa4dbc338a54bbf7696eef3ee4aa2daadd61bba85fcfe8df96c7cfa227c43';
+        $client = new Client('API_KEY', false, $ssoKey);
+
+        $t = time();
+        $token = $client->generateSignInToken(1234, 3600);
+
+        $decrypted = (array) JWT::decode($token, $ssoKey, ['HS256']);
+
+        $this->assertLessThan(3, $decrypted['exp'] - $t - 3600); // this accounts for slow running tests
+        unset($decrypted['exp']);
+
+        $expected = [
+            'iat' => $t,
+            'sub' => 1234,
+            'iss' => 'Invoiced PHP/'.Client::VERSION,
+        ];
+        $this->assertEquals($expected, $decrypted);
+    }
+
+    public function testGenerateSignInTokenNoSSOKey()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+        $client = new Client('API_KEY');
+
+        $client->generateSignInToken(1234, 3600);
     }
 }
