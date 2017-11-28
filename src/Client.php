@@ -13,7 +13,7 @@ class Client
     const API_BASE = 'https://api.invoiced.com';
     const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
-    const VERSION = '0.12.0';
+    const VERSION = '0.13.0';
 
     const CONNECT_TIMEOUT = 30;
     const READ_TIMEOUT = 60;
