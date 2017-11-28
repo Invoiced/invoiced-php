@@ -8,10 +8,11 @@ trait Update
      * Saves the object.
      *
      * @param array $params
+     * @param array $opts
      *
      * @return bool
      */
-    public function save(array $params = [])
+    public function save(array $params = [], array $opts = [])
     {
         $update = [];
 
@@ -23,7 +24,7 @@ trait Update
 
         // perform the update if there are any changes
         if (count($update) > 0) {
-            $response = $this->_client->request('patch', $this->getEndpoint(), $update);
+            $response = $this->_client->request('patch', $this->getEndpoint(), $update, $opts);
 
             // update the local values with the response
             $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);

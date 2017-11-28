@@ -12,15 +12,16 @@ class Customer extends Object
     /*
      * Sends a PDF statement to the customer
      *
+     * @param array $params
      * @param array $opts
      *
      * @return array(Invoiced\Email)
      */
-    public function sendStatement(array $opts = [])
+    public function sendStatement(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $params, $opts);
 
-        # build email objects
+        // build email objects
         $email = new Email($this->_client);
 
         return Util::buildObjects($email, $response['body']);
@@ -29,7 +30,7 @@ class Customer extends Object
     /**
      * Gets the customer's current balance.
      *
-     * @return stdClass balance
+     * @return \stdClass balance
      */
     public function balance()
     {
@@ -68,15 +69,16 @@ class Customer extends Object
     /**
      * Creates an invoice from pending line items.
      *
+     * @param array $params
      * @param array $opts
      *
      * @return Invoice
      */
-    public function invoice(array $opts = [])
+    public function invoice(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/invoices', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/invoices', $params, $opts);
 
-        # build invoice object
+        // build invoice object
         $invoice = new Invoice($this->_client);
 
         return Util::convertToObject($invoice, $response['body']);

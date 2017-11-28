@@ -12,13 +12,14 @@ class CreditNote extends Object
     /*
      * Sends the credit note to the customer,
      *
+     * @param array $params
      * @param array $opts
      *
      * @return array(Invoiced\Email)
      */
-    public function send(array $opts = [])
+    public function send(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $params, $opts);
 
         // build email objects
         $email = new Email($this->_client);

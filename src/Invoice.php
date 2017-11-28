@@ -12,13 +12,14 @@ class Invoice extends Object
     /*
      * Sends the invoice to the customer,
      *
+     * @param array $params
      * @param array $opts
      *
      * @return array(Invoiced\Email)
      */
-    public function send(array $opts = [])
+    public function send(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $params, $opts);
 
         // build email objects
         $email = new Email($this->_client);
@@ -29,11 +30,13 @@ class Invoice extends Object
     /**
      * Attempts to collect payment on the invoice.
      *
+     * @param array $opts
+     *
      * @return bool
      */
-    public function pay()
+    public function pay(array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/pay');
+        $response = $this->_client->request('post', $this->getEndpoint().'/pay', [], $opts);
 
         // update the local values with the response
         $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);

@@ -73,6 +73,28 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $response);
     }
 
+    public function testRequestIdempotentPost()
+    {
+        $mock = new MockHandler([
+            new Response(201, ['X-Foo' => 'Bar'], '{"test":true}'),
+        ]);
+
+        $client = new Client('API_KEY', false, false, $mock);
+
+        $response = $client->request('POST', '/invoices', ['customer' => 123], ['idempotency_key' => 'a random value']);
+
+        $expected = [
+            'code' => 201,
+            'headers' => [
+                'X-Foo' => 'Bar',
+            ],
+            'body' => [
+                'test' => 1,
+            ],
+        ];
+        $this->assertEquals($expected, $response);
+    }
+
     public function testRequestInvalidJson()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');

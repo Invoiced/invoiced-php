@@ -12,13 +12,14 @@ class Transaction extends Object
     /**
      * Sends a payment receipt.
      *
+     * @param array $params
      * @param array $opts
      *
      * @return array(Invoiced\Transaction)
      */
-    public function send(array $opts = [])
+    public function send(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $params, $opts);
 
         // build email objects
         $email = new Email($this->_client);
@@ -29,13 +30,14 @@ class Transaction extends Object
     /**
      * Refunds this transaction.
      *
+     * @param array $params
      * @param array $opts
      *
-     * @return Invoiced\Transaction
+     * @return self
      */
-    public function refund(array $opts = [])
+    public function refund(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/refunds', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/refunds', $params, $opts);
 
         return Util::convertToObject($this, $response['body']);
     }

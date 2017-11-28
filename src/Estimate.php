@@ -12,13 +12,14 @@ class Estimate extends Object
     /*
      * Sends the estimate to the customer,
      *
+     * @param array $params
      * @param array $opts
      *
      * @return array(Invoiced\Email)
      */
-    public function send(array $opts = [])
+    public function send(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/emails', $params, $opts);
 
         // build email objects
         $email = new Email($this->_client);
@@ -58,15 +59,16 @@ class Estimate extends Object
     /**
      * Creates an invoice from this estimate.
      *
+     * @param array $params
      * @param array $opts
      *
      * @return Invoice
      */
-    public function invoice(array $opts = [])
+    public function invoice(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpoint().'/invoice', $opts);
+        $response = $this->_client->request('post', $this->getEndpoint().'/invoice', $params, $opts);
 
-        # build invoice object
+        // build invoice object
         $invoice = new Invoice($this->_client);
 
         return Util::convertToObject($invoice, $response['body']);

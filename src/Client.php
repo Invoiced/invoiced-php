@@ -120,23 +120,19 @@ class Client
      * @param string $method
      * @param string $endpoint
      * @param array  $params
+     * @param array  $opts
      *
      * @throws Error\ErrorBase when the API request is not successful for any reason
      *
      * @return array
      */
-    public function request($method, $endpoint, $params = [])
+    public function request($method, $endpoint, array $params = [], array $opts = [])
     {
         $method = strtolower($method);
 
-        $headers = [
-            'Content-Type' => 'application/json',
-            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
-        ];
-
         $request = [
             'auth' => [$this->apiKey, ''],
-            'headers' => $headers,
+            'headers' => $this->buildHeaders($opts),
             'query' => [],
             'http_errors' => false,
             'verify' => $this->caBundleFile,
@@ -203,8 +199,27 @@ class Client
                 throw $this->generalApiError($code, $body);
             }
         }
+    }
 
-        return $response;
+    /**
+     * Builds the headers for the request.
+     *
+     * @param array $opts
+     *
+     * @return array
+     */
+    private function buildHeaders(array $opts)
+    {
+        $headers = [
+            'Content-Type' => 'application/json',
+            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
+        ];
+
+        if (isset($opts['idempotency_key']) && $opts['idempotency_key']) {
+            $headers['Idempotency-Key'] = $opts['idempotency_key'];
+        }
+
+        return $headers;
     }
 
     /**
