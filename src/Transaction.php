@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class Transaction extends Object
+class Transaction extends BaseObject
 {
     use Operations\Create;
     use Operations\All;

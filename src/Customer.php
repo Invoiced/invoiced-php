@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class Customer extends Object
+class Customer extends BaseObject
 {
     use Operations\Create;
     use Operations\All;

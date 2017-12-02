@@ -2,6 +2,6 @@
 
 namespace Invoiced;
 
-class Email extends Object
+class Email extends BaseObject
 {
 }

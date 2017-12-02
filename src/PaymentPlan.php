@@ -4,7 +4,7 @@ namespace Invoiced;
 
 use BadMethodCallException;
 
-class PaymentPlan extends Object
+class PaymentPlan extends BaseObject
 {
     use Operations\Delete;
 

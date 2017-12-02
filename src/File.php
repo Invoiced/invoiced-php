@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class File extends Object
+class File extends BaseObject
 {
     use Operations\Create;
     use Operations\Delete;

@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class CatalogItem extends Object
+class CatalogItem extends BaseObject
 {
     use Operations\Create;
     use Operations\All;

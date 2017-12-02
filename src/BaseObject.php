@@ -8,7 +8,7 @@ use ICanBoogie\Inflector;
 use InvalidArgumentException;
 use JsonSerializable;
 
-class Object implements ArrayAccess, JsonSerializable
+class BaseObject implements ArrayAccess, JsonSerializable
 {
     /**
      * @staticvar array properties that cannot be updated
@@ -41,7 +41,7 @@ class Object implements ArrayAccess, JsonSerializable
     protected $_unsaved;
 
     /**
-     * @param Invoiced\Client $client API client instance
+     * @param \Invoiced\Client $client API client instance
      * @param string          $id
      * @param array           $values
      */
@@ -177,7 +177,7 @@ class Object implements ArrayAccess, JsonSerializable
     /**
      * Gets the client instance used by this object.
      *
-     * @return Invoiced\Client
+     * @return \Invoiced\Client
      */
     public function getClient()
     {
@@ -210,7 +210,7 @@ class Object implements ArrayAccess, JsonSerializable
      * @param string $id
      * @param array  $opts optional options to pass on
      *
-     * @return Invoiced\Object
+     * @return \Invoiced\BaseObject
      */
     public function retrieve($id, array $opts = [])
     {

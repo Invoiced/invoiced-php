@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class LineItem extends Object
+class LineItem extends BaseObject
 {
     use Operations\Create;
     use Operations\All;

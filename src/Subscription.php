@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class Subscription extends Object
+class Subscription extends BaseObject
 {
     use Operations\Create;
     use Operations\All;

@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class CreditNote extends Object
+class CreditNote extends BaseObject
 {
     use Operations\Create;
     use Operations\All;

@@ -2,7 +2,7 @@
 
 namespace Invoiced;
 
-class Event extends Object
+class Event extends BaseObject
 {
     use Operations\All;
 }

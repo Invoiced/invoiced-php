@@ -1,9 +1,9 @@
 <?php
 
 use Invoiced\Client;
-use Invoiced\Object;
+use Invoiced\BaseObject;
 
-class ObjectTest extends PHPUnit_Framework_TestCase
+class BaseObjectTest extends PHPUnit_Framework_TestCase
 {
     public static $invoiced;
 
@@ -14,25 +14,25 @@ class ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testGetClient()
     {
-        $object = new Object(self::$invoiced, 123);
+        $object = new BaseObject(self::$invoiced, 123);
         $this->assertEquals(self::$invoiced, $object->getClient());
     }
 
     public function testGetEndpoint()
     {
-        $object = new Object(self::$invoiced, 123);
-        $this->assertEquals('/objects/123', $object->getEndpoint());
+        $object = new BaseObject(self::$invoiced, 123);
+        $this->assertEquals('/base_objects/123', $object->getEndpoint());
 
         $object->setEndpointBase('/blah');
         $this->assertEquals('/blah', $object->getEndpointBase());
-        $this->assertEquals('/blah/objects/123', $object->getEndpoint());
+        $this->assertEquals('/blah/base_objects/123', $object->getEndpoint());
     }
 
     public function testMagic()
     {
         $this->setExpectedException('Exception');
 
-        $object = new Object(self::$invoiced, 123);
+        $object = new BaseObject(self::$invoiced, 123);
 
         $object->test = 'blah';
         $this->assertEquals('blah', $object->test);
@@ -43,13 +43,13 @@ class ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testToString()
     {
-        $object = new Object(self::$invoiced, 123);
-        $this->assertEquals("Invoiced\\Object JSON: {\n    \"id\": 123\n}", (string) $object);
+        $object = new BaseObject(self::$invoiced, 123);
+        $this->assertEquals("Invoiced\\BaseObject JSON: {\n    \"id\": 123\n}", (string) $object);
     }
 
     public function testArrayAccess()
     {
-        $object = new Object(self::$invoiced, 123);
+        $object = new BaseObject(self::$invoiced, 123);
         $object['test'] = 'blah';
         $this->assertEquals('blah', $object['test']);
         $this->assertTrue(isset($object['test']));
@@ -60,7 +60,7 @@ class ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testJsonSerializable()
     {
-        $object = new Object(self::$invoiced, 123, ['test' => true]);
+        $object = new BaseObject(self::$invoiced, 123, ['test' => true]);
 
         $expected = [
             'id' => 123,
@@ -79,13 +79,13 @@ class ObjectTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException');
 
-        $object = new Object(self::$invoiced, 123);
+        $object = new BaseObject(self::$invoiced, 123);
         $object->test = '';
     }
 
     public function testCannotSetPermanent()
     {
-        $object = new Object(self::$invoiced, 123);
+        $object = new BaseObject(self::$invoiced, 123);
         $object->id = 456;
 
         $this->assertEquals(123, $object->id);

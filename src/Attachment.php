@@ -2,6 +2,6 @@
 
 namespace Invoiced;
 
-class Attachment extends Object
+class Attachment extends BaseObject
 {
 }
