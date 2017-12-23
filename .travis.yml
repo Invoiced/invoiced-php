@@ -23,7 +23,7 @@ script:
   - vendor/bin/phpunit
 
 after_script:
-  - vendor/bin/coveralls
+  - vendor/bin/php-coveralls
 
 notifications:
   email: false
