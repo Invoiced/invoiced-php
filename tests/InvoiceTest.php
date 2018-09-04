@@ -142,7 +142,7 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
 
     public function testRetrievePaymentPlan()
     {
-        $invoice = new invoice(self::$invoiced, 456);
+        $invoice = new Invoice(self::$invoiced, 456);
         $paymentPlan = $invoice->paymentPlan()->get();
 
         $this->assertInstanceOf('Invoiced\\PaymentPlan', $paymentPlan);
