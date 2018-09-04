@@ -13,7 +13,7 @@ class Client
     const API_BASE = 'https://api.invoiced.com';
     const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
-    const VERSION = '0.13.0';
+    const VERSION = '0.14.0';
 
     const CONNECT_TIMEOUT = 30;
     const READ_TIMEOUT = 60;
@@ -141,7 +141,7 @@ class Client
         ];
 
         // these methods have no request body
-        if ($method === 'get' || $method === 'delete') {
+        if ('get' === $method || 'delete' === $method) {
             $request['query'] = array_replace($request['query'], $params);
         } else {
             $request['json'] = $params;
@@ -162,10 +162,10 @@ class Client
             $parsed = null;
 
             // expect a JSON response unless we received 204 No Content
-            if ($code != 204) {
+            if (204 != $code) {
                 $parsed = json_decode($body, true);
 
-                if ($parsed === null) {
+                if (null === $parsed) {
                     throw new Error\ApiError("Could not decode JSON of $code response: $body", $code);
                 }
             }
@@ -183,17 +183,17 @@ class Client
         } else {
             $error = json_decode($body, true);
 
-            if ($error === null) {
+            if (null === $error) {
                 throw $this->generalApiError($code, $body);
             }
 
-            if ($code == 401) {
+            if (401 == $code) {
                 throw new Error\AuthenticationError($error['message'], $code, $error);
             } elseif (in_array($code, [400, 403, 404])) {
                 throw new Error\InvalidRequest($error['message'], $code, $error);
-            } elseif ($code == 429) {
+            } elseif (429 == $code) {
                 throw new Error\RateLimitError($error['message'], $code, $error);
-            } elseif ($code == 500) {
+            } elseif (500 == $code) {
                 throw new Error\ApiError($error['message'], $code, $error);
             } else {
                 throw $this->generalApiError($code, $body);
