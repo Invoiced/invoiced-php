@@ -1,7 +1,7 @@
 <?php
 
-use Invoiced\Client;
 use Invoiced\BaseObject;
+use Invoiced\Client;
 
 class BaseObjectTest extends PHPUnit_Framework_TestCase
 {
@@ -63,7 +63,7 @@ class BaseObjectTest extends PHPUnit_Framework_TestCase
         $object = new BaseObject(self::$invoiced, 123, ['test' => true]);
 
         $expected = [
-            'id' => 123,
+            'id'   => 123,
             'test' => true,
         ];
         $this->assertEquals($expected, $object->jsonSerialize());

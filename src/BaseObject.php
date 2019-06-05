@@ -42,8 +42,8 @@ class BaseObject implements ArrayAccess, JsonSerializable
 
     /**
      * @param \Invoiced\Client $client API client instance
-     * @param string          $id
-     * @param array           $values
+     * @param string           $id
+     * @param array            $values
      */
     public function __construct(Client $client, $id = null, array $values = [])
     {
@@ -117,6 +117,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
             return $this->_values[$k];
         } else {
             $class = get_class($this);
+
             throw new Exception("Undefined property of $class: $k");
         }
     }
