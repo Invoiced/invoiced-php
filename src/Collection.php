@@ -35,7 +35,7 @@ class Collection
     {
         $links = [];
 
-        # Parse each part into a named link
+        // Parse each part into a named link
         foreach (explode(',', $header) as $part) {
             $section = explode(';', $part);
 
