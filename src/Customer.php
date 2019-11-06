@@ -94,7 +94,7 @@ class Customer extends BaseObject
      *
      * @return Note
      */
-    public function listNotes()
+    public function notes()
     {
         $line = new Note($this->_client);
         $line->setEndpointBase($this->getEndpoint());
