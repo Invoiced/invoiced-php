@@ -3,3 +3,4 @@
 /build
 /example.php
 .php_cs.cache
+.DS_Store
