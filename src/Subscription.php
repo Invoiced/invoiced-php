@@ -29,7 +29,7 @@ class Subscription extends BaseObject
         $response = $this->_client->request('post', '/subscriptions/preview', $params, $opts);
 
         // build subscription object
-        $subscription = new Subscription($this->_client);
+        $subscription = new self($this->_client);
 
         return Util::convertPreviewToObject($subscription, $response['body']);
     }
