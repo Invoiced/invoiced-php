@@ -9,7 +9,7 @@ class Customer extends BaseObject
     use Operations\Update;
     use Operations\Delete;
 
-    /*
+    /**
      * Sends a PDF statement to the customer
      *
      * @param array $params
@@ -25,6 +25,42 @@ class Customer extends BaseObject
         $email = new Email($this->_client);
 
         return Util::buildObjects($email, $response['body']);
+    }
+
+    /**
+     * Sends a PDF statement to the customer by SMS
+     *
+     * @param array $params
+     * @param array $opts
+     *
+     * @return array(Invoiced\TextMessage)
+     */
+    public function sendStatementSMS(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/text_messages', $params, $opts);
+
+        // build text message objects
+        $textMessage = new TextMessage($this->_client);
+
+        return Util::buildObjects($textMessage, $response['body']);
+    }
+
+    /**
+     * Sends a statement to the customer by mail
+     *
+     * @param array $params
+     * @param array $opts
+     *
+     * @return array(Invoiced\Letter)
+     */
+    public function sendStatementLetter(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/letters', $params, $opts);
+
+        // build letter objects
+        $letter = new Letter($this->_client);
+
+        return Util::buildObjects($letter, $response['body']);
     }
 
     /**
@@ -48,6 +84,19 @@ class Customer extends BaseObject
     public function contacts()
     {
         $line = new Contact($this->_client);
+        $line->setEndpointBase($this->getEndpoint());
+
+        return $line;
+    }
+
+    /**
+     * Gets a note object for this customer.
+     *
+     * @return Note
+     */
+    public function listNotes()
+    {
+        $line = new Note($this->_client);
         $line->setEndpointBase($this->getEndpoint());
 
         return $line;
@@ -83,4 +132,21 @@ class Customer extends BaseObject
 
         return Util::convertToObject($invoice, $response['body']);
     }
+
+    /**
+     * Creates a consolidated invoice for this customer.
+     *
+     * @param array $params
+     *
+     * @return Invoice
+     */
+    public function consolidateInvoices(array $params = [])
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/consolidate_invoices', $params);
+
+        // build invoice object
+        $invoice = new Invoice($this->_client);
+
+        return Util::convertToObject($invoice, $response['body']);
+    }    
 }
