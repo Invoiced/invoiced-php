@@ -10,7 +10,7 @@ class Customer extends BaseObject
     use Operations\Delete;
 
     /**
-     * Sends a PDF statement to the customer
+     * Sends a PDF statement to the customer.
      *
      * @param array $params
      * @param array $opts
@@ -28,7 +28,7 @@ class Customer extends BaseObject
     }
 
     /**
-     * Sends a PDF statement to the customer by SMS
+     * Sends a PDF statement to the customer by SMS.
      *
      * @param array $params
      * @param array $opts
@@ -46,7 +46,7 @@ class Customer extends BaseObject
     }
 
     /**
-     * Sends a statement to the customer by mail
+     * Sends a statement to the customer by mail.
      *
      * @param array $params
      * @param array $opts
@@ -148,5 +148,5 @@ class Customer extends BaseObject
         $invoice = new Invoice($this->_client);
 
         return Util::convertToObject($invoice, $response['body']);
-    }    
+    }
 }
