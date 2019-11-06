@@ -9,8 +9,8 @@ class Invoice extends BaseObject
     use Operations\Update;
     use Operations\Delete;
 
-    /*
-     * Sends the invoice to the customer,
+    /**
+     * Sends the invoice to the customer.
      *
      * @param array $params
      * @param array $opts
@@ -25,6 +25,42 @@ class Invoice extends BaseObject
         $email = new Email($this->_client);
 
         return Util::buildObjects($email, $response['body']);
+    }
+
+    /**
+     * Sends the invoice to the customer by SMS.
+     *
+     * @param array $params
+     * @param array $opts
+     *
+     * @return array(Invoiced\TextMessage)
+     */
+    public function sendSMS(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/text_messages', $params, $opts);
+
+        // build text message objects
+        $textMessage = new TextMessage($this->_client);
+
+        return Util::buildObjects($textMessage, $response['body']);
+    }
+
+    /**
+     * Sends the invoice to the customer by mail.
+     *
+     * @param array $params
+     * @param array $opts
+     *
+     * @return array(Invoiced\Letter)
+     */
+    public function sendLetter(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/letters', $params, $opts);
+
+        // build letter objects
+        $letter = new Letter($this->_client);
+
+        return Util::buildObjects($letter, $response['body']);
     }
 
     /**
@@ -85,5 +121,33 @@ class Invoice extends BaseObject
         $paymentPlan->setEndpointBase($this->getEndpoint());
 
         return $paymentPlan;
+    }
+
+    /**
+     * Gets a note object for this invoice.
+     *
+     * @return Note
+     */
+    public function notes()
+    {
+        $paymentPlan = new Note($this->_client);
+        $paymentPlan->setEndpointBase($this->getEndpoint());
+
+        return $paymentPlan;
+    }
+
+    /**
+     * Voids the invoice.
+     *
+     * @return Invoice
+     */
+    public function void()
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/void', [], []);
+
+        // update the local values with the response
+        $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
+
+        return $response['code'] == 200;
     }
 }
