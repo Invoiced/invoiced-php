@@ -20,7 +20,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"id":456}'),
-            new Response(201, [], '{"amount":50,"object":"card"}')
+            new Response(201, [], '{"amount":50,"object":"card"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
