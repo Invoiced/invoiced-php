@@ -18,4 +18,19 @@ class Subscription extends BaseObject
     {
         return $this->delete();
     }
+
+    /**
+     * Previews the subscription.
+     *
+     * @return Subscription
+     */
+    public function preview(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', '/subscriptions/preview', $params, $opts);
+
+        // build subscription object
+        $subscription = new Subscription($this->_client);
+
+        return Util::convertPreviewToObject($subscription, $response['body']);
+    }
 }

@@ -41,4 +41,19 @@ class Transaction extends BaseObject
 
         return Util::convertToObject($this, $response['body']);
     }
+
+    /**
+     * Initiates a charge.
+     *
+     * @param array $params
+     * @param array $opts
+     *
+     * @return self
+     */
+    public function initiateCharge(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', '/charges', $params, $opts);
+
+        return Util::convertToObject($this, $response['body']);
+    }
 }
