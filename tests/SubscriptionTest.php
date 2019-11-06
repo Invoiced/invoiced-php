@@ -18,7 +18,7 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             new Response(401),
             new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/subscriptions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/subscriptions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/subscriptions?per_page=25&page=1>; rel="last"'], '[{"id":123,"plan":"pro"}]'),
             new Response(200, [], '{"id":123,"plan":"pro","status":"canceled"}'),
-            new Response(200, [], '{"first_invoice":{"id":false},"mrr":9}')
+            new Response(200, [], '{"first_invoice":{"id":false},"mrr":9}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
