@@ -73,4 +73,19 @@ class Estimate extends BaseObject
 
         return Util::convertToObject($invoice, $response['body']);
     }
+
+    /**
+     * Voids the estimate.
+     *
+     * @return Estimate
+     */
+    public function void()
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/void', [], []);
+
+        // update the local values with the response
+        $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
+
+        return $response['code'] == 200;
+    }
 }

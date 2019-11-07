@@ -55,4 +55,19 @@ class CreditNote extends BaseObject
 
         return [$attachments, $metadata];
     }
+
+    /**
+     * Voids the credit note.
+     *
+     * @return CreditNote
+     */
+    public function void()
+    {
+        $response = $this->_client->request('post', $this->getEndpoint().'/void', [], []);
+
+        // update the local values with the response
+        $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
+
+        return $response['code'] == 200;
+    }
 }
