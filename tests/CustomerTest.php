@@ -27,6 +27,12 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":"123","unit_cost":500}'),
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/line_items?per_page=25&page=1>; rel="last"'], '[{"id":123,"unit_cost":500}]'),
             new Response(201, [], '{"id":456,"total":500}'),
+            new Response(201, [], '[{"id":5678,"message":"test"}]'),
+            new Response(201, [], '[{"id":6789,"state":"queued"}]'),
+            new Response(201, [], '{"id":1212,"notes":"test"}'),
+            new Response(200, [], '{"id":"1212","notes":"test"}'),
+            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/123/notes?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/notes?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/notes?per_page=25&page=1>; rel="last"'], '[{"id":1212,"notes":"test"}]'),
+            new Response(201, [], '{"id":123456,"total":1000}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
@@ -209,5 +215,73 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Invoiced\\Invoice', $invoice);
         $this->assertEquals(456, $invoice->id);
         $this->assertEquals(500, $invoice->total);
+    }
+
+    public function testSendStatementSMS()
+    {
+        $customer = new Customer(self::$invoiced, 123);
+        $textMessages = $customer->sendStatementSMS();
+
+        $this->assertTrue(is_array($textMessages));
+        $this->assertCount(1, $textMessages);
+        $this->assertInstanceOf('Invoiced\\TextMessage', $textMessages[0]);
+        $this->assertEquals(5678, $textMessages[0]->id);
+    }
+
+    public function testSendStatementLetter()
+    {
+        $customer = new Customer(self::$invoiced, 123);
+        $letters = $customer->sendStatementLetter();
+
+        $this->assertTrue(is_array($letters));
+        $this->assertCount(1, $letters);
+        $this->assertInstanceOf('Invoiced\\Letter', $letters[0]);
+        $this->assertEquals(6789, $letters[0]->id);
+    }
+
+    public function testCreateNote()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $note = $customer->notes()->create(['notes' => 'test']);
+
+        $this->assertInstanceOf('Invoiced\\Note', $note);
+        $this->assertEquals(1212, $note->id);
+        $this->assertEquals('test', $note->notes);
+        $this->assertEquals('/customers/456/notes/1212', $note->getEndpoint());
+    }
+
+    public function testRetrieveNote()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $note = $customer->notes()->retrieve(1212);
+
+        $this->assertInstanceOf('Invoiced\\Note', $note);
+        $this->assertEquals(1212, $note->id);
+        $this->assertEquals('test', $note->notes);
+        $this->assertEquals('/customers/456/notes/1212', $note->getEndpoint());
+    }
+
+    public function testAllNotes()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        list($notes, $metadata) = $customer->notes()->all();
+
+        $this->assertTrue(is_array($notes));
+        $this->assertCount(1, $notes);
+        $this->assertEquals(1212, $notes[0]->id);
+        $this->assertEquals('/customers/456/notes/1212', $notes[0]->getEndpoint());
+
+        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
+        $this->assertEquals(15, $metadata->total_count);
+    }
+
+    public function testConsolidateInvoices()
+    {
+        $customer = new Customer(self::$invoiced, 123);
+        $invoice = $customer->consolidateInvoices();
+
+        $this->assertInstanceOf('Invoiced\\Invoice', $invoice);
+        $this->assertEquals(123456, $invoice->id);
+        $this->assertEquals(1000, $invoice->total);
     }
 }

@@ -19,14 +19,18 @@ class Client
     const READ_TIMEOUT = 60;
 
     public $CatalogItem;
+    public $Coupon;
     public $CreditNote;
     public $Customer;
     public $Estimate;
     public $Event;
     public $File;
     public $Invoice;
+    public $Note;
     public $Plan;
     public $Subscription;
+    public $Task;
+    public $TaxRate;
     public $Transaction;
 
     /**
@@ -83,14 +87,18 @@ class Client
 
         // object endpoints
         $this->CatalogItem = new CatalogItem($this);
+        $this->Coupon = new Coupon($this);
         $this->CreditNote = new CreditNote($this);
         $this->Customer = new Customer($this);
         $this->Estimate = new Estimate($this);
         $this->Event = new Event($this);
         $this->File = new File($this);
         $this->Invoice = new Invoice($this);
+        $this->Note = new Note($this);
         $this->Plan = new Plan($this);
         $this->Subscription = new Subscription($this);
+        $this->Task = new Task($this);
+        $this->TaxRate = new TaxRate($this);
         $this->Transaction = new Transaction($this);
     }
 

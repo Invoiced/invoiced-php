@@ -21,6 +21,7 @@ class EstimateTest extends PHPUnit_Framework_TestCase
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/estimates/123/attachments?per_page=25&page=1>; rel="self", <https://api.invoiced.com/estimates/123/attachments?per_page=25&page=1>; rel="first", <https://api.invoiced.com/estimates/123/attachments?per_page=25&page=1>; rel="last"'], '[{"file":{"id":456}}]'),
             new Response(201, [], '{"id":456,"total":500}'),
+            new Response(200, [], '{"id":"1234","status":"voided"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
@@ -128,5 +129,15 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Invoiced\\Invoice', $invoice);
         $this->assertEquals(456, $invoice->id);
         $this->assertEquals(500, $invoice->total);
+    }
+
+    public function testVoid()
+    {
+        $estimate = new Estimate(self::$invoiced, 1234);
+        $estimate->void();
+
+        $this->assertInstanceOf('Invoiced\\Estimate', $estimate);
+        $this->assertEquals(1234, $estimate->id);
+        $this->assertEquals('voided', $estimate->status);
     }
 }

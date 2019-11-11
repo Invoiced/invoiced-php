@@ -20,6 +20,7 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, ['X-Total-Count' => 10, 'Link' => '<https://api.invoiced.com/credit_notes/123/attachments?per_page=25&page=1>; rel="self", <https://api.invoiced.com/credit_notes/123/attachments?per_page=25&page=1>; rel="first", <https://api.invoiced.com/credit_notes/123/attachments?per_page=25&page=1>; rel="last"'], '[{"file":{"id":456}}]'),
+            new Response(200, [], '{"id":"1234","status":"voided"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
@@ -117,5 +118,15 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(456, $attachments[0]->id);
         $this->assertInstanceOf('Invoiced\\Collection', $metadata);
         $this->assertEquals(10, $metadata->total_count);
+    }
+
+    public function testVoid()
+    {
+        $creditNote = new CreditNote(self::$invoiced, 1234);
+        $creditNote->void();
+
+        $this->assertInstanceOf('Invoiced\\CreditNote', $creditNote);
+        $this->assertEquals(1234, $creditNote->id);
+        $this->assertEquals('voided', $creditNote->status);
     }
 }
