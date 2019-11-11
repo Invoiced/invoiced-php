@@ -94,9 +94,11 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
     public function testPreview()
     {
         $subscription = new Subscription(self::$invoiced, 123);
-        $subscription = $subscription->preview();
+        $response = $subscription->preview();
 
-        $this->assertInstanceOf('Invoiced\\Subscription', $subscription);
-        $this->assertEquals($subscription->mrr, 9);
+        // we do not expect subscription object; just json
+        $this->assertNotInstanceOf('Invoiced\\Subscription', $response);
+        // but json should be formed correctly
+        $this->assertEquals($response->mrr, 9);
     }
 }

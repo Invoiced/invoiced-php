@@ -23,24 +23,6 @@ class Util
     }
 
     /**
-     * Converts values into an Invoiced object; forces `id` to placeholder `-1`.
-     *
-     * @param object $class
-     * @param array  $values
-     *
-     * @return object
-     */
-    public static function convertPreviewToObject($class, array $values)
-    {
-        $className = get_class($class);
-
-        $object = new $className($class->getClient(), -1, $values);
-        $object->setEndpointBase($class->getEndpointBase());
-
-        return $object;
-    }
-
-    /**
      * Converts a list of object values into object classes.
      *
      * @param object|string $class

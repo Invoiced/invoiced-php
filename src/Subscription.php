@@ -28,9 +28,7 @@ class Subscription extends BaseObject
     {
         $response = $this->_client->request('post', '/subscriptions/preview', $params, $opts);
 
-        // build subscription object
-        $subscription = new self($this->_client);
-
-        return Util::convertPreviewToObject($subscription, $response['body']);
+        // return generic JSON (not actual subscription object)
+        return json_decode(json_encode($response['body']), false);
     }
 }
