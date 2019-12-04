@@ -126,14 +126,14 @@ class Invoice extends BaseObject
     /**
      * Gets a note object for this invoice.
      *
-     * @return Note
+     * @return Note 
      */
     public function notes()
     {
-        $paymentPlan = new Note($this->_client);
-        $paymentPlan->setEndpointBase($this->getEndpoint());
+        $note = new Note($this->_client);
+        $note->setEndpointBase($this->getEndpoint());
 
-        return $paymentPlan;
+        return $note;
     }
 
     /**
