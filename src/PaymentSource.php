@@ -24,11 +24,11 @@ class PaymentSource extends BaseObject
             if ($obj['object'] == 'card') {
                 $card = new Card($this->getClient());
                 $card->setEndpointBase($this->getEndpointBase());
-                array_push($output, Util::convertToObject($card, $obj));
+                $output[] = Util::convertToObject($card, $obj);
             } elseif ($obj['object'] == 'bank_account') {
                 $acct = new BankAccount($this->getClient());
                 $acct->setEndpointBase($this->getEndpointBase());
-                array_push($output, Util::convertToObject($acct, $obj));
+                $output[] = Util::convertToObject($acct, $obj);
             }
         }
 
