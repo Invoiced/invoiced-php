@@ -16,7 +16,7 @@ class BankAccount extends BaseObject
      */
     public function create(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpointBase() . "/payment_sources", $params, $opts);
+        $response = $this->_client->request('post', $this->getEndpointBase().'/payment_sources', $params, $opts);
 
         return Util::convertToObject($this, $response['body']);
     }

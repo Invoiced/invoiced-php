@@ -4,8 +4,6 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
 use Invoiced\PaymentSource;
-use Invoiced\Card;
-use Invoiced\BankAccount;
 
 class PaymentSourceTest extends PHPUnit_Framework_TestCase
 {
@@ -25,7 +23,6 @@ class PaymentSourceTest extends PHPUnit_Framework_TestCase
         $plan = new PaymentSource(self::$invoiced, 123);
         $this->assertEquals('/payment_sources/123', $plan->getEndpoint());
     }
-
 
     public function testAll()
     {

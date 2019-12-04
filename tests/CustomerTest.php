@@ -4,9 +4,6 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
 use Invoiced\Customer;
-use Invoiced\BankAccount;
-use Invoiced\Card;
-use Invoiced\PaymentSource;
 
 class CustomerTest extends PHPUnit_Framework_TestCase
 {
@@ -38,7 +35,7 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(201, [], '{"id":123456,"total":1000}'),
             new Response(201, [], '{"id":1231,"object":"card"}'),
             new Response(201, [], '{"id":2342,"object":"account"}'),
-            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="last"'], '[{"id":1231,"object":"card"}, {"id":2342,"object":"bank_account"}]')
+            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="last"'], '[{"id":1231,"object":"card"}, {"id":2342,"object":"bank_account"}]'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
