@@ -116,6 +116,45 @@ class Customer extends BaseObject
     }
 
     /**
+     * Gets a payment source object for this customer.
+     *
+     * @return PaymentSource
+     */
+    public function payment_sources()
+    {
+        $source = new PaymentSource($this->_client);
+        $source->setEndpointBase($this->getEndpoint());
+
+        return $source;
+    }
+
+    /**
+     * Gets a card object for this customer.
+     *
+     * @return Card
+     */
+    public function cards()
+    {
+        $card = new Card($this->_client);
+        $card->setEndpointBase($this->getEndpoint());
+
+        return $card;
+    }
+
+    /**
+     * Gets a bank account object for this customer.
+     *
+     * @return BankAccount
+     */
+    public function bank_accounts()
+    {
+        $account = new BankAccount($this->_client);
+        $account->setEndpointBase($this->getEndpoint());
+
+        return $account;
+    }
+
+    /**
      * Creates an invoice from pending line items.
      *
      * @param array $params
