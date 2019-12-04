@@ -126,7 +126,7 @@ class Invoice extends BaseObject
     /**
      * Gets a note object for this invoice.
      *
-     * @return Note 
+     * @return Note
      */
     public function notes()
     {
