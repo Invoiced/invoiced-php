@@ -4,7 +4,35 @@ namespace Invoiced;
 
 class PaymentSource extends BaseObject
 {
-    use Operations\All;
+
+    /**
+     * Creates an object. This variant creates the appropriate subtype if applicable.
+     *
+     * @param array $params
+     * @param array $opts
+     *
+     * @return object newly created object
+     */
+    public function create(array $params = [], array $opts = [])
+    {
+        $response = $this->_client->request('post', $this->getEndpoint(), $params, $opts);
+
+        $obj = $response['body'];
+
+        if ($obj['object'] == 'card')
+        {
+            $card = new Card($this->getClient());
+            $card->setEndpointBase($this->getEndpointBase());
+            return Util::convertToObject($card, $obj);
+        }
+        elseif ($obj['object'] == 'bank_account')
+        {
+            $acct = new BankAccount($this->getClient());
+            $acct->setEndpointBase($this->getEndpointBase());
+            return Util::convertToObject($acct, $obj);
+        }
+        else return Util::convertToObject($this, $obj);
+    }
 
     /**
      * Fetches a collection of objects. This variant constructs them into Card or BankAccount objects as appropriate.

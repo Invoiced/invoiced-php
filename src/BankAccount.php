@@ -2,22 +2,42 @@
 
 namespace Invoiced;
 
-class BankAccount extends BaseObject
+use BadMethodCallException;
+
+class BankAccount extends PaymentSource
 {
     use Operations\Delete;
 
+    // phpunit considers closing braces to be executable,
+    // so these functions will never show as covered.
+    // They are tested in PaymentSourceTest, however.
+
+    // @codeCoverageIgnoreStart
+
     /**
-     * Creates an object. This variant adjusts the endpoint for this operation only.
+     * Overrides parent class function to throw exception.
      *
      * @param array $params
      * @param array $opts
      *
-     * @return object newly created object
+     * @throws BadMethodCallException
      */
     public function create(array $params = [], array $opts = [])
     {
-        $response = $this->_client->request('post', $this->getEndpointBase().'/payment_sources', $params, $opts);
-
-        return Util::convertToObject($this, $response['body']);
+        throw new BadMethodCallException('BankAccount does not support create(). Please use PaymentSource class.');
     }
+
+    /**
+     * Overrides parent class function to throw exception.
+     *
+     * @param array $opts
+     *
+     * @throws BadMethodCallException
+     */
+    public function all(array $opts = [])
+    {
+        throw new BadMethodCallException('BankAccount does not support all(). Please use PaymentSource class.');
+    }
+
+    // @codeCoverageIgnoreEnd
 }

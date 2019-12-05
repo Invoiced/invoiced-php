@@ -120,38 +120,12 @@ class Customer extends BaseObject
      *
      * @return PaymentSource
      */
-    public function payment_sources()
+    public function paymentSources()
     {
         $source = new PaymentSource($this->_client);
         $source->setEndpointBase($this->getEndpoint());
 
         return $source;
-    }
-
-    /**
-     * Gets a card object for this customer.
-     *
-     * @return Card
-     */
-    public function cards()
-    {
-        $card = new Card($this->_client);
-        $card->setEndpointBase($this->getEndpoint());
-
-        return $card;
-    }
-
-    /**
-     * Gets a bank account object for this customer.
-     *
-     * @return BankAccount
-     */
-    public function bank_accounts()
-    {
-        $account = new BankAccount($this->_client);
-        $account->setEndpointBase($this->getEndpoint());
-
-        return $account;
     }
 
     /**
