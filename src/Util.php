@@ -16,6 +16,14 @@ class Util
     {
         $className = get_class($class);
 
+        if (isset($values['object'])) {
+            if ($values['object'] == 'card') {
+                $className = 'Invoiced\\Card';
+            } elseif ($values['object'] == 'bank_account') {
+                $className = 'Invoiced\\BankAccount';
+            }
+        }
+
         $object = new $className($class->getClient(), $values['id'], $values);
         $object->setEndpointBase($class->getEndpointBase());
 
