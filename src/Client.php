@@ -82,7 +82,7 @@ class Client
 
         $this->client = new GuzzleClient([
             'base_uri' => $this->endpoint(),
-            'handler' => $handlerStack,
+            'handler'  => $handlerStack,
         ]);
 
         // object endpoints
@@ -139,13 +139,13 @@ class Client
         $method = strtolower($method);
 
         $request = [
-            'auth' => [$this->apiKey, ''],
-            'headers' => $this->buildHeaders($opts),
-            'query' => [],
-            'http_errors' => false,
-            'verify' => $this->caBundleFile,
+            'auth'            => [$this->apiKey, ''],
+            'headers'         => $this->buildHeaders($opts),
+            'query'           => [],
+            'http_errors'     => false,
+            'verify'          => $this->caBundleFile,
             'connect_timeout' => self::CONNECT_TIMEOUT,
-            'read_timeout' => self::READ_TIMEOUT,
+            'read_timeout'    => self::READ_TIMEOUT,
         ];
 
         // these methods have no request body
@@ -184,9 +184,9 @@ class Client
             }
 
             return [
-                'code' => $code,
+                'code'    => $code,
                 'headers' => $parsedHeaders,
-                'body' => $parsed,
+                'body'    => $parsed,
             ];
         } else {
             $error = json_decode($body, true);
@@ -220,7 +220,7 @@ class Client
     {
         $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
+            'User-Agent'   => 'Invoiced PHP/'.self::VERSION,
         ];
 
         if (isset($opts['idempotency_key']) && $opts['idempotency_key']) {
