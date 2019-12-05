@@ -24,7 +24,6 @@ class PaymentSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/payment_sources/123', $plan->getEndpoint());
     }
 
-
     public function testAll()
     {
         $source = new PaymentSource(self::$invoiced);
@@ -40,28 +39,32 @@ class PaymentSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
-    public function testInvalidCardCreate() {
+    public function testInvalidCardCreate()
+    {
         $this->setExpectedException('Error');
 
         $card = new Card(self::$invoiced);
         $card->create();
     }
 
-    public function testInvalidCardAll() {
+    public function testInvalidCardAll()
+    {
         $this->setExpectedException('Error');
 
         $card = new Card(self::$invoiced);
         $card->all();
     }
 
-    public function testInvalidBankAccountCreate() {
+    public function testInvalidBankAccountCreate()
+    {
         $this->setExpectedException('Error');
 
         $acct = new BankAccount(self::$invoiced);
         $acct->create();
     }
 
-    public function testInvalidBankAccountAll() {
+    public function testInvalidBankAccountAll()
+    {
         $this->setExpectedException('Error');
 
         $acct = new BankAccount(self::$invoiced);

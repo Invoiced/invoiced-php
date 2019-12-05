@@ -4,7 +4,6 @@ namespace Invoiced;
 
 class PaymentSource extends BaseObject
 {
-
     /**
      * Creates an object. This variant creates the appropriate subtype if applicable.
      *
@@ -19,19 +18,19 @@ class PaymentSource extends BaseObject
 
         $obj = $response['body'];
 
-        if ($obj['object'] == 'card')
-        {
+        if ($obj['object'] == 'card') {
             $card = new Card($this->getClient());
             $card->setEndpointBase($this->getEndpointBase());
+
             return Util::convertToObject($card, $obj);
-        }
-        elseif ($obj['object'] == 'bank_account')
-        {
+        } elseif ($obj['object'] == 'bank_account') {
             $acct = new BankAccount($this->getClient());
             $acct->setEndpointBase($this->getEndpointBase());
+
             return Util::convertToObject($acct, $obj);
+        } else {
+            return Util::convertToObject($this, $obj);
         }
-        else return Util::convertToObject($this, $obj);
     }
 
     /**
