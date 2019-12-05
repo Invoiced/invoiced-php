@@ -83,10 +83,9 @@ class Customer extends BaseObject
      */
     public function contacts()
     {
-        $line = new Contact($this->_client);
-        $line->setEndpointBase($this->getEndpoint());
+        $contact = new Contact($this->_client);
 
-        return $line;
+        return $contact->setEndpointBase($this->getEndpoint());
     }
 
     /**
@@ -96,10 +95,9 @@ class Customer extends BaseObject
      */
     public function notes()
     {
-        $line = new Note($this->_client);
-        $line->setEndpointBase($this->getEndpoint());
+        $note = new Note($this->_client);
 
-        return $line;
+        return $note->setEndpointBase($this->getEndpoint());
     }
 
     /**
@@ -110,9 +108,20 @@ class Customer extends BaseObject
     public function lineItems()
     {
         $line = new LineItem($this->_client);
-        $line->setEndpointBase($this->getEndpoint());
 
-        return $line;
+        return $line->setEndpointBase($this->getEndpoint());
+    }
+
+    /**
+     * Gets a payment source object for this customer.
+     *
+     * @return PaymentSource
+     */
+    public function paymentSources()
+    {
+        $source = new PaymentSource($this->_client);
+
+        return $source->setEndpointBase($this->getEndpoint());
     }
 
     /**

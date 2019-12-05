@@ -33,6 +33,10 @@ class CustomerTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":"1212","notes":"test"}'),
             new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/123/notes?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/notes?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/notes?per_page=25&page=1>; rel="last"'], '[{"id":1212,"notes":"test"}]'),
             new Response(201, [], '{"id":123456,"total":1000}'),
+            new Response(201, [], '{"id":1231,"object":"card"}'),
+            new Response(201, [], '{"id":2342,"object":"bank_account"}'),
+            new Response(201, [], '{"id":121212,"object":"something_else"}'),
+            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/123/payment_sources?per_page=25&page=1>; rel="last"'], '[{"id":1231,"object":"card"}, {"id":2342,"object":"bank_account"}]'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
@@ -283,5 +287,54 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Invoiced\\Invoice', $invoice);
         $this->assertEquals(123456, $invoice->id);
         $this->assertEquals(1000, $invoice->total);
+    }
+
+    public function testCreateCard()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $card = $customer->paymentSources()->create(['method' => 'credit_card']);
+
+        $this->assertInstanceOf('Invoiced\\Card', $card);
+        $this->assertEquals(1231, $card->id);
+        $this->assertEquals('card', $card->object);
+        $this->assertEquals('/customers/456/cards/1231', $card->getEndpoint());
+    }
+
+    public function testCreateBankAccount()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $account = $customer->paymentSources()->create(['method' => 'ach']);
+
+        $this->assertInstanceOf('Invoiced\\BankAccount', $account);
+        $this->assertEquals(2342, $account->id);
+        $this->assertEquals('/customers/456/bank_accounts/2342', $account->getEndpoint());
+    }
+
+    public function testCreateGenericPaymentSource()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        $source = $customer->paymentSources()->create(['method' => 'something_else']);
+
+        $this->assertInstanceOf('Invoiced\\PaymentSource', $source);
+        $this->assertEquals(121212, $source->id);
+        $this->assertEquals('/customers/456/payment_sources/121212', $source->getEndpoint());
+    }
+
+    public function testAllPaymentSources()
+    {
+        $customer = new Customer(self::$invoiced, 456);
+        list($sources, $metadata) = $customer->paymentSources()->all();
+
+        $this->assertTrue(is_array($sources));
+        $this->assertCount(2, $sources);
+        $this->assertEquals(1231, $sources[0]->id);
+        $this->assertEquals('/customers/456/cards/1231', $sources[0]->getEndpoint());
+        $this->assertEquals('/customers/456/bank_accounts/2342', $sources[1]->getEndpoint());
+
+        $this->assertInstanceOf('Invoiced\\Card', $sources[0]);
+        $this->assertInstanceOf('Invoiced\\BankAccount', $sources[1]);
+
+        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
+        $this->assertEquals(15, $metadata->total_count);
     }
 }

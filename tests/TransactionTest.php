@@ -20,7 +20,7 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"id":456}'),
-            new Response(201, [], '{"id":1,"amount":50,"object":"card"}'),
+            new Response(201, [], '{"id":1,"amount":50,"object":"charge"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, false, $mock);
@@ -118,6 +118,6 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $charge = $transaction->initiateCharge(['amount' => 50, 'payment_source_type' => 'card']);
 
         $this->assertInstanceOf('Invoiced\\Transaction', $charge);
-        $this->assertEquals('card', $charge->object);
+        $this->assertEquals('charge', $charge->object);
     }
 }

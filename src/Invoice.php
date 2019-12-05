@@ -118,9 +118,8 @@ class Invoice extends BaseObject
     public function paymentPlan()
     {
         $paymentPlan = new PaymentPlan($this->_client);
-        $paymentPlan->setEndpointBase($this->getEndpoint());
 
-        return $paymentPlan;
+        return $paymentPlan->setEndpointBase($this->getEndpoint());
     }
 
     /**
@@ -130,10 +129,9 @@ class Invoice extends BaseObject
      */
     public function notes()
     {
-        $paymentPlan = new Note($this->_client);
-        $paymentPlan->setEndpointBase($this->getEndpoint());
+        $note = new Note($this->_client);
 
-        return $paymentPlan;
+        return $note->setEndpointBase($this->getEndpoint());
     }
 
     /**
