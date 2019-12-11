@@ -5,6 +5,7 @@ This repository contains the PHP client library for the [Invoiced](https://invoi
 
 [![Build Status](https://travis-ci.org/Invoiced/invoiced-php.svg?branch=master)](https://travis-ci.org/Invoiced/invoiced-php)
 [![Coverage Status](https://coveralls.io/repos/Invoiced/invoiced-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/Invoiced/invoiced-php?branch=master)
+[![PHP version](https://badge.fury.io/ph/invoiced%2Finvoiced.svg)](https://badge.fury.io/ph/invoiced%2Finvoiced)
 
 ## Installing
 
