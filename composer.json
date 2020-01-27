@@ -29,7 +29,7 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "guzzlehttp/guzzle": "~6.0",
-    "icanboogie/inflector": "~v1.3",
+    "icanboogie/inflector": "~v1.3|~2.0",
     "firebase/php-jwt": "~5.0"
   },
   "require-dev": {
