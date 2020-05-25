@@ -2,10 +2,9 @@
 
 namespace Invoiced;
 
-class CatalogItem extends BaseObject
+/**
+ * @deprecated
+ */
+class CatalogItem extends Item
 {
-    use Operations\Create;
-    use Operations\All;
-    use Operations\Update;
-    use Operations\Delete;
 }
