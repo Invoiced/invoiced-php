@@ -9,6 +9,8 @@ class Transaction extends BaseObject
     use Operations\Update;
     use Operations\Delete;
 
+    protected $_endpoint = '/transactions';
+
     /**
      * Sends a payment receipt.
      *

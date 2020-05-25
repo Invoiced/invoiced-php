@@ -4,7 +4,6 @@ namespace Invoiced;
 
 use ArrayAccess;
 use Exception;
-use ICanBoogie\Inflector;
 use InvalidArgumentException;
 use JsonSerializable;
 
@@ -23,7 +22,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
     /**
      * @var string
      */
-    protected $_endpoint;
+    protected $_endpoint = '';
 
     /**
      * @var string
@@ -48,15 +47,9 @@ class BaseObject implements ArrayAccess, JsonSerializable
     public function __construct(Client $client, $id = null, array $values = [])
     {
         $this->_client = $client;
-
-        // generate the endpoint based on class name
-        $inflector = Inflector::get();
-        $classname = implode('', array_slice(explode('\\', get_class($this)), -1));
-        $this->_endpoint = '/'.strtolower($inflector->pluralize($inflector->underscore($classname)));
-
         $this->_values = [];
 
-        if ($id !== null) {
+        if (null !== $id) {
             $this->_endpoint .= '/'.$id;
             $this->_values = array_replace($values, ['id' => $id]);
             $this->_unsaved = [];
@@ -81,7 +74,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
 
     public function __set($k, $v)
     {
-        if ($v === '') {
+        if ('' === $v) {
             throw new InvalidArgumentException(
                 'You cannot set \''.$k.'\'to an empty string. '
                 .'We interpret empty strings as NULL in requests. '
@@ -106,7 +99,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
     public function __unset($k)
     {
         unset($this->_values[$k]);
-        if ($index = array_search($k, $this->_unsaved) !== false) {
+        if ($index = false !== array_search($k, $this->_unsaved)) {
             unset($this->_unsaved[$index]);
         }
     }

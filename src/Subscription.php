@@ -9,6 +9,8 @@ class Subscription extends BaseObject
     use Operations\Update;
     use Operations\Delete;
 
+    protected $_endpoint = '/subscriptions';
+
     /**
      * Cancels the subscription.
      *

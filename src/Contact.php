@@ -8,4 +8,6 @@ class Contact extends BaseObject
     use Operations\All;
     use Operations\Update;
     use Operations\Delete;
+
+    protected $_endpoint = '/contacts';
 }

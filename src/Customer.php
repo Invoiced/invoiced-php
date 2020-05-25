@@ -9,6 +9,8 @@ class Customer extends BaseObject
     use Operations\Update;
     use Operations\Delete;
 
+    protected $_endpoint = '/customers';
+
     /**
      * Sends a PDF statement to the customer.
      *

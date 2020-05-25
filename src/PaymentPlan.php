@@ -8,6 +8,8 @@ class PaymentPlan extends BaseObject
 {
     use Operations\Delete;
 
+    protected $_endpoint = '/payment_plans';
+
     public function __construct(Client $client, $id = null, array $values = [])
     {
         parent::__construct($client, $id, $values);

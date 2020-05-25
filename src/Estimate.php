@@ -9,6 +9,8 @@ class Estimate extends BaseObject
     use Operations\Update;
     use Operations\Delete;
 
+    protected $_endpoint = '/estimates';
+
     /*
      * Sends the estimate to the customer,
      *
@@ -86,6 +88,6 @@ class Estimate extends BaseObject
         // update the local values with the response
         $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
 
-        return $response['code'] == 200;
+        return 200 == $response['code'];
     }
 }
