@@ -13,7 +13,7 @@ class Client
     const API_BASE = 'https://api.invoiced.com';
     const API_BASE_SANDBOX = 'https://api.sandbox.invoiced.com';
 
-    const VERSION = '1.1.0';
+    const VERSION = '1.2.0';
 
     const CONNECT_TIMEOUT = 30;
     const READ_TIMEOUT = 60;
@@ -116,7 +116,7 @@ class Client
 
         $this->client = new GuzzleClient([
             'base_uri' => $this->endpoint(),
-            'handler'  => $handlerStack,
+            'handler' => $handlerStack,
         ]);
 
         // object endpoints
@@ -162,8 +162,6 @@ class Client
      *
      * @param string $method
      * @param string $endpoint
-     * @param array  $params
-     * @param array  $opts
      *
      * @throws Error\ErrorBase when the API request is not successful for any reason
      *
@@ -174,13 +172,13 @@ class Client
         $method = strtolower($method);
 
         $request = [
-            'auth'            => [$this->apiKey, ''],
-            'headers'         => $this->buildHeaders($opts),
-            'query'           => [],
-            'http_errors'     => false,
-            'verify'          => $this->caBundleFile,
+            'auth' => [$this->apiKey, ''],
+            'headers' => $this->buildHeaders($opts),
+            'query' => [],
+            'http_errors' => false,
+            'verify' => $this->caBundleFile,
             'connect_timeout' => self::CONNECT_TIMEOUT,
-            'read_timeout'    => self::READ_TIMEOUT,
+            'read_timeout' => self::READ_TIMEOUT,
         ];
 
         // these methods have no request body
@@ -219,9 +217,9 @@ class Client
             }
 
             return [
-                'code'    => $code,
+                'code' => $code,
                 'headers' => $parsedHeaders,
-                'body'    => $parsed,
+                'body' => $parsed,
             ];
         } else {
             $error = json_decode($body, true);
@@ -247,15 +245,13 @@ class Client
     /**
      * Builds the headers for the request.
      *
-     * @param array $opts
-     *
      * @return array
      */
     private function buildHeaders(array $opts)
     {
         $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent'   => 'Invoiced PHP/'.self::VERSION,
+            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
         ];
 
         if (isset($opts['idempotency_key']) && $opts['idempotency_key']) {
