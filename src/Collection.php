@@ -4,12 +4,12 @@ namespace Invoiced;
 
 class Collection
 {
-    /*
-     * @var array
+    /**
+     * @var array<string>
      */
     public $links;
 
-    /*
+    /**
      * @var int
      */
     public $total_count;
@@ -29,7 +29,7 @@ class Collection
      *
      * @param string $header
      *
-     * @return array
+     * @return array<string>
      */
     public function parseLinkHeader($header)
     {

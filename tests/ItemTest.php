@@ -7,8 +7,14 @@ use Invoiced\Item;
 
 class ItemTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -20,15 +26,21 @@ class ItemTest extends PHPUnit_Framework_TestCase
             new Response(204),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $item = new Item(self::$invoiced, 'test');
         $this->assertEquals('/items/test', $item->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $item = self::$invoiced->Item->create(['id' => 'test', 'name' => 'Test']);
@@ -38,23 +50,35 @@ class ItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Test', $item->name);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Item->retrieve(false);
+        self::$invoiced->Item->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $item = self::$invoiced->Item->retrieve('test');
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $item = new Item(self::$invoiced, 'test');
         $this->assertFalse($item->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $item = new Item(self::$invoiced, 'test');
@@ -62,6 +86,9 @@ class ItemTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($item->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -71,6 +98,9 @@ class ItemTest extends PHPUnit_Framework_TestCase
         $item->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($items, $metadata) = self::$invoiced->Item->all();
@@ -83,6 +113,9 @@ class ItemTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $item = new Item(self::$invoiced, 'test');

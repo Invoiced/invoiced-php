@@ -9,6 +9,9 @@ use Invoiced\Client;
 
 class ClientTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @return void
+     */
     public function testNoApiKey()
     {
         $this->setExpectedException('InvalidArgumentException');
@@ -16,6 +19,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $client = new Client('');
     }
 
+    /**
+     * @return void
+     */
     public function testApiKey()
     {
         $client = new Client('test');
@@ -23,24 +29,30 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('https://api.invoiced.com', $client->endpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testSandbox()
     {
         $client = new Client('test', true);
         $this->assertEquals('https://api.sandbox.invoiced.com', $client->endpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testRequest()
     {
         $mock = new MockHandler([
             new Response(200, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $response = $client->request('GET', '/invoices', ['per_page' => 3]);
 
         $expected = [
-            'code'    => 200,
+            'code' => 200,
             'headers' => [
                 'X-Foo' => 'Bar',
             ],
@@ -51,18 +63,21 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $response);
     }
 
+    /**
+     * @return void
+     */
     public function testRequestPost()
     {
         $mock = new MockHandler([
             new Response(201, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $response = $client->request('POST', '/invoices', ['customer' => 123]);
 
         $expected = [
-            'code'    => 201,
+            'code' => 201,
             'headers' => [
                 'X-Foo' => 'Bar',
             ],
@@ -73,18 +88,21 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $response);
     }
 
+    /**
+     * @return void
+     */
     public function testRequestIdempotentPost()
     {
         $mock = new MockHandler([
             new Response(201, ['X-Foo' => 'Bar'], '{"test":true}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $response = $client->request('POST', '/invoices', ['customer' => 123], ['idempotency_key' => 'a random value']);
 
         $expected = [
-            'code'    => 201,
+            'code' => 201,
             'headers' => [
                 'X-Foo' => 'Bar',
             ],
@@ -95,6 +113,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $response);
     }
 
+    /**
+     * @return void
+     */
     public function testRequestInvalidJson()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -103,11 +124,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(200, [], 'not valid json'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestAuthError()
     {
         $this->setExpectedException('Invoiced\\Error\\AuthenticationError');
@@ -116,11 +140,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(401, [], '{"error":"invalid_request","message":"invalid api key"}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestInvalid()
     {
         $this->setExpectedException('Invoiced\\Error\\InvalidRequest');
@@ -129,11 +156,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(400, [], '{"error":"rate_limit","message":"not found"}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestRateLimitError()
     {
         $this->setExpectedException('Invoiced\\Error\\RateLimitError');
@@ -142,11 +172,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(429, [], '{"error":"rate_limit_error","message":"rate limit reached"}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestApiError()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -155,11 +188,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(500, [], '{"error":"api","message":"idk"}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestGeneralApiError()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -168,11 +204,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(502, [], '{"error":"api","message":"idk"}'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestApiErrorInvalidJson()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -181,11 +220,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new Response(500, [], 'not valid json'),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testRequestConnectionError()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiConnectionError');
@@ -195,11 +237,14 @@ class ClientTest extends PHPUnit_Framework_TestCase
             new RequestException('Could not connect', $request),
         ]);
 
-        $client = new Client('API_KEY', false, false, $mock);
+        $client = new Client('API_KEY', false, null, $mock);
 
         $client->request('GET', '/invoices');
     }
 
+    /**
+     * @return void
+     */
     public function testGenerateLoginToken()
     {
         $ssoKey = '8baa4dbc338a54bbf7696eef3ee4aa2daadd61bba85fcfe8df96c7cfa227c43';
@@ -221,6 +266,9 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $decrypted);
     }
 
+    /**
+     * @return void
+     */
     public function testGenerateSignInTokenNoSSOKey()
     {
         $this->setExpectedException('InvalidArgumentException');

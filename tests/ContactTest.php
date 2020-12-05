@@ -7,8 +7,14 @@ use Invoiced\Contact;
 
 class ContactTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -20,15 +26,21 @@ class ContactTest extends PHPUnit_Framework_TestCase
             new Response(204),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $contact = new Contact(self::$invoiced, 123);
         $this->assertEquals('/contacts/123', $contact->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $contact = new Contact(self::$invoiced, null, []);
@@ -39,13 +51,19 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Nancy', $contact->name);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
         $contact = new Contact(self::$invoiced, null, []);
-        $contact->retrieve(false);
+        $contact->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $contact = new Contact(self::$invoiced, null, []);
@@ -56,12 +74,18 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Nancy', $contact->name);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $contact = new Contact(self::$invoiced, 456, []);
         $this->assertFalse($contact->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $contact = new Contact(self::$invoiced, 456, []);
@@ -71,6 +95,9 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Nancy Drew', $contact->name);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -80,6 +107,9 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $contact->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         $contact = new Contact(self::$invoiced, 456, []);
@@ -93,6 +123,9 @@ class ContactTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $contact = new Contact(self::$invoiced, 456, []);

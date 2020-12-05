@@ -7,8 +7,14 @@ use Invoiced\PaymentPlan;
 
 class PaymentPlanTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -17,15 +23,21 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
             new Response(204),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $plan = new PaymentPlan(self::$invoiced, 123);
         $this->assertEquals('/payment_plan', $plan->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $plan = new PaymentPlan(self::$invoiced, null, []);
@@ -36,6 +48,9 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('active', $paymentPlan->status);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $this->setExpectedException('BadMethodCallException');
@@ -44,6 +59,9 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
         $paymentPlan = $plan->retrieve(456);
     }
 
+    /**
+     * @return void
+     */
     public function testGet()
     {
         $plan = new PaymentPlan(self::$invoiced, null, []);
@@ -54,6 +72,9 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('active', $paymentPlan->status);
     }
 
+    /**
+     * @return void
+     */
     public function testCancel()
     {
         $paymentPlan = new PaymentPlan(self::$invoiced, 456, []);

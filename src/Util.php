@@ -7,19 +7,19 @@ class Util
     /**
      * Converts values into an Invoiced object.
      *
-     * @param object $class
-     * @param array  $values
+     * @param BaseObject   $class
+     * @param array<mixed> $values
      *
-     * @return object
+     * @return BaseObject
      */
     public static function convertToObject($class, array $values)
     {
         $className = get_class($class);
 
         if (isset($values['object'])) {
-            if ($values['object'] == 'card') {
+            if ('card' == $values['object']) {
                 $className = 'Invoiced\\Card';
-            } elseif ($values['object'] == 'bank_account') {
+            } elseif ('bank_account' == $values['object']) {
                 $className = 'Invoiced\\BankAccount';
             }
         }
@@ -33,10 +33,10 @@ class Util
     /**
      * Converts a list of object values into object classes.
      *
-     * @param object|string $class
-     * @param array         $objects
+     * @param BaseObject   $class
+     * @param array<array> $objects
      *
-     * @return array array(Object)
+     * @return BaseObject[]
      */
     public static function buildObjects($class, array $objects)
     {

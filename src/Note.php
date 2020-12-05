@@ -2,6 +2,10 @@
 
 namespace Invoiced;
 
+/**
+ * @property int    $customer
+ * @property string $notes
+ */
 class Note extends BaseObject
 {
     use Operations\Create;

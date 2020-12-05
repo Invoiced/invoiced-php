@@ -2,6 +2,14 @@
 
 namespace Invoiced;
 
+/**
+ * @deprecated
+ *
+ * @property float  $amount
+ * @property string $currency
+ * @property int    $customer
+ * @property string $status
+ */
 class Transaction extends BaseObject
 {
     use Operations\Create;
@@ -14,10 +22,10 @@ class Transaction extends BaseObject
     /**
      * Sends a payment receipt.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\Transaction)
+     * @return self[]
      */
     public function send(array $params = [], array $opts = [])
     {
@@ -26,14 +34,14 @@ class Transaction extends BaseObject
         // build email objects
         $email = new Email($this->_client);
 
-        return Util::buildObjects($email, $response['body']);
+        return Util::buildObjects($email, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Refunds this transaction.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
      * @return self
      */
@@ -41,14 +49,14 @@ class Transaction extends BaseObject
     {
         $response = $this->_client->request('post', $this->getEndpoint().'/refunds', $params, $opts);
 
-        return Util::convertToObject($this, $response['body']);
+        return Util::convertToObject($this, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Initiates a charge.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
      * @return self
      */
@@ -56,6 +64,6 @@ class Transaction extends BaseObject
     {
         $response = $this->_client->request('post', '/charges', $params, $opts);
 
-        return Util::convertToObject($this, $response['body']);
+        return Util::convertToObject($this, $response['body']); /* @phpstan-ignore-line */
     }
 }

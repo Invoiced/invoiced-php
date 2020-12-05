@@ -7,10 +7,16 @@ use Exception;
 use InvalidArgumentException;
 use JsonSerializable;
 
+/**
+ * @property string|int $id
+ * @property string     $object
+ *
+ * @implements ArrayAccess<string,mixed>
+ */
 class BaseObject implements ArrayAccess, JsonSerializable
 {
     /**
-     * @staticvar array properties that cannot be updated
+     * @var array<string> properties that cannot be updated
      */
     public static $permanentAttributes = ['id'];
 
@@ -30,19 +36,19 @@ class BaseObject implements ArrayAccess, JsonSerializable
     protected $_endpointBase;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     protected $_values;
 
     /**
-     * @var array
+     * @var array<mixed>
      */
     protected $_unsaved;
 
     /**
      * @param \Invoiced\Client $client API client instance
-     * @param string           $id
-     * @param array            $values
+     * @param string|int       $id
+     * @param array<mixed>     $values
      */
     public function __construct(Client $client, $id = null, array $values = [])
     {
@@ -61,7 +67,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
      *
      * @param string $base
      *
-     * @return self
+     * @return $this
      */
     public function setEndpointBase($base)
     {
@@ -72,14 +78,16 @@ class BaseObject implements ArrayAccess, JsonSerializable
 
     // PHP magic methods
 
+    /**
+     * @param string $k
+     * @param mixed  $v
+     *
+     * @return void
+     */
     public function __set($k, $v)
     {
         if ('' === $v) {
-            throw new InvalidArgumentException(
-                'You cannot set \''.$k.'\'to an empty string. '
-                .'We interpret empty strings as NULL in requests. '
-                .'You may set obj->'.$k.' = NULL to delete the property'
-            );
+            throw new InvalidArgumentException('You cannot set \''.$k.'\'to an empty string. '.'We interpret empty strings as NULL in requests. '.'You may set obj->'.$k.' = NULL to delete the property');
         }
 
         if (!in_array($k, static::$permanentAttributes)) {
@@ -91,11 +99,21 @@ class BaseObject implements ArrayAccess, JsonSerializable
         }
     }
 
+    /**
+     * @param string $k
+     *
+     * @return bool
+     */
     public function __isset($k)
     {
         return isset($this->_values[$k]);
     }
 
+    /**
+     * @param string $k
+     *
+     * @return void
+     */
     public function __unset($k)
     {
         unset($this->_values[$k]);
@@ -104,6 +122,11 @@ class BaseObject implements ArrayAccess, JsonSerializable
         }
     }
 
+    /**
+     * @param string $k
+     *
+     * @return mixed
+     */
     public function &__get($k)
     {
         if (array_key_exists($k, $this->_values)) {
@@ -115,6 +138,9 @@ class BaseObject implements ArrayAccess, JsonSerializable
         }
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         $class = get_class($this);
@@ -124,26 +150,50 @@ class BaseObject implements ArrayAccess, JsonSerializable
 
     // implements ArrayAccess
 
+    /**
+     * @param string $k
+     * @param mixed  $v
+     *
+     * @return void
+     */
     public function offsetSet($k, $v)
     {
         $this->$k = $v;
     }
 
+    /**
+     * @param string $k
+     *
+     * @return bool
+     */
     public function offsetExists($k)
     {
         return array_key_exists($k, $this->_values);
     }
 
+    /**
+     * @param string $k
+     *
+     * @return void
+     */
     public function offsetUnset($k)
     {
         unset($this->$k);
     }
 
+    /**
+     * @param string $k
+     *
+     * @return mixed
+     */
     public function offsetGet($k)
     {
         return array_key_exists($k, $this->_values) ? $this->_values[$k] : null;
     }
 
+    /**
+     * @return array<string>
+     */
     public function keys()
     {
         return array_keys($this->_values);
@@ -151,16 +201,25 @@ class BaseObject implements ArrayAccess, JsonSerializable
 
     // implements JsonSerializable
 
+    /**
+     * @return array<mixed>
+     */
     public function jsonSerialize()
     {
-        return $this->__toArray(true);
+        return $this->__toArray();
     }
 
+    /**
+     * @return string|false
+     */
     public function __toJSON()
     {
-        return json_encode($this->__toArray(true), JSON_PRETTY_PRINT);
+        return json_encode($this->__toArray(), JSON_PRETTY_PRINT);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function __toArray()
     {
         return $this->_values;
@@ -171,7 +230,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
     /**
      * Gets the client instance used by this object.
      *
-     * @return \Invoiced\Client
+     * @return Client
      */
     public function getClient()
     {
@@ -201,10 +260,10 @@ class BaseObject implements ArrayAccess, JsonSerializable
     /**
      * Retrieves an instance of this object given an ID.
      *
-     * @param string $id
-     * @param array  $opts optional options to pass on
+     * @param string|int   $id
+     * @param array<mixed> $opts optional options to pass on
      *
-     * @return \Invoiced\BaseObject
+     * @return static
      */
     public function retrieve($id, array $opts = [])
     {
@@ -214,6 +273,6 @@ class BaseObject implements ArrayAccess, JsonSerializable
 
         $response = $this->_client->request('get', $this->getEndpoint()."/$id", $opts);
 
-        return Util::convertToObject($this, $response['body']);
+        return Util::convertToObject($this, $response['body']); /* @phpstan-ignore-line */
     }
 }

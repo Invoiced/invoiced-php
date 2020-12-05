@@ -4,12 +4,20 @@ namespace Invoiced;
 
 use BadMethodCallException;
 
+/**
+ * @property string $status
+ * @property array  $installments
+ */
 class PaymentPlan extends BaseObject
 {
     use Operations\Delete;
 
     protected $_endpoint = '/payment_plans';
 
+    /**
+     * @param string|int|null $id
+     * @param array<mixed>    $values
+     */
     public function __construct(Client $client, $id = null, array $values = [])
     {
         parent::__construct($client, $id, $values);
@@ -20,16 +28,16 @@ class PaymentPlan extends BaseObject
     /**
      * Creates a payment plan.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return object newly created object
+     * @return self newly created object
      */
     public function create(array $params = [], array $opts = [])
     {
         $response = $this->_client->request('put', $this->getEndpoint(), $params, $opts);
 
-        return Util::convertToObject($this, $response['body']);
+        return Util::convertToObject($this, $response['body']); /* @phpstan-ignore-line */
     }
 
     public function retrieve($id, array $opts = [])
@@ -40,7 +48,7 @@ class PaymentPlan extends BaseObject
     /**
      * Retrieves a payment plan.
      *
-     * @param array $opts optional options to pass on
+     * @param array<mixed> $opts optional options to pass on
      *
      * @return PaymentPlan
      */
@@ -48,7 +56,7 @@ class PaymentPlan extends BaseObject
     {
         $response = $this->_client->request('get', $this->getEndpoint(), $opts);
 
-        return Util::convertToObject($this, $response['body']);
+        return Util::convertToObject($this, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**

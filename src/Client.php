@@ -78,7 +78,7 @@ class Client
     private $sandbox;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $ssoKey;
 
@@ -95,12 +95,12 @@ class Client
     /**
      * Instantiates a new client.
      *
-     * @param string   $apiKey
-     * @param bool     $sandbox when true uses the sandbox API endpoint
-     * @param string   $ssoKey  Single Sign-On key if generating sign in links
-     * @param callable $handler optional Guzzle handler
+     * @param string      $apiKey
+     * @param bool        $sandbox when true uses the sandbox API endpoint
+     * @param string|null $ssoKey  Single Sign-On key if generating sign in links
+     * @param callable    $handler optional Guzzle handler
      */
-    public function __construct($apiKey, $sandbox = false, $ssoKey = false, $handler = null)
+    public function __construct($apiKey, $sandbox = false, $ssoKey = null, $handler = null)
     {
         if (empty($apiKey)) {
             throw new InvalidArgumentException('You must provide an API Key');
@@ -116,7 +116,7 @@ class Client
 
         $this->client = new GuzzleClient([
             'base_uri' => $this->endpoint(),
-            'handler'  => $handlerStack,
+            'handler' => $handlerStack,
         ]);
 
         // object endpoints
@@ -160,25 +160,27 @@ class Client
     /**
      * Performs an API request.
      *
-     * @param string $method
-     * @param string $endpoint
+     * @param string       $method
+     * @param string       $endpoint
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
      * @throws Error\ErrorBase when the API request is not successful for any reason
      *
-     * @return array
+     * @return array<mixed>
      */
     public function request($method, $endpoint, array $params = [], array $opts = [])
     {
         $method = strtolower($method);
 
         $request = [
-            'auth'            => [$this->apiKey, ''],
-            'headers'         => $this->buildHeaders($opts),
-            'query'           => [],
-            'http_errors'     => false,
-            'verify'          => $this->caBundleFile,
+            'auth' => [$this->apiKey, ''],
+            'headers' => $this->buildHeaders($opts),
+            'query' => [],
+            'http_errors' => false,
+            'verify' => $this->caBundleFile,
             'connect_timeout' => self::CONNECT_TIMEOUT,
-            'read_timeout'    => self::READ_TIMEOUT,
+            'read_timeout' => self::READ_TIMEOUT,
         ];
 
         // these methods have no request body
@@ -217,9 +219,9 @@ class Client
             }
 
             return [
-                'code'    => $code,
+                'code' => $code,
                 'headers' => $parsedHeaders,
-                'body'    => $parsed,
+                'body' => $parsed,
             ];
         } else {
             $error = json_decode($body, true);
@@ -245,13 +247,15 @@ class Client
     /**
      * Builds the headers for the request.
      *
-     * @return array
+     * @param array<mixed> $opts
+     *
+     * @return array<string>
      */
     private function buildHeaders(array $opts)
     {
         $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent'   => 'Invoiced PHP/'.self::VERSION,
+            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
         ];
 
         if (isset($opts['idempotency_key']) && $opts['idempotency_key']) {

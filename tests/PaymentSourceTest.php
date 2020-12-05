@@ -7,23 +7,35 @@ use Invoiced\PaymentSource;
 
 class PaymentSourceTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
             new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="last"'], '[{"id":1231,"object":"card"}, {"id": 2342,"object":"bank_account"}]'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $plan = new PaymentSource(self::$invoiced, 123);
         $this->assertEquals('/payment_sources/123', $plan->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         $source = new PaymentSource(self::$invoiced);

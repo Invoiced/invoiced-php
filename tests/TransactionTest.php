@@ -7,14 +7,20 @@ use Invoiced\Transaction;
 
 class TransactionTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
             new Response(201, [], '{"id":123,"amount":100}'),
             new Response(200, [], '{"id":123,"amount":100}'),
-            new Response(200, [], '{"id":123,"sent":true}'),
+            new Response(200, [], '{"id":123,"status":"paid"}'),
             new Response(401),
             new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/transactions?per_page=25&page=1>; rel="self", <https://api.invoiced.com/transactions?per_page=25&page=1>; rel="first", <https://api.invoiced.com/transactions?per_page=25&page=1>; rel="last"'], '[{"id":123,"amount":100}]'),
             new Response(204),
@@ -23,15 +29,21 @@ class TransactionTest extends PHPUnit_Framework_TestCase
             new Response(201, [], '{"id":1,"amount":50,"object":"charge"}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $transaction = new Transaction(self::$invoiced, 123);
         $this->assertEquals('/transactions/123', $transaction->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $transaction = self::$invoiced->Transaction->create(['customer' => 123]);
@@ -41,39 +53,57 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(100, $transaction->amount);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Transaction->retrieve(false);
+        self::$invoiced->Transaction->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $transaction = self::$invoiced->Transaction->retrieve(123);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $transaction = new Transaction(self::$invoiced, 123);
         $this->assertFalse($transaction->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $transaction = new Transaction(self::$invoiced, 123);
-        $transaction->closed = true;
+        $transaction->currency = 'usd';
         $this->assertTrue($transaction->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
 
         $transaction = new Transaction(self::$invoiced, 123);
-        $transaction->sent = true;
+        $transaction->status = 'failed';
         $transaction->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($transactions, $metadata) = self::$invoiced->Transaction->all();
@@ -86,12 +116,18 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $transaction = new Transaction(self::$invoiced, 123);
         $this->assertTrue($transaction->delete());
     }
 
+    /**
+     * @return void
+     */
     public function testSend()
     {
         $transaction = new Transaction(self::$invoiced, 123);
@@ -103,6 +139,9 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4567, $emails[0]->id);
     }
 
+    /**
+     * @return void
+     */
     public function testRefund()
     {
         $transaction = new Transaction(self::$invoiced, 123);
@@ -112,6 +151,9 @@ class TransactionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(456, $refund->id);
     }
 
+    /**
+     * @return void
+     */
     public function testInitiateCharge()
     {
         $transaction = new Transaction(self::$invoiced, 123);

@@ -10,9 +10,9 @@ trait All
     /**
      * Fetches a collection of objects.
      *
-     * @param array $opts
+     * @param array<mixed> $opts
      *
-     * @return [array(Invoiced\Object), Invoiced\Collection]
+     * @return array<mixed> [array(Invoiced\Object), Invoiced\Collection]
      */
     public function all(array $opts = [])
     {

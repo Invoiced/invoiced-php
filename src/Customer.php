@@ -2,6 +2,14 @@
 
 namespace Invoiced;
 
+/**
+ * @property string      $name
+ * @property string      $number
+ * @property string|null $email
+ * @property string|null $phone
+ * @property string|null $currency
+ * @property string      $notes
+ */
 class Customer extends BaseObject
 {
     use Operations\Create;
@@ -14,10 +22,10 @@ class Customer extends BaseObject
     /**
      * Sends a PDF statement to the customer.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\Email)
+     * @return Email[]
      */
     public function sendStatement(array $params = [], array $opts = [])
     {
@@ -26,16 +34,16 @@ class Customer extends BaseObject
         // build email objects
         $email = new Email($this->_client);
 
-        return Util::buildObjects($email, $response['body']);
+        return Util::buildObjects($email, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Sends a PDF statement to the customer by SMS.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\TextMessage)
+     * @return TextMessage[]
      */
     public function sendStatementSMS(array $params = [], array $opts = [])
     {
@@ -44,16 +52,16 @@ class Customer extends BaseObject
         // build text message objects
         $textMessage = new TextMessage($this->_client);
 
-        return Util::buildObjects($textMessage, $response['body']);
+        return Util::buildObjects($textMessage, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Sends a statement to the customer by mail.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\Letter)
+     * @return Letter[]
      */
     public function sendStatementLetter(array $params = [], array $opts = [])
     {
@@ -62,20 +70,20 @@ class Customer extends BaseObject
         // build letter objects
         $letter = new Letter($this->_client);
 
-        return Util::buildObjects($letter, $response['body']);
+        return Util::buildObjects($letter, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Gets the customer's current balance.
      *
-     * @return \stdClass balance
+     * @return object balance
      */
     public function balance()
     {
         $response = $this->_client->request('get', $this->getEndpoint().'/balance');
 
         // we actually want an object instead of an array...
-        return json_decode(json_encode($response['body']), false);
+        return json_decode(json_encode($response['body']), false); /* @phpstan-ignore-line */
     }
 
     /**
@@ -129,8 +137,8 @@ class Customer extends BaseObject
     /**
      * Creates an invoice from pending line items.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
      * @return Invoice
      */
@@ -141,13 +149,13 @@ class Customer extends BaseObject
         // build invoice object
         $invoice = new Invoice($this->_client);
 
-        return Util::convertToObject($invoice, $response['body']);
+        return Util::convertToObject($invoice, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Creates a consolidated invoice for this customer.
      *
-     * @param array $params
+     * @param array<mixed> $params
      *
      * @return Invoice
      */
@@ -158,6 +166,6 @@ class Customer extends BaseObject
         // build invoice object
         $invoice = new Invoice($this->_client);
 
-        return Util::convertToObject($invoice, $response['body']);
+        return Util::convertToObject($invoice, $response['body']); /* @phpstan-ignore-line */
     }
 }

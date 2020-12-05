@@ -9,15 +9,15 @@ trait Create
     /**
      * Creates an object.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return object newly created object
+     * @return static newly created object
      */
     public function create(array $params = [], array $opts = [])
     {
         $response = $this->_client->request('post', $this->getEndpoint(), $params, $opts);
 
-        return Util::convertToObject($this, $response['body']);
+        return Util::convertToObject($this, $response['body']); /* @phpstan-ignore-line */
     }
 }

@@ -2,6 +2,11 @@
 
 namespace Invoiced;
 
+/**
+ * @property string      $name
+ * @property string|null $email
+ * @property string|null $phone
+ */
 class Contact extends BaseObject
 {
     use Operations\Create;

@@ -7,8 +7,14 @@ use Invoiced\Plan;
 
 class PlanTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -20,15 +26,21 @@ class PlanTest extends PHPUnit_Framework_TestCase
             new Response(204),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $plan = new Plan(self::$invoiced, 'test');
         $this->assertEquals('/plans/test', $plan->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $plan = self::$invoiced->Plan->create(['id' => 'test', 'name' => 'Test']);
@@ -38,23 +50,35 @@ class PlanTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Test', $plan->name);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Plan->retrieve(false);
+        self::$invoiced->Plan->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $plan = self::$invoiced->Plan->retrieve('test');
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $plan = new Plan(self::$invoiced, 'test');
         $this->assertFalse($plan->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $plan = new Plan(self::$invoiced, 'test');
@@ -62,6 +86,9 @@ class PlanTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($plan->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -71,6 +98,9 @@ class PlanTest extends PHPUnit_Framework_TestCase
         $plan->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($plans, $metadata) = self::$invoiced->Plan->all();
@@ -83,6 +113,9 @@ class PlanTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $plan = new Plan(self::$invoiced, 'test');

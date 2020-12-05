@@ -7,8 +7,14 @@ use Invoiced\Estimate;
 
 class EstimateTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -24,15 +30,21 @@ class EstimateTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":"1234","status":"voided"}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $estimate = new Estimate(self::$invoiced, 123);
         $this->assertEquals('/estimates/123', $estimate->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $estimate = self::$invoiced->Estimate->create(['customer' => 123]);
@@ -42,12 +54,18 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('CN-0001', $estimate->number);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Estimate->retrieve(false);
+        self::$invoiced->Estimate->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $estimate = self::$invoiced->Estimate->retrieve(123);
@@ -57,12 +75,18 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('CN-0001', $estimate->number);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $estimate = new Estimate(self::$invoiced, 123);
         $this->assertFalse($estimate->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $estimate = new Estimate(self::$invoiced, 123);
@@ -72,6 +96,9 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($estimate->closed);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -81,6 +108,9 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $estimate->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($estimates, $metadata) = self::$invoiced->Estimate->all();
@@ -93,12 +123,18 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $estimate = new Estimate(self::$invoiced, 123);
         $this->assertTrue($estimate->delete());
     }
 
+    /**
+     * @return void
+     */
     public function testSend()
     {
         $estimate = new Estimate(self::$invoiced, 123);
@@ -110,6 +146,9 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4567, $emails[0]->id);
     }
 
+    /**
+     * @return void
+     */
     public function testAttachments()
     {
         $estimate = new Estimate(self::$invoiced, 123);
@@ -121,6 +160,9 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testInvoice()
     {
         $estimate = new Estimate(self::$invoiced, 456);
@@ -131,6 +173,9 @@ class EstimateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(500, $invoice->total);
     }
 
+    /**
+     * @return void
+     */
     public function testVoid()
     {
         $estimate = new Estimate(self::$invoiced, 1234);

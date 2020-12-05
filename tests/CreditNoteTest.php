@@ -7,8 +7,14 @@ use Invoiced\CreditNote;
 
 class CreditNoteTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -23,15 +29,21 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":"1234","status":"voided"}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $creditNote = new CreditNote(self::$invoiced, 123);
         $this->assertEquals('/credit_notes/123', $creditNote->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $creditNote = self::$invoiced->CreditNote->create(['customer' => 123]);
@@ -41,12 +53,18 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('CN-0001', $creditNote->number);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->CreditNote->retrieve(false);
+        self::$invoiced->CreditNote->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $creditNote = self::$invoiced->CreditNote->retrieve(123);
@@ -56,12 +74,18 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('CN-0001', $creditNote->number);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $creditNote = new CreditNote(self::$invoiced, 123);
         $this->assertFalse($creditNote->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $creditNote = new CreditNote(self::$invoiced, 123);
@@ -71,6 +95,9 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($creditNote->closed);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -80,6 +107,9 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $creditNote->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($creditNotes, $metadata) = self::$invoiced->CreditNote->all();
@@ -92,12 +122,18 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $creditNote = new CreditNote(self::$invoiced, 123);
         $this->assertTrue($creditNote->delete());
     }
 
+    /**
+     * @return void
+     */
     public function testSend()
     {
         $creditNote = new CreditNote(self::$invoiced, 123);
@@ -109,6 +145,9 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4567, $emails[0]->id);
     }
 
+    /**
+     * @return void
+     */
     public function testAttachments()
     {
         $creditNote = new CreditNote(self::$invoiced, 123);
@@ -120,6 +159,9 @@ class CreditNoteTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testVoid()
     {
         $creditNote = new CreditNote(self::$invoiced, 1234);

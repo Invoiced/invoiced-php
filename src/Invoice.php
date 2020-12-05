@@ -2,22 +2,24 @@
 
 namespace Invoiced;
 
-class Invoice extends BaseObject
+/**
+ * @property bool   $draft
+ * @property bool   $closed
+ * @property bool   $paid
+ * @property bool   $voided
+ * @property string $status
+ */
+class Invoice extends BaseDocument
 {
-    use Operations\Create;
-    use Operations\All;
-    use Operations\Update;
-    use Operations\Delete;
-
     protected $_endpoint = '/invoices';
 
     /**
      * Sends the invoice to the customer.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\Email)
+     * @return Email[]
      */
     public function send(array $params = [], array $opts = [])
     {
@@ -26,16 +28,16 @@ class Invoice extends BaseObject
         // build email objects
         $email = new Email($this->_client);
 
-        return Util::buildObjects($email, $response['body']);
+        return Util::buildObjects($email, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Sends the invoice to the customer by SMS.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\TextMessage)
+     * @return TextMessage[]
      */
     public function sendSMS(array $params = [], array $opts = [])
     {
@@ -44,16 +46,16 @@ class Invoice extends BaseObject
         // build text message objects
         $textMessage = new TextMessage($this->_client);
 
-        return Util::buildObjects($textMessage, $response['body']);
+        return Util::buildObjects($textMessage, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Sends the invoice to the customer by mail.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
-     * @return array(Invoiced\Letter)
+     * @return Letter[]
      */
     public function sendLetter(array $params = [], array $opts = [])
     {
@@ -62,13 +64,13 @@ class Invoice extends BaseObject
         // build letter objects
         $letter = new Letter($this->_client);
 
-        return Util::buildObjects($letter, $response['body']);
+        return Util::buildObjects($letter, $response['body']); /* @phpstan-ignore-line */
     }
 
     /**
      * Attempts to collect payment on the invoice.
      *
-     * @param array $opts
+     * @param array<mixed> $opts
      *
      * @return bool
      */
@@ -81,35 +83,6 @@ class Invoice extends BaseObject
         $this->_unsaved = [];
 
         return 200 == $response['code'];
-    }
-
-    /**
-     * Fetches the invoice's file attachments.
-     *
-     * @param array $opts
-     *
-     * @return [array(Invoiced\Object), Invoiced\Collection]
-     */
-    public function attachments(array $opts = [])
-    {
-        $response = $this->_client->request('get', $this->getEndpoint().'/attachments', $opts);
-
-        // ensure each attachment has an ID
-        $body = $response['body'];
-        foreach ($body as &$obj) {
-            if (!isset($obj['id'])) {
-                $obj['id'] = $obj['file']['id'];
-            }
-        }
-
-        // build attachment objects
-        $attachment = new Attachment($this->_client);
-        $attachments = Util::buildObjects($attachment, $body);
-
-        // store the metadata from the list operation
-        $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']);
-
-        return [$attachments, $metadata];
     }
 
     /**
@@ -134,20 +107,5 @@ class Invoice extends BaseObject
         $note = new Note($this->_client);
 
         return $note->setEndpointBase($this->getEndpoint());
-    }
-
-    /**
-     * Voids the invoice.
-     *
-     * @return Invoice
-     */
-    public function void()
-    {
-        $response = $this->_client->request('post', $this->getEndpoint().'/void', [], []);
-
-        // update the local values with the response
-        $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
-
-        return 200 == $response['code'];
     }
 }

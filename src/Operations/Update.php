@@ -7,8 +7,8 @@ trait Update
     /**
      * Saves the object.
      *
-     * @param array $params
-     * @param array $opts
+     * @param array<mixed> $params
+     * @param array<mixed> $opts
      *
      * @return bool
      */
@@ -30,7 +30,7 @@ trait Update
             $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
             $this->_unsaved = [];
 
-            return $response['code'] == 200;
+            return 200 == $response['code'];
         }
 
         return false;

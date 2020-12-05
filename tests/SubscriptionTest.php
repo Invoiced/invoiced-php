@@ -7,8 +7,14 @@ use Invoiced\Subscription;
 
 class SubscriptionTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -21,15 +27,21 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"first_invoice":{"id":false},"mrr":9}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $subscription = new Subscription(self::$invoiced, 123);
         $this->assertEquals('/subscriptions/123', $subscription->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $subscription = self::$invoiced->Subscription->create(['customer' => 123, 'plan' => 'starter']);
@@ -39,23 +51,35 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('starter', $subscription->plan);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Subscription->retrieve(false);
+        self::$invoiced->Subscription->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $subscription = self::$invoiced->Subscription->retrieve(123);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $subscription = new Subscription(self::$invoiced, 123);
         $this->assertFalse($subscription->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $subscription = new Subscription(self::$invoiced, 123);
@@ -63,6 +87,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($subscription->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -72,6 +99,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $subscription->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($subscriptions, $metadata) = self::$invoiced->Subscription->all();
@@ -84,6 +114,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testCancel()
     {
         $subscription = new Subscription(self::$invoiced, 123);
@@ -91,6 +124,9 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('canceled', $subscription->status);
     }
 
+    /**
+     * @return void
+     */
     public function testPreview()
     {
         $subscription = new Subscription(self::$invoiced, 123);
@@ -99,6 +135,6 @@ class SubscriptionTest extends PHPUnit_Framework_TestCase
         // we do not expect subscription object; just json
         $this->assertNotInstanceOf('Invoiced\\Subscription', $response);
         // but json should be formed correctly
-        $this->assertEquals($response->mrr, 9);
+        $this->assertEquals($response->mrr, 9); /* @phpstan-ignore-line */
     }
 }

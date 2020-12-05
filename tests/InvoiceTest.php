@@ -7,8 +7,14 @@ use Invoiced\Invoice;
 
 class InvoiceTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Client
+     */
     public static $invoiced;
 
+    /**
+     * @return void
+     */
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
@@ -31,15 +37,21 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
             new Response(200, [], '{"id":"1234","status":"voided"}'),
         ]);
 
-        self::$invoiced = new Client('API_KEY', false, false, $mock);
+        self::$invoiced = new Client('API_KEY', false, null, $mock);
     }
 
+    /**
+     * @return void
+     */
     public function testGetEndpoint()
     {
         $invoice = new Invoice(self::$invoiced, 123);
         $this->assertEquals('/invoices/123', $invoice->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testCreate()
     {
         $invoice = self::$invoiced->Invoice->create(['customer' => 123]);
@@ -49,12 +61,18 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('INV-0001', $invoice->number);
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNoId()
     {
         $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Invoice->retrieve(false);
+        self::$invoiced->Invoice->retrieve('');
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieve()
     {
         $invoice = self::$invoiced->Invoice->retrieve(123);
@@ -64,12 +82,18 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('INV-0001', $invoice->number);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateNoValue()
     {
         $invoice = new Invoice(self::$invoiced, 123);
         $this->assertFalse($invoice->save());
     }
 
+    /**
+     * @return void
+     */
     public function testUpdate()
     {
         $invoice = new Invoice(self::$invoiced, 123);
@@ -79,6 +103,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($invoice->closed);
     }
 
+    /**
+     * @return void
+     */
     public function testUpdateFail()
     {
         $this->setExpectedException('Invoiced\\Error\\ApiError');
@@ -88,6 +115,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $invoice->save();
     }
 
+    /**
+     * @return void
+     */
     public function testAll()
     {
         list($invoices, $metadata) = self::$invoiced->Invoice->all();
@@ -100,12 +130,18 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testDelete()
     {
         $invoice = new Invoice(self::$invoiced, 123);
         $this->assertTrue($invoice->delete());
     }
 
+    /**
+     * @return void
+     */
     public function testSend()
     {
         $invoice = new Invoice(self::$invoiced, 123);
@@ -117,6 +153,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4567, $emails[0]->id);
     }
 
+    /**
+     * @return void
+     */
     public function testPay()
     {
         $invoice = new Invoice(self::$invoiced, 123);
@@ -124,6 +163,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($invoice->paid);
     }
 
+    /**
+     * @return void
+     */
     public function testAttachments()
     {
         $invoice = new Invoice(self::$invoiced, 123);
@@ -135,6 +177,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testCreatePaymentPlan()
     {
         $invoice = new Invoice(self::$invoiced, 456);
@@ -146,6 +191,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/invoices/456/payment_plan', $paymentPlan->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testRetrievePaymentPlan()
     {
         $invoice = new Invoice(self::$invoiced, 456);
@@ -157,6 +205,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/invoices/456/payment_plan', $paymentPlan->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testSendSMS()
     {
         $invoice = new Invoice(self::$invoiced, 123);
@@ -168,6 +219,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(5678, $textMessages[0]->id);
     }
 
+    /**
+     * @return void
+     */
     public function testSendLetter()
     {
         $invoice = new Invoice(self::$invoiced, 123);
@@ -179,6 +233,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(6789, $letters[0]->id);
     }
 
+    /**
+     * @return void
+     */
     public function testCreateNote()
     {
         $invoice = new Invoice(self::$invoiced, 456);
@@ -190,6 +247,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/invoices/456/notes/1212', $note->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testRetrieveNote()
     {
         $invoice = new Invoice(self::$invoiced, 456);
@@ -201,6 +261,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('/invoices/456/notes/1212', $note->getEndpoint());
     }
 
+    /**
+     * @return void
+     */
     public function testAllNotes()
     {
         $invoice = new Invoice(self::$invoiced, 456);
@@ -215,6 +278,9 @@ class InvoiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(15, $metadata->total_count);
     }
 
+    /**
+     * @return void
+     */
     public function testVoid()
     {
         $invoice = new Invoice(self::$invoiced, 1234);
