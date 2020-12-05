@@ -4,11 +4,11 @@ namespace Invoiced\Tests;
 
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Invoiced\Charge;
 use Invoiced\Client;
+use Invoiced\Refund;
 use PHPUnit_Framework_TestCase;
 
-class ChargeTest extends PHPUnit_Framework_TestCase
+class RefundTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Client
@@ -21,8 +21,7 @@ class ChargeTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(201, [], '{"id":123,"amount":100}'),
-            new Response(201, [], '{"id":456,"amount":50,"object":"refund"}'),
+            new Response(201, [], '{"id":123,"amount":50,"object":"refund"}'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, null, $mock);
@@ -33,8 +32,8 @@ class ChargeTest extends PHPUnit_Framework_TestCase
      */
     public function testGetEndpoint()
     {
-        $charge = new Charge(self::$invoiced, 123);
-        $this->assertEquals('/charges/123', $charge->getEndpoint());
+        $refund = new Refund(self::$invoiced, 123);
+        $this->assertEquals('/123', $refund->getEndpoint());
     }
 
     /**
@@ -42,10 +41,10 @@ class ChargeTest extends PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        $charge = self::$invoiced->Charge->create(['customer' => 123]);
+        $refund = self::$invoiced->Refund->create(456, ['amount' => 50]);
 
-        $this->assertInstanceOf('Invoiced\\Charge', $charge);
-        $this->assertEquals(123, $charge->id);
-        $this->assertEquals(100, $charge->amount);
+        $this->assertInstanceOf('Invoiced\\Refund', $refund);
+        $this->assertEquals(123, $refund->id);
+        $this->assertEquals(50, $refund->amount);
     }
 }

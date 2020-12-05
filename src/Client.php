@@ -61,6 +61,9 @@ class Client
     /** @var Plan */
     public $Plan;
 
+    /** @var Refund */
+    public $Refund;
+
     /** @var Subscription */
     public $Subscription;
 
@@ -122,7 +125,7 @@ class Client
 
         $this->client = new GuzzleClient([
             'base_uri' => $this->endpoint(),
-            'handler'  => $handlerStack,
+            'handler' => $handlerStack,
         ]);
 
         // object endpoints
@@ -139,6 +142,7 @@ class Client
         $this->Note = new Note($this);
         $this->Payment = new Payment($this);
         $this->Plan = new Plan($this);
+        $this->Refund = new Refund($this);
         $this->Subscription = new Subscription($this);
         $this->Task = new Task($this);
         $this->TaxRate = new TaxRate($this);
@@ -182,13 +186,13 @@ class Client
         $method = strtolower($method);
 
         $request = [
-            'auth'            => [$this->apiKey, ''],
-            'headers'         => $this->buildHeaders($opts),
-            'query'           => [],
-            'http_errors'     => false,
-            'verify'          => $this->caBundleFile,
+            'auth' => [$this->apiKey, ''],
+            'headers' => $this->buildHeaders($opts),
+            'query' => [],
+            'http_errors' => false,
+            'verify' => $this->caBundleFile,
             'connect_timeout' => self::CONNECT_TIMEOUT,
-            'read_timeout'    => self::READ_TIMEOUT,
+            'read_timeout' => self::READ_TIMEOUT,
         ];
 
         // these methods have no request body
@@ -227,9 +231,9 @@ class Client
             }
 
             return [
-                'code'    => $code,
+                'code' => $code,
                 'headers' => $parsedHeaders,
-                'body'    => $parsed,
+                'body' => $parsed,
             ];
         } else {
             $error = json_decode($body, true);
@@ -263,7 +267,7 @@ class Client
     {
         $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent'   => 'Invoiced PHP/'.self::VERSION,
+            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
         ];
 
         if (isset($opts['idempotency_key']) && $opts['idempotency_key']) {
