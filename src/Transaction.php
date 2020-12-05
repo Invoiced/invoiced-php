@@ -25,7 +25,7 @@ class Transaction extends BaseObject
      * @param array<mixed> $params
      * @param array<mixed> $opts
      *
-     * @return self[]
+     * @return Email[]
      */
     public function send(array $params = [], array $opts = [])
     {
