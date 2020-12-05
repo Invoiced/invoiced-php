@@ -10,8 +10,8 @@ php:
   - 7.4
   - 8.0
 
+os: linux
 dist: trusty
-sudo: required
 
 cache:
   directories:
