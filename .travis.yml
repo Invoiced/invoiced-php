@@ -21,6 +21,7 @@ before_script:
   - mkdir -p build/logs
 
 script:
+  - vendor/bin/phpstan analyze
   - vendor/bin/phpunit
 
 after_script:
