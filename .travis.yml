@@ -17,11 +17,12 @@ cache:
   - vendor
 
 before_script:
+  - if ! ([ "$TRAVIS_PHP_VERSION" -eq "71" ] || [ "$TRAVIS_PHP_VERSION" -eq "72" ] || [ "$TRAVIS_PHP_VERSION" -eq "73" ] || [ "$TRAVIS_PHP_VERSION" -eq "74" ]); then composer remove phpstan/phpstan; fi
   - composer install
   - mkdir -p build/logs
 
 script:
-  - vendor/bin/phpstan analyze
+  - if [ "$TRAVIS_PHP_VERSION" -eq "71" ] || [ "$TRAVIS_PHP_VERSION" -eq "72" ] || [ "$TRAVIS_PHP_VERSION" -eq "73" ] || [ "$TRAVIS_PHP_VERSION" -eq "74" ]; then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
   - vendor/bin/phpunit
 
 after_script:
