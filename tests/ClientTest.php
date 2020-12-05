@@ -52,7 +52,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $response = $client->request('GET', '/invoices', ['per_page' => 3]);
 
         $expected = [
-            'code' => 200,
+            'code'    => 200,
             'headers' => [
                 'X-Foo' => 'Bar',
             ],
@@ -77,7 +77,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $response = $client->request('POST', '/invoices', ['customer' => 123]);
 
         $expected = [
-            'code' => 201,
+            'code'    => 201,
             'headers' => [
                 'X-Foo' => 'Bar',
             ],
@@ -102,7 +102,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $response = $client->request('POST', '/invoices', ['customer' => 123], ['idempotency_key' => 'a random value']);
 
         $expected = [
-            'code' => 201,
+            'code'    => 201,
             'headers' => [
                 'X-Foo' => 'Bar',
             ],
