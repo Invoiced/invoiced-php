@@ -13,6 +13,10 @@ php:
 os: linux
 dist: trusty
 
+jobs:
+  allow_failures:
+    - php: 8.0
+
 cache:
   directories:
   - vendor
