@@ -22,6 +22,9 @@ cache:
   - vendor
 
 before_script:
+  # Downgrade xdebug to v2 on php 7.3
+  - if ! [ "$TRAVIS_PHP_VERSION" -eq "73" ]; then pecl install xdebug-2.9.8; fi
+  # PHPStan is only supported on 7.1+
   - if ! ([ "$TRAVIS_PHP_VERSION" -eq "71" ] || [ "$TRAVIS_PHP_VERSION" -eq "72" ] || [ "$TRAVIS_PHP_VERSION" -eq "73" ] || [ "$TRAVIS_PHP_VERSION" -eq "74" ]); then composer remove phpstan/phpstan; fi
   - composer install
   - mkdir -p build/logs
