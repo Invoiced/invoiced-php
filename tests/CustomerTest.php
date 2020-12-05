@@ -1,9 +1,13 @@
 <?php
 
+namespace Invoiced\Tests;
+
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
 use Invoiced\Customer;
+use PHPUnit_Framework_TestCase;
+use stdClass;
 
 class CustomerTest extends PHPUnit_Framework_TestCase
 {

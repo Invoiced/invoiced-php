@@ -1,9 +1,12 @@
 <?php
 
+namespace Invoiced\Tests;
+
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
 use Invoiced\Invoice;
+use PHPUnit_Framework_TestCase;
 
 class InvoiceTest extends PHPUnit_Framework_TestCase
 {

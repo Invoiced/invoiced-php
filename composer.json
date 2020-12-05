@@ -38,5 +38,10 @@
   },
   "autoload": {
     "psr-4": { "Invoiced\\" : "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Invoiced\\Tests\\": "tests/"
+    }
   }
 }

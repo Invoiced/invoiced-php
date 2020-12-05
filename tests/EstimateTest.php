@@ -1,9 +1,12 @@
 <?php
 
+namespace Invoiced\Tests;
+
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
 use Invoiced\Estimate;
+use PHPUnit_Framework_TestCase;
 
 class EstimateTest extends PHPUnit_Framework_TestCase
 {
