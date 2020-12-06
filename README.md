@@ -25,19 +25,25 @@ composer require invoiced/invoiced
 First, you must instantiate a new client
 
 ```php
-$invoiced = new Invoiced\Client("{API_KEY}");
+$invoiced = new Invoiced\Client('{API_KEY}');
 ```
 
 Then, API calls can be made like this:
 ```php
 // retrieve invoice
-$invoice = $invoiced->Invoice->retrieve("{INVOICE_ID}");
+$invoice = $invoiced->Invoice->retrieve('{INVOICE_ID}');
 
 // mark as paid
-$transaction = $invoiced->Transaction->create([
-    'invoice' => $invoice->id,
+$payment = $invoiced->Payment->create([
     'amount' => $invoice->balance,
-    'method' => "check"
+    'method' => 'check',
+    'applied_to' => [
+        [
+            'type' => 'invoice',
+            'invoice' => $invoice->id,
+            'amount' => $invoice->balance,
+        ],
+    ]
 ]);
 ```
 
