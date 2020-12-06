@@ -44,7 +44,7 @@ class ChargeTest extends PHPUnit_Framework_TestCase
     {
         $charge = self::$invoiced->Charge->create(['customer' => 123]);
 
-        $this->assertInstanceOf('Invoiced\\Charge', $charge);
+        $this->assertInstanceOf('Invoiced\\Payment', $charge);
         $this->assertEquals(123, $charge->id);
         $this->assertEquals(100, $charge->amount);
     }
