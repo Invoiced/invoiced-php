@@ -18,13 +18,6 @@ class Client
     const CONNECT_TIMEOUT = 30;
     const READ_TIMEOUT = 60;
 
-    /**
-     * @deprecated
-     *
-     * @var CatalogItem
-     */
-    public $CatalogItem;
-
     /** @var Coupon */
     public $Coupon;
 
@@ -72,9 +65,6 @@ class Client
 
     /** @var TaxRate */
     public $TaxRate;
-
-    /** @var Transaction */
-    public $Transaction;
 
     /**
      * @var string
@@ -125,11 +115,10 @@ class Client
 
         $this->client = new GuzzleClient([
             'base_uri' => $this->endpoint(),
-            'handler'  => $handlerStack,
+            'handler' => $handlerStack,
         ]);
 
         // object endpoints
-        $this->CatalogItem = new CatalogItem($this);
         $this->Charge = new Charge($this);
         $this->Coupon = new Coupon($this);
         $this->CreditNote = new CreditNote($this);
@@ -146,7 +135,6 @@ class Client
         $this->Subscription = new Subscription($this);
         $this->Task = new Task($this);
         $this->TaxRate = new TaxRate($this);
-        $this->Transaction = new Transaction($this);
     }
 
     /**
@@ -186,13 +174,13 @@ class Client
         $method = strtolower($method);
 
         $request = [
-            'auth'            => [$this->apiKey, ''],
-            'headers'         => $this->buildHeaders($opts),
-            'query'           => [],
-            'http_errors'     => false,
-            'verify'          => $this->caBundleFile,
+            'auth' => [$this->apiKey, ''],
+            'headers' => $this->buildHeaders($opts),
+            'query' => [],
+            'http_errors' => false,
+            'verify' => $this->caBundleFile,
             'connect_timeout' => self::CONNECT_TIMEOUT,
-            'read_timeout'    => self::READ_TIMEOUT,
+            'read_timeout' => self::READ_TIMEOUT,
         ];
 
         // these methods have no request body
@@ -231,9 +219,9 @@ class Client
             }
 
             return [
-                'code'    => $code,
+                'code' => $code,
                 'headers' => $parsedHeaders,
-                'body'    => $parsed,
+                'body' => $parsed,
             ];
         } else {
             $error = json_decode($body, true);
@@ -267,7 +255,7 @@ class Client
     {
         $headers = [
             'Content-Type' => 'application/json',
-            'User-Agent'   => 'Invoiced PHP/'.self::VERSION,
+            'User-Agent' => 'Invoiced PHP/'.self::VERSION,
         ];
 
         if (isset($opts['idempotency_key']) && $opts['idempotency_key']) {
