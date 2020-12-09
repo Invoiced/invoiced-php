@@ -24,6 +24,9 @@ class Client
     /** @var Charge */
     public $Charge;
 
+    /** @var CreditBalanceAdjustment */
+    public $CreditBalanceAdjustment;
+
     /** @var CreditNote */
     public $CreditNote;
 
@@ -121,6 +124,7 @@ class Client
         // object endpoints
         $this->Charge = new Charge($this);
         $this->Coupon = new Coupon($this);
+        $this->CreditBalanceAdjustment = new CreditBalanceAdjustment($this);
         $this->CreditNote = new CreditNote($this);
         $this->Customer = new Customer($this);
         $this->Estimate = new Estimate($this);
