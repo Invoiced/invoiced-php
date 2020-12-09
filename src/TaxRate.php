@@ -2,6 +2,16 @@
 
 namespace Invoiced;
 
+/**
+ * @property string $id
+ * @property string $object
+ * @property string $name
+ * @property string $currency
+ * @property bool   $is_percent
+ * @property bool   $inclusive
+ * @property int    $created_at
+ * @property object $metadata
+ */
 class TaxRate extends BaseObject
 {
     use Operations\Create;
