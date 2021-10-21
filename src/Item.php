@@ -3,10 +3,21 @@
 namespace Invoiced;
 
 /**
- * @property string      $name
+ * @property string|null $avalara_location_code
+ * @property string|null $avalara_tax_code
+ * @property int $created_at
+ * @property string $currency
  * @property string|null $description
- * @property float       $amount
- * @property float       $unit_cost
+ * @property bool $discountable
+ * @property string|null $gl_account
+ * @property string $id
+ * @property object $metadata
+ * @property string $name
+ * @property bool $taxable
+ * @property array $taxes
+ * @property string $type
+ * @property float $unit_cost
+ * @property int $updated_at
  */
 class Item extends BaseObject
 {
