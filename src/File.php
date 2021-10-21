@@ -3,6 +3,7 @@
 namespace Invoiced;
 
 /**
+ * @property int    $created_at
  * @property string $name
  * @property int    $size
  * @property string $type

@@ -3,14 +3,26 @@
 namespace Invoiced;
 
 /**
- * @property string $number
- * @property bool   $draft
- * @property bool   $closed
- * @property bool   $paid
- * @property bool   $voided
- * @property string $status
- * @property float  $subtotal
- * @property float  $total
+ * @property bool        $closed
+ * @property int         $created_at
+ * @property int         $updated_at
+ * @property string      $currency
+ * @property int         $customer
+ * @property int         $date
+ * @property array       $discounts
+ * @property bool        $draft
+ * @property array       $items
+ * @property object      $metadata
+ * @property null|string $name
+ * @property null|string $notes
+ * @property int         $number
+ * @property string      $pdf_url
+ * @property null|string $purchase_order
+ * @property string      $status
+ * @property float       $subtotal
+ * @property array       $taxes
+ * @property float       $total
+ * @property string      $url
  */
 abstract class BaseDocument extends BaseObject
 {

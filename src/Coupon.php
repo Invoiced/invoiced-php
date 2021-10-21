@@ -14,6 +14,7 @@ namespace Invoiced;
  * @property int|null $max_redemptions
  * @property int      $created_at
  * @property object   $metadata
+ * @property int      $updated_at
  */
 class Coupon extends BaseObject
 {

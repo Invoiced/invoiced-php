@@ -2,6 +2,12 @@
 
 namespace Invoiced;
 
+/**
+ * Class CreditNote.
+ *
+ * @property float $balance
+ * @property bool  $paid
+ */
 class CreditNote extends BaseDocument
 {
     protected $_endpoint = '/credit_notes';
