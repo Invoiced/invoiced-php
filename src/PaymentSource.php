@@ -2,6 +2,16 @@
 
 namespace Invoiced;
 
+/**
+ * Class PaymentSource
+ * @package Invoiced
+ * @property string $brand
+ * @property int $exp_month
+ * @property int $exp_year
+ * @property string $funding
+ * @property int $last
+ * @property int $updated_at
+ */
 class PaymentSource extends BaseObject
 {
     use Operations\Create;

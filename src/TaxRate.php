@@ -11,6 +11,7 @@ namespace Invoiced;
  * @property bool   $inclusive
  * @property int    $created_at
  * @property object $metadata
+ * @property int    $updated_at
  */
 class TaxRate extends BaseObject
 {
