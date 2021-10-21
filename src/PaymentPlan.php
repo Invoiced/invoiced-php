@@ -6,10 +6,10 @@ use BadMethodCallException;
 
 /**
  * @property object $approval
- * @property int $created_at
- * @property array $installments
+ * @property int    $created_at
+ * @property array  $installments
  * @property string $status
- * @property int $updated_at
+ * @property int    $updated_at
  */
 class PaymentPlan extends BaseObject
 {

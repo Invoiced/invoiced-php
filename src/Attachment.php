@@ -3,10 +3,10 @@
 namespace Invoiced;
 
 /**
- * Class Attachment
- * @package Invoiced
- * @property int $created_at
- * @property int $updated_at
+ * Class Attachment.
+ *
+ * @property int   $created_at
+ * @property int   $updated_at
  * @property array $file
  */
 class Attachment extends BaseObject

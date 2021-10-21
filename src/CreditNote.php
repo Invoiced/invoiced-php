@@ -2,12 +2,11 @@
 
 namespace Invoiced;
 
-
 /**
- * Class CreditNote
- * @package Invoiced
+ * Class CreditNote.
+ *
  * @property float $balance
- * @property boolean $paid
+ * @property bool  $paid
  */
 class CreditNote extends BaseDocument
 {

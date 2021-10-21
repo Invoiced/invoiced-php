@@ -3,13 +3,13 @@
 namespace Invoiced;
 
 /**
- * @property int $created_at
- * @property int $customer
+ * @property int      $created_at
+ * @property int      $customer
  * @property int|null $invoice
- * @property string $notes
- * @property object $user
- * @property int $updated_at
-}
+ * @property string   $notes
+ * @property object   $user
+ * @property int      $updated_at
+ *                                }
  */
 class Note extends BaseObject
 {

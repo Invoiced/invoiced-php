@@ -3,16 +3,16 @@
 namespace Invoiced;
 
 /**
- * Class Estimate
- * @package Invoiced
- * @property null|bool $approved
- * @property int $deposit
- * @property bool $deposit_paid
- * @property null|int $expiration_date
- * @property null|int $invoice
+ * Class Estimate.
+ *
+ * @property null|bool   $approved
+ * @property int         $deposit
+ * @property bool        $deposit_paid
+ * @property null|int    $expiration_date
+ * @property null|int    $invoice
  * @property null|string $payment_terms
  * @property null|object $ship_to
-*/
+ */
 class Estimate extends BaseDocument
 {
     protected $_endpoint = '/estimates';

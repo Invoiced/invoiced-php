@@ -4,21 +4,21 @@ namespace Invoiced;
 
 /**
  * @property string|null $ach_sender_id
- * @property float $amount
- * @property float $balance
- * @property int|null $charge
- * @property int $created_at
- * @property string $currency
- * @property int|null $customer
- * @property int $date
- * @property bool $matched
- * @property string $method
+ * @property float       $amount
+ * @property float       $balance
+ * @property int|null    $charge
+ * @property int         $created_at
+ * @property string      $currency
+ * @property int|null    $customer
+ * @property int         $date
+ * @property bool        $matched
+ * @property string      $method
  * @property string|null $notes
- * @property string $pdf_url
+ * @property string      $pdf_url
  * @property string|null $reference
- * @property string $source
- * @property bool $voided
- * @property int $updated_at
+ * @property string      $source
+ * @property bool        $voided
+ * @property int         $updated_at
  */
 class Payment extends BaseObject
 {

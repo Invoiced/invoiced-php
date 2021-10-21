@@ -3,12 +3,12 @@
 namespace Invoiced;
 
 /**
- * Class BankAccount
- * @package Invoiced
+ * Class BankAccount.
+ *
  * @property string $bank_name
  * @property string $currency
- * @property int $routing_number
- * @property bool $verified
+ * @property int    $routing_number
+ * @property bool   $verified
  */
 class BankAccount extends BasePaymentSourceObject
 {

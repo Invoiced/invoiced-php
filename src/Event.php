@@ -2,13 +2,12 @@
 
 namespace Invoiced;
 
-
 /**
- * Class Event
- * @package Invoiced
+ * Class Event.
+ *
  * @property object $data
  * @property string $type
- * @property int $timestamp
+ * @property int    $timestamp
  */
 class Event extends BaseObject
 {

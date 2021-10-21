@@ -3,45 +3,45 @@
 namespace Invoiced;
 
 /**
- * @property int|null $ach_gateway
+ * @property int|null    $ach_gateway
  * @property string|null $address1
  * @property string|null $address2
  * @property string|null $attention_to
- * @property bool $autopay
- * @property int|null $autopay_delay_days
+ * @property bool        $autopay
+ * @property int|null    $autopay_delay_days
  * @property string|null $avalara_entity_use_code
  * @property string|null $avalara_exemption_number
- * @property int|null $cc_gateway
- * @property bool $chase
- * @property int|null $chasing_cadence
+ * @property int|null    $cc_gateway
+ * @property bool        $chase
+ * @property int|null    $chasing_cadence
  * @property string|null $city
  * @property string|null $country
- * @property int $created_at
- * @property bool $credit_hold
- * @property float|null $credit_limit
+ * @property int         $created_at
+ * @property bool        $credit_hold
+ * @property float|null  $credit_limit
  * @property string|null $currency
  * @property string|null $email
  * @property string|null $language
- * @property object $metadata
- * @property string $name
- * @property int|null $next_chase_step
+ * @property object      $metadata
+ * @property string      $name
+ * @property int|null    $next_chase_step
  * @property string|null $notes
- * @property string $number
- * @property int|null $owner
- * @property int|null $parent_customer
- * @property object $payment_source
+ * @property string      $number
+ * @property int|null    $owner
+ * @property int|null    $parent_customer
+ * @property object      $payment_source
  * @property string|null $payment_terms
  * @property string|null $phone
  * @property string|null $postal_code
- * @property int|null $sign_up_page
+ * @property int|null    $sign_up_page
  * @property string|null $sign_up_url
  * @property string|null $state
- * @property string $statement_pdf_url
- * @property int|null $tax_id
- * @property bool $taxable
- * @property array $taxes
- * @property string $type
- * @property int $updated_at
+ * @property string      $statement_pdf_url
+ * @property int|null    $tax_id
+ * @property bool        $taxable
+ * @property array       $taxes
+ * @property string      $type
+ * @property int         $updated_at
  */
 class Customer extends BaseObject
 {

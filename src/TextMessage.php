@@ -3,8 +3,8 @@
 namespace Invoiced;
 
 /**
- * Class TextMessage
- * @package Invoiced
+ * Class TextMessage.
+ *
  * @property int    $created_at
  * @property string $message
  * @property string $state

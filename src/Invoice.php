@@ -3,8 +3,8 @@
 namespace Invoiced;
 
 /**
- * Class Invoice
- * @package Invoiced
+ * Class Invoice.
+ *
  ** @property int $attempt_count
  ** @property bool $autopay
  ** @property float $balance
@@ -16,7 +16,7 @@ namespace Invoiced;
  ** @property string $payment_url
  ** @property null|object $ship_to
  ** @property null|int $subscription
-*/
+ */
 class Invoice extends BaseDocument
 {
     protected $_endpoint = '/invoices';
