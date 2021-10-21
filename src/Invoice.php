@@ -4,19 +4,20 @@ namespace Invoiced;
 
 /**
  * Class Invoice.
- *
- ** @property int $attempt_count
- ** @property bool $autopay
- ** @property float $balance
- ** @property nuLL|int $due_date
- ** @property null|int $next_payment_attempt
- ** @property bool $paid
- ** @property null|int $payment_plan
- ** @property null|string $payment_terms
- ** @property string $payment_url
- ** @property null|object $ship_to
- ** @property null|int $subscription
- */
+ * Class Invoice
+ * @package Invoiced
+ * @property int $attempt_count
+ * @property bool $autopay
+ * @property float $balance
+ * @property nuLL|int $due_date
+ * @property null|int $next_payment_attempt
+ * @property bool $paid
+ * @property null|int $payment_plan
+ * @property null|string $payment_terms
+ * @property string $payment_url
+ * @property null|object $ship_to
+ * @property null|int $subscription
+*/
 class Invoice extends BaseDocument
 {
     protected $_endpoint = '/invoices';

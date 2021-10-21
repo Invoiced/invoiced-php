@@ -17,6 +17,7 @@ namespace Invoiced;
  * @property string      $pdf_url
  * @property string|null $reference
  * @property string      $source
+ * @property string      $status
  * @property bool        $voided
  * @property int         $updated_at
  */
