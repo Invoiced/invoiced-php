@@ -21,8 +21,12 @@ trait All
         // build objects
         $objects = Util::buildObjects($this, $response['body']);
 
-        // store the metadata from the list operation
-        $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']);
+        $metadata = [];
+
+        if (isset($response['headers']['Link']) && isset($response['headers']['X-Total-Count'])) {
+            // store the metadata from the list operation
+            $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']);
+        }
 
         return [$objects, $metadata];
     }
