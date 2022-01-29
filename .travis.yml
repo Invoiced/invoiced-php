@@ -9,14 +9,15 @@ php:
   - '7.3'
   - '7.4'
   - '8.0'
+  - '8.1'
 
 os: linux
-dist: trusty
+dist: focal
 
 jobs:
   allow_failures:
-    - php: 7.3
     - php: 8.0
+    - php: 8.1
 
 cache:
   directories:
@@ -24,12 +25,12 @@ cache:
 
 before_script:
   # PHPStan is only supported on 7.1+
-  - if ! ([ "$TRAVIS_PHP_VERSION" == "7.1" ] || [ "$TRAVIS_PHP_VERSION" == "7.2" ] || [ "$TRAVIS_PHP_VERSION" == "7.3" ] || [ "$TRAVIS_PHP_VERSION" == "7.4" ]); then composer remove phpstan/phpstan --dev; fi
+  - if ! ([ "$TRAVIS_PHP_VERSION" == "7.1" ] || [ "$TRAVIS_PHP_VERSION" == "7.2" ] || [ "$TRAVIS_PHP_VERSION" == "7.3" ] || [ "$TRAVIS_PHP_VERSION" == "7.4" ] || [ "$TRAVIS_PHP_VERSION" == "8.0" ] || [ "$TRAVIS_PHP_VERSION" == "8.1" ]); then composer remove phpstan/phpstan --dev; fi
   - composer install
   - mkdir -p build/logs
 
 script:
-  - if [ "$TRAVIS_PHP_VERSION" == "7.1" ] || [ "$TRAVIS_PHP_VERSION" == "7.2" ] || [ "$TRAVIS_PHP_VERSION" == "7.3" ] || [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
+  - if [ "$TRAVIS_PHP_VERSION" == "7.1" ] || [ "$TRAVIS_PHP_VERSION" == "7.2" ] || [ "$TRAVIS_PHP_VERSION" == "7.3" ] || [ "$TRAVIS_PHP_VERSION" == "7.4" ] || [ "$TRAVIS_PHP_VERSION" == "8.0" ] || [ "$TRAVIS_PHP_VERSION" == "8.1" ]; then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
   - vendor/bin/phpunit
 
 after_script:
