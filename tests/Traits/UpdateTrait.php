@@ -26,7 +26,7 @@ trait UpdateTrait
 
         $class = self::OBJECT_CLASS;
         $obj = new $class($client, 456, []);
-        $obj->name = 'Nancy Drew';
+        $obj->name = 'Nancy Drew'; /* @phpstan-ignore-line */
         $this->assertTrue($obj->save());
 
         $this->assertEquals('Nancy Drew', $obj->name);
@@ -42,7 +42,7 @@ trait UpdateTrait
         $client = $this->makeClient(new Response(401));
         $class = self::OBJECT_CLASS;
         $obj = new $class($client, 456, []);
-        $obj->name = 'Nancy Drew';
+        $obj->name = 'Nancy Drew'; /* @phpstan-ignore-line */
         $obj->save();
     }
 }
