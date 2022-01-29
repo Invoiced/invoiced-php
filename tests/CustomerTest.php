@@ -6,11 +6,26 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
 use Invoiced\Customer;
-use PHPUnit_Framework_TestCase;
+use Invoiced\Tests\Traits\CreateTrait;
+use Invoiced\Tests\Traits\DeleteTrait;
+use Invoiced\Tests\Traits\GetEndpointTrait;
+use Invoiced\Tests\Traits\ListTrait;
+use Invoiced\Tests\Traits\RetrieveTrait;
+use Invoiced\Tests\Traits\UpdateTrait;
 use stdClass;
 
-class CustomerTest extends PHPUnit_Framework_TestCase
+class CustomerTest extends AbstractEndpointTestCase
 {
+    use GetEndpointTrait;
+    use CreateTrait;
+    use RetrieveTrait;
+    use UpdateTrait;
+    use DeleteTrait;
+    use ListTrait;
+
+    const OBJECT_CLASS = 'Invoiced\\Customer';
+    const EXPECTED_ENDPOINT = '/customers/123';
+
     /**
      * @var Client
      */
@@ -22,12 +37,6 @@ class CustomerTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(201, [], '{"id":123,"name":"Pied Piper"}'),
-            new Response(200, [], '{"id":"123","name":"Pied Piper"}'),
-            new Response(200, [], '{"id":123,"name":"Pied Piper","notes":"Terrible customer"}'),
-            new Response(401),
-            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers?per_page=25&page=1>; rel="last"'], '[{"id":123,"name":"Pied Piper"}]'),
-            new Response(204),
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),
             new Response(200, [], '{"total_outstanding":1000,"available_credits":0,"past_due":true}'),
             new Response(201, [], '{"id":123,"name":"Nancy"}'),
@@ -50,105 +59,6 @@ class CustomerTest extends PHPUnit_Framework_TestCase
         ]);
 
         self::$invoiced = new Client('API_KEY', false, null, $mock);
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetEndpoint()
-    {
-        $customer = new Customer(self::$invoiced, 123);
-        $this->assertEquals('/customers/123', $customer->getEndpoint());
-    }
-
-    /**
-     * @return void
-     */
-    public function testCreate()
-    {
-        $customer = self::$invoiced->Customer->create(['name' => 'Pied Piper']);
-
-        $this->assertInstanceOf('Invoiced\\Customer', $customer);
-        $this->assertEquals(123, $customer->id);
-        $this->assertEquals('Pied Piper', $customer->name);
-    }
-
-    /**
-     * @return void
-     */
-    public function testRetrieveNoId()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        self::$invoiced->Customer->retrieve('');
-    }
-
-    /**
-     * @return void
-     */
-    public function testRetrieve()
-    {
-        $customer = self::$invoiced->Customer->retrieve(123);
-
-        $this->assertInstanceOf('Invoiced\\Customer', $customer);
-        $this->assertEquals(123, $customer->id);
-        $this->assertEquals('Pied Piper', $customer->name);
-    }
-
-    /**
-     * @return void
-     */
-    public function testUpdateNoValue()
-    {
-        $customer = new Customer(self::$invoiced, 123);
-        $this->assertFalse($customer->save());
-    }
-
-    /**
-     * @return void
-     */
-    public function testUpdate()
-    {
-        $customer = new Customer(self::$invoiced, 123);
-        $customer->notes = 'Terrible customer';
-        $this->assertTrue($customer->save());
-
-        $this->assertEquals('Terrible customer', $customer->notes);
-    }
-
-    /**
-     * @return void
-     */
-    public function testUpdateFail()
-    {
-        $this->setExpectedException('Invoiced\\Error\\ApiError');
-
-        $customer = new Customer(self::$invoiced, 123);
-        $customer->notes = 'Great customer';
-        $customer->save();
-    }
-
-    /**
-     * @return void
-     */
-    public function testAll()
-    {
-        list($customers, $metadata) = self::$invoiced->Customer->all();
-
-        $this->assertTrue(is_array($customers));
-        $this->assertCount(1, $customers);
-        $this->assertEquals(123, $customers[0]->id);
-
-        $this->assertInstanceOf('Invoiced\\Collection', $metadata);
-        $this->assertEquals(15, $metadata->total_count);
-    }
-
-    /**
-     * @return void
-     */
-    public function testDelete()
-    {
-        $customer = new Customer(self::$invoiced, 123);
-        $this->assertTrue($customer->delete());
     }
 
     /**

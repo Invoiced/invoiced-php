@@ -2,47 +2,23 @@
 
 namespace Invoiced\Tests;
 
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Invoiced\Charge;
-use Invoiced\Client;
-use PHPUnit_Framework_TestCase;
+use Invoiced\Tests\Traits\GetEndpointTrait;
 
-class ChargeTest extends PHPUnit_Framework_TestCase
+class ChargeTest extends AbstractEndpointTestCase
 {
-    /**
-     * @var Client
-     */
-    public static $invoiced;
+    use GetEndpointTrait;
 
-    /**
-     * @return void
-     */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            new Response(201, [], '{"id":123,"amount":100}'),
-            new Response(201, [], '{"id":456,"amount":50,"object":"refund"}'),
-        ]);
-
-        self::$invoiced = new Client('API_KEY', false, null, $mock);
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetEndpoint()
-    {
-        $charge = new Charge(self::$invoiced, 123);
-        $this->assertEquals('/charges/123', $charge->getEndpoint());
-    }
+    const OBJECT_CLASS = 'Invoiced\\Charge';
+    const EXPECTED_ENDPOINT = '/charges/123';
 
     /**
      * @return void
      */
     public function testCreate()
     {
-        $charge = self::$invoiced->Charge->create(['customer' => 123]);
+        $client = $this->makeClient(new Response(201, [], '{"id":123,"amount":100}'));
+        $charge = $client->Charge->create(['customer' => 123]);
 
         $this->assertInstanceOf('Invoiced\\Payment', $charge);
         $this->assertEquals(123, $charge->id);

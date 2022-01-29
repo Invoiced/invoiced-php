@@ -2,54 +2,20 @@
 
 namespace Invoiced\Tests;
 
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Invoiced\Client;
 use Invoiced\PaymentPlan;
-use PHPUnit_Framework_TestCase;
+use Invoiced\Tests\Traits\CreateTrait;
+use Invoiced\Tests\Traits\DeleteTrait;
+use Invoiced\Tests\Traits\GetEndpointTrait;
 
-class PaymentPlanTest extends PHPUnit_Framework_TestCase
+class PaymentPlanTest extends AbstractEndpointTestCase
 {
-    /**
-     * @var Client
-     */
-    public static $invoiced;
+    use GetEndpointTrait;
+    use CreateTrait;
+    use DeleteTrait;
 
-    /**
-     * @return void
-     */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            new Response(201, [], '{"id":456,"status":"active"}'),
-            new Response(200, [], '{"id":456,"status":"active"}'),
-            new Response(204),
-        ]);
-
-        self::$invoiced = new Client('API_KEY', false, null, $mock);
-    }
-
-    /**
-     * @return void
-     */
-    public function testGetEndpoint()
-    {
-        $plan = new PaymentPlan(self::$invoiced, 123);
-        $this->assertEquals('/payment_plan', $plan->getEndpoint());
-    }
-
-    /**
-     * @return void
-     */
-    public function testCreate()
-    {
-        $plan = new PaymentPlan(self::$invoiced, null, []);
-        $paymentPlan = $plan->create(['date' => 1234, 'amount' => 100]);
-
-        $this->assertInstanceOf('Invoiced\\PaymentPlan', $paymentPlan);
-        $this->assertEquals(456, $paymentPlan->id);
-        $this->assertEquals('active', $paymentPlan->status);
-    }
+    const OBJECT_CLASS = 'Invoiced\\PaymentPlan';
+    const EXPECTED_ENDPOINT = '/payment_plan';
 
     /**
      * @return void
@@ -58,7 +24,7 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('BadMethodCallException');
 
-        $plan = new PaymentPlan(self::$invoiced, null, []);
+        $plan = new PaymentPlan($this->makeClient(), null, []);
         $paymentPlan = $plan->retrieve(456);
     }
 
@@ -67,20 +33,12 @@ class PaymentPlanTest extends PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        $plan = new PaymentPlan(self::$invoiced, null, []);
+        $client = $this->makeClient(new Response(200, [], '{"id":456,"status":"active"}'));
+        $plan = new PaymentPlan($client, null, []);
         $paymentPlan = $plan->get();
 
         $this->assertInstanceOf('Invoiced\\PaymentPlan', $paymentPlan);
         $this->assertEquals(456, $paymentPlan->id);
         $this->assertEquals('active', $paymentPlan->status);
-    }
-
-    /**
-     * @return void
-     */
-    public function testCancel()
-    {
-        $paymentPlan = new PaymentPlan(self::$invoiced, 456, []);
-        $this->assertTrue($paymentPlan->cancel());
     }
 }
