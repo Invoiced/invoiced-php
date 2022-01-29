@@ -2,8 +2,6 @@
 
 namespace Invoiced\Tests\Traits;
 
-use Invoiced\Client;
-
 trait GetEndpointTrait
 {
     /**

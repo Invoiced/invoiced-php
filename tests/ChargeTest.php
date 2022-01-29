@@ -2,11 +2,8 @@
 
 namespace Invoiced\Tests;
 
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Invoiced\Client;
 use Invoiced\Tests\Traits\GetEndpointTrait;
-use PHPUnit_Framework_TestCase;
 
 class ChargeTest extends AbstractEndpointTestCase
 {

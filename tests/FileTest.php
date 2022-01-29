@@ -6,7 +6,6 @@ use Invoiced\Tests\Traits\CreateTrait;
 use Invoiced\Tests\Traits\DeleteTrait;
 use Invoiced\Tests\Traits\GetEndpointTrait;
 use Invoiced\Tests\Traits\RetrieveTrait;
-use PHPUnit_Framework_TestCase;
 
 class FileTest extends AbstractEndpointTestCase
 {

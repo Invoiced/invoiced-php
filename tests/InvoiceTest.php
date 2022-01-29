@@ -15,7 +15,6 @@ use Invoiced\Tests\Traits\RetrieveTrait;
 use Invoiced\Tests\Traits\SendTrait;
 use Invoiced\Tests\Traits\UpdateTrait;
 use Invoiced\Tests\Traits\VoidTrait;
-use PHPUnit_Framework_TestCase;
 
 class InvoiceTest extends AbstractEndpointTestCase
 {

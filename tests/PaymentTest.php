@@ -9,7 +9,6 @@ use Invoiced\Tests\Traits\ListTrait;
 use Invoiced\Tests\Traits\RetrieveTrait;
 use Invoiced\Tests\Traits\SendTrait;
 use Invoiced\Tests\Traits\UpdateTrait;
-use PHPUnit_Framework_TestCase;
 
 class PaymentTest extends AbstractEndpointTestCase
 {

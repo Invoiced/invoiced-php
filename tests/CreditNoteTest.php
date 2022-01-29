@@ -2,10 +2,6 @@
 
 namespace Invoiced\Tests;
 
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use Invoiced\Client;
-use Invoiced\CreditNote;
 use Invoiced\Tests\Traits\AttachmentsTrait;
 use Invoiced\Tests\Traits\CreateTrait;
 use Invoiced\Tests\Traits\DeleteTrait;
@@ -15,7 +11,6 @@ use Invoiced\Tests\Traits\RetrieveTrait;
 use Invoiced\Tests\Traits\SendTrait;
 use Invoiced\Tests\Traits\UpdateTrait;
 use Invoiced\Tests\Traits\VoidTrait;
-use PHPUnit_Framework_TestCase;
 
 class CreditNoteTest extends AbstractEndpointTestCase
 {

@@ -12,7 +12,6 @@ use Invoiced\Tests\Traits\GetEndpointTrait;
 use Invoiced\Tests\Traits\ListTrait;
 use Invoiced\Tests\Traits\RetrieveTrait;
 use Invoiced\Tests\Traits\UpdateTrait;
-use PHPUnit_Framework_TestCase;
 use stdClass;
 
 class CustomerTest extends AbstractEndpointTestCase

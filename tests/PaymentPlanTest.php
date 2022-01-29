@@ -2,14 +2,11 @@
 
 namespace Invoiced\Tests;
 
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Invoiced\Client;
 use Invoiced\PaymentPlan;
 use Invoiced\Tests\Traits\CreateTrait;
 use Invoiced\Tests\Traits\DeleteTrait;
 use Invoiced\Tests\Traits\GetEndpointTrait;
-use PHPUnit_Framework_TestCase;
 
 class PaymentPlanTest extends AbstractEndpointTestCase
 {

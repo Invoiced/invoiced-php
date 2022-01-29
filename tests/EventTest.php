@@ -4,7 +4,6 @@ namespace Invoiced\Tests;
 
 use Invoiced\Tests\Traits\GetEndpointTrait;
 use Invoiced\Tests\Traits\ListTrait;
-use PHPUnit_Framework_TestCase;
 
 class EventTest extends AbstractEndpointTestCase
 {

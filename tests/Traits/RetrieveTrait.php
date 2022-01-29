@@ -2,9 +2,7 @@
 
 namespace Invoiced\Tests\Traits;
 
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
-use Invoiced\Client;
 
 trait RetrieveTrait
 {
