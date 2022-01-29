@@ -30,6 +30,7 @@ abstract class BaseDocument extends BaseObject
     use Operations\All;
     use Operations\Update;
     use Operations\Delete;
+    use Operations\VoidDocument;
 
     /**
      * Fetches the document's file attachments.
@@ -58,20 +59,5 @@ abstract class BaseDocument extends BaseObject
         $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']);
 
         return [$attachments, $metadata];
-    }
-
-    /**
-     * Voids the document.
-     *
-     * @return bool
-     */
-    public function void()
-    {
-        $response = $this->_client->request('post', $this->getEndpoint().'/void', [], []);
-
-        // update the local values with the response
-        $this->_values = array_replace((array) $response['body'], ['id' => $this->id]);
-
-        return 200 == $response['code'];
     }
 }
