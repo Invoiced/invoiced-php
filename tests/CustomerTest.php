@@ -34,7 +34,7 @@ class CustomerTest extends AbstractEndpointTestCase
     /**
      * @return void
      */
-    public static function setUpBeforeClass()
+    public static function set_up_before_class()
     {
         $mock = new MockHandler([
             new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'),

@@ -37,7 +37,7 @@ trait UpdateTrait
      */
     public function testUpdateFail()
     {
-        $this->setExpectedException('Invoiced\\Error\\ApiError');
+        $this->expectException('Invoiced\\Error\\ApiError');
 
         $client = $this->makeClient(new Response(401));
         $class = self::OBJECT_CLASS;

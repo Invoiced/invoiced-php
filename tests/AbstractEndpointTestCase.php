@@ -5,9 +5,9 @@ namespace Invoiced\Tests;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Invoiced\Client;
-use PHPUnit_Framework_TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-abstract class AbstractEndpointTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractEndpointTestCase extends TestCase
 {
     /**
      * @param Response|null $response
