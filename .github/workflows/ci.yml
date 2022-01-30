@@ -52,8 +52,6 @@ jobs:
           if [ "${{ matrix.php-version }}" == "7.0" ] || [ "${{ matrix.php-version }}" == "7.1" ] || [ "${{ matrix.php-version }}" == "7.2" ]; then composer require --dev -W "phpunit/phpunit:^6"; fi
           # PHPUnit 9 for 7.3+
           if [ "${{ matrix.php-version }}" == "7.3" ] || [ "${{ matrix.php-version }}" == "7.4" ] || [ "${{ matrix.php-version }}" == "8.0" ] || [ "${{ matrix.php-version }}" == "8.1" ]; then composer require --dev -W "phpunit/phpunit:^9"; fi
-          # Only report coverage on 7.4
-          if [ "${{ matrix.php-version }}" == "7.4" ]; then composer require --dev php-coveralls/php-coveralls; fi
           composer install --prefer-dist --no-progress --no-interaction --no-scripts
           mkdir -p build/logs
 
@@ -66,7 +64,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
           # Only report on 7.4
-          if [ "${{ matrix.php-version }}" == "7.4" ]; then vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v; fi
+          if [ "${{ matrix.php-version }}" == "7.4" ]; then composer global require php-coveralls/php-coveralls && php-coveralls -v; fi
 
   phpstan:
     runs-on: ubuntu-latest
