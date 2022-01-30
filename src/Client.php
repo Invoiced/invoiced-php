@@ -18,80 +18,86 @@ class Client
     const CONNECT_TIMEOUT = 30;
     const READ_TIMEOUT = 60;
 
-    /** @var Coupon */
-    public $Coupon;
-
     /** @var Charge */
     public $Charge;
-
+    /** @var Coupon */
+    public $Coupon;
     /** @var CreditBalanceAdjustment */
     public $CreditBalanceAdjustment;
-
     /** @var CreditNote */
     public $CreditNote;
-
+    /** @var CustomField */
+    public $CustomField;
     /** @var Customer */
     public $Customer;
-
+    /** @var CustomerChasingCadence */
+    public $CustomerChasingCadence;
+    /** @var EmailTemplate */
+    public $EmailTemplate;
     /** @var Estimate */
     public $Estimate;
-
     /** @var Event */
     public $Event;
-
     /** @var File */
     public $File;
-
-    /** @var Invoice */
-    public $Invoice;
-
+    /** @var GlAccount */
+    public $GlAccount;
+    /** @var Inbox */
+    public $Inbox;
     /** @var Item */
     public $Item;
-
+    /** @var Invoice */
+    public $Invoice;
+    /** @var InvoiceChasingCadence */
+    public $InvoiceChasingCadence;
+    /** @var LateFeeSchedule */
+    public $LateFeeSchedule;
+    /** @var Member */
+    public $Member;
+    /** @var MerchantAccount */
+    public $MerchantAccount;
     /** @var Note */
     public $Note;
-
     /** @var Payment */
     public $Payment;
-
+    /** @var PaymentMethod */
+    public $PaymentMethod;
+    /** @var PdfTemplate */
+    public $PdfTemplate;
     /** @var Plan */
     public $Plan;
-
     /** @var Refund */
     public $Refund;
-
+    /** @var Report */
+    public $Report;
+    /** @var Role */
+    public $Role;
+    /** @var SignUpPage */
+    public $SignUpPage;
+    /** @var SmsTemplate */
+    public $SmsTemplate;
     /** @var Subscription */
     public $Subscription;
-
     /** @var Task */
     public $Task;
-
     /** @var TaxRate */
     public $TaxRate;
+    /** @var TaxRule */
+    public $TaxRule;
+    /** @var Theme */
+    public $Theme;
+    /** @var Webhook */
+    public $Webhook;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $apiKey;
-
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $sandbox;
-
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $ssoKey;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     private $caBundleFile;
-
-    /**
-     * @var GuzzleClient
-     */
+    /** @var GuzzleClient */
     private $client;
 
     /**
@@ -126,19 +132,37 @@ class Client
         $this->Coupon = new Coupon($this);
         $this->CreditBalanceAdjustment = new CreditBalanceAdjustment($this);
         $this->CreditNote = new CreditNote($this);
+        $this->CustomField = new CustomField($this);
         $this->Customer = new Customer($this);
+        $this->CustomerChasingCadence = new CustomerChasingCadence($this);
+        $this->EmailTemplate = new EmailTemplate($this);
         $this->Estimate = new Estimate($this);
         $this->Event = new Event($this);
         $this->File = new File($this);
+        $this->GlAccount = new GlAccount($this);
+        $this->Inbox = new Inbox($this);
         $this->Invoice = new Invoice($this);
+        $this->InvoiceChasingCadence = new InvoiceChasingCadence($this);
         $this->Item = new Item($this);
+        $this->LateFeeSchedule = new LateFeeSchedule($this);
+        $this->Member = new Member($this);
+        $this->MerchantAccount = new MerchantAccount($this);
         $this->Note = new Note($this);
         $this->Payment = new Payment($this);
+        $this->PaymentMethod = new PaymentMethod($this);
+        $this->PdfTemplate = new PdfTemplate($this);
         $this->Plan = new Plan($this);
         $this->Refund = new Refund($this);
+        $this->Report = new Report($this);
+        $this->Role = new Role($this);
+        $this->SignUpPage = new SignUpPage($this);
+        $this->SmsTemplate = new SmsTemplate($this);
         $this->Subscription = new Subscription($this);
         $this->Task = new Task($this);
         $this->TaxRate = new TaxRate($this);
+        $this->TaxRule = new TaxRule($this);
+        $this->Theme = new Theme($this);
+        $this->Webhook = new Webhook($this);
     }
 
     /**
