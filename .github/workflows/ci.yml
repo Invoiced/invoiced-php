@@ -61,4 +61,5 @@ jobs:
 
       - name: Coveralls
         run: |
-          vendor/bin/php-coveralls
+          # Only report on 7.4
+          if [ "${{ matrix.php-version }}" == "7.4" ]; then vendor/bin/php-coveralls; fi
