@@ -48,7 +48,7 @@ jobs:
           # PHPStan is only supported on 7.1+
           if [ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ] || [ "${{ matrix.php-version }}" == "7.0" ]; then composer remove phpstan/phpstan --dev; fi
           # Only report on 7.4
-          if ! [ "${{ matrix.php-version }}" == "7.4" ]; then composer remove satooshi/php-coveralls --dev; fi
+          if [ "${{ matrix.php-version }}" == "7.4" ]; then composer install php-coveralls/php-coveralls --dev; fi
           composer install --prefer-dist --no-progress --no-interaction --no-scripts
           mkdir -p build/logs
 
@@ -62,6 +62,8 @@ jobs:
           if ! ([ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ] || [ "${{ matrix.php-version }}" == "7.0" ]); then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
 
       - name: Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
           # Only report on 7.4
           if [ "${{ matrix.php-version }}" == "7.4" ]; then vendor/bin/php-coveralls; fi
