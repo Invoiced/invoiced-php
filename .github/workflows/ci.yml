@@ -61,13 +61,14 @@ jobs:
         run: |
           vendor/bin/phpunit
 
-      - name: Coveralls
-        if: ${{ github.event_name == 'push' }}
+      - name: Upload coverage results to Coveralls
+        if: ${{ github.event_name == 'push' && matrix.php-version == '7.4' }}
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        continue-on-error: true
         run: |
-          # Only report on 7.4
-          if [ "${{ matrix.php-version }}" == "7.4" ]; then (composer global require php-coveralls/php-coveralls && php-coveralls -v) || true; fi
+          composer global require php-coveralls/php-coveralls
+          php-coveralls -v
 
   phpstan:
     runs-on: ubuntu-latest
