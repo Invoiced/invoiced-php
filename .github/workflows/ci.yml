@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
+    branches: ["master"]
   pull_request:
+    branches: ["master"]
 
 jobs:
   phpunit:
@@ -60,6 +62,7 @@ jobs:
           vendor/bin/phpunit
 
       - name: Coveralls
+        if: ${{ github.event_name == 'push' }}
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
