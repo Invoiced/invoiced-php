@@ -3,7 +3,7 @@ invoiced-php
 
 This repository contains the PHP client library for the [Invoiced](https://invoiced.com) API.
 
-[![Build Status](https://travis-ci.com/Invoiced/invoiced-php.svg?branch=master)](https://travis-ci.com/Invoiced/invoiced-php)
+[![CI](https://github.com/Invoiced/invoiced-php/actions/workflows/ci.yml/badge.svg)](https://github.com/Invoiced/invoiced-php/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/Invoiced/invoiced-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/Invoiced/invoiced-php?branch=master)
 [![PHP version](https://badge.fury.io/ph/invoiced%2Finvoiced.svg)](https://badge.fury.io/ph/invoiced%2Finvoiced)
 
@@ -17,7 +17,7 @@ composer require invoiced/invoiced
 
 ## Requirements
 
-- PHP 5.5+ or PHP 7+
+- PHP 5.5+, PHP 7+, or PHP 8+
 - [Composer](https://getcomposer.org/)
 
 ## Usage
