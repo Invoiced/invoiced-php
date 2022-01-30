@@ -45,6 +45,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # PHPStan is only supported on 7.1+
+          if [ "$TRAVIS_PHP_VERSION" == "5.5" ] || [ "$TRAVIS_PHP_VERSION" == "5.6" ]; then composer remove phpstan/phpstan --dev; fi
           composer install --prefer-dist --no-progress --no-interaction --no-scripts
           mkdir -p build/logs
 
@@ -54,7 +56,8 @@ jobs:
 
       - name: PHPStan
         run: |
-          vendor/bin/phpstan analyse --memory-limit=-1 --no-progress
+          # PHPStan is only supported on 7.1+
+          if ! ([ "$TRAVIS_PHP_VERSION" == "5.5" ] || [ "$TRAVIS_PHP_VERSION" == "5.6" ]); then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
 
       - name: Coveralls
         run: |
