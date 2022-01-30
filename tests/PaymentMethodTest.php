@@ -2,8 +2,6 @@
 
 namespace Invoiced\Tests;
 
-use Invoiced\Tests\Traits\CreateTrait;
-use Invoiced\Tests\Traits\DeleteTrait;
 use Invoiced\Tests\Traits\GetEndpointTrait;
 use Invoiced\Tests\Traits\ListTrait;
 use Invoiced\Tests\Traits\RetrieveTrait;
