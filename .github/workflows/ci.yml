@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - '5.5'
+          - '5.6'
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: gd,mailparse,mbstring,redis
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer remove --dev phpstan/phpstan
+          # PHPUnit 4 for PHP 5
+          if [ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ]; then composer require --dev -W "phpunit/phpunit:^4"; fi
+          # PHPUnit 6 for PHP 7.0 - 7.2
+          if [ "${{ matrix.php-version }}" == "7.0" ] || [ "${{ matrix.php-version }}" == "7.1" ] || [ "${{ matrix.php-version }}" == "7.2" ]; then composer require --dev -W "phpunit/phpunit:^6"; fi
+          # PHPUnit 9 for 7.3+
+          if [ "${{ matrix.php-version }}" == "7.3" ] || [ "${{ matrix.php-version }}" == "7.4" ] || [ "${{ matrix.php-version }}" == "8.0" ] || [ "${{ matrix.php-version }}" == "8.1" ]; then composer require --dev -W "phpunit/phpunit:^9"; fi
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          mkdir -p build/logs
+
+      - name: PHPUnit
+        run: |
+          vendor/bin/phpunit
+
+      - name: Coveralls
+        if: ${{ github.event_name == 'push' }}
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          # Only report on 7.4
+          if [ "${{ matrix.php-version }}" == "7.4" ]; then composer global require php-coveralls/php-coveralls && php-coveralls || true -v; fi
+
+  phpstan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version:
+          - '7.4'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: gd,mailparse,mbstring,redis
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          mkdir -p build/logs
+
+      - name: PHPStan
+        run: |
+          vendor/bin/phpstan analyse --memory-limit=-1 --no-progress

@@ -1,0 +1,1497 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 2
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 2
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Cannot access offset 'file' on mixed\\.$#"
+			count: 1
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Cannot access offset 'id' on mixed\\.$#"
+			count: 3
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 2
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 2
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 2
+			path: src/BaseDocument.php
+
+		-
+			message: "#^Cannot access offset 'message' on mixed\\.$#"
+			count: 4
+			path: src/Client.php
+
+		-
+			message: "#^Method Invoiced\\\\Client\\:\\:buildHeaders\\(\\) should return array\\<string\\> but returns array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of class Invoiced\\\\Error\\\\ApiError constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of class Invoiced\\\\Error\\\\AuthenticationError constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of class Invoiced\\\\Error\\\\InvalidRequest constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of class Invoiced\\\\Error\\\\RateLimitError constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#3 \\$error of class Invoiced\\\\Error\\\\ApiError constructor expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#3 \\$error of class Invoiced\\\\Error\\\\AuthenticationError constructor expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#3 \\$error of class Invoiced\\\\Error\\\\InvalidRequest constructor expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Parameter \\#3 \\$error of class Invoiced\\\\Error\\\\RateLimitError constructor expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: src/Client.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Contact.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Contact.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Contact.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Contact.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Contact.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Coupon.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Coupon.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Coupon.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Coupon.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Coupon.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/CreditBalanceAdjustment.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/CreditBalanceAdjustment.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/CreditBalanceAdjustment.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/CreditBalanceAdjustment.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/CreditBalanceAdjustment.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/CustomField.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/CustomField.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/CustomField.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/CustomField.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/CustomField.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Customer.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Customer.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Customer.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Customer.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Customer.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/CustomerChasingCadence.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/CustomerChasingCadence.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/CustomerChasingCadence.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/CustomerChasingCadence.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/CustomerChasingCadence.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/EmailTemplate.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/EmailTemplate.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/EmailTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/EmailTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/EmailTemplate.php
+
+		-
+			message: "#^Property Invoiced\\\\Error\\\\ErrorBase\\:\\:\\$error is never read, only written\\.$#"
+			count: 1
+			path: src/Error/ErrorBase.php
+
+		-
+			message: "#^Property Invoiced\\\\Error\\\\ErrorBase\\:\\:\\$statusCode is never read, only written\\.$#"
+			count: 1
+			path: src/Error/ErrorBase.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Event.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Event.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Event.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Event.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Event.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/GlAccount.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/GlAccount.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/GlAccount.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/GlAccount.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/GlAccount.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Inbox.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Inbox.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Inbox.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Inbox.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Inbox.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/InvoiceChasingCadence.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/InvoiceChasingCadence.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/InvoiceChasingCadence.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/InvoiceChasingCadence.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/InvoiceChasingCadence.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Item.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Item.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Item.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Item.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Item.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/LateFeeSchedule.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/LateFeeSchedule.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/LateFeeSchedule.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/LateFeeSchedule.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/LateFeeSchedule.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/LineItem.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/LineItem.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/LineItem.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/LineItem.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/LineItem.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Member.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Member.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Member.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Member.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Member.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/MerchantAccount.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/MerchantAccount.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/MerchantAccount.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/MerchantAccount.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/MerchantAccount.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Note.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Note.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Note.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Note.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Note.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Payment.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Payment.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Payment.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Payment.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Payment.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/PaymentMethod.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/PaymentMethod.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/PaymentMethod.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/PaymentMethod.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/PaymentMethod.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/PaymentSource.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/PaymentSource.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/PaymentSource.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/PaymentSource.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/PaymentSource.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/PdfTemplate.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/PdfTemplate.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/PdfTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/PdfTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/PdfTemplate.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Plan.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Plan.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Plan.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Plan.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Plan.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Role.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Role.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Role.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Role.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Role.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/SignUpPage.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/SignUpPage.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/SignUpPage.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/SignUpPage.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/SignUpPage.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/SmsTemplate.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/SmsTemplate.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/SmsTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/SmsTemplate.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/SmsTemplate.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Subscription.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Subscription.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Subscription.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Subscription.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Subscription.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Task.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Task.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Task.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Task.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Task.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/TaxRate.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/TaxRate.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/TaxRate.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/TaxRate.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/TaxRate.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/TaxRule.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/TaxRule.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/TaxRule.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/TaxRule.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/TaxRule.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Theme.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Theme.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Theme.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Theme.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Theme.php
+
+		-
+			message: "#^Method Invoiced\\\\Util\\:\\:buildObjects\\(\\) has parameter \\$objects with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Util.php
+
+		-
+			message: "#^Cannot access offset 'Link' on mixed\\.$#"
+			count: 1
+			path: src/Webhook.php
+
+		-
+			message: "#^Cannot access offset 'X\\-Total\\-Count' on mixed\\.$#"
+			count: 1
+			path: src/Webhook.php
+
+		-
+			message: "#^Parameter \\#1 \\$linkHeader of class Invoiced\\\\Collection constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Webhook.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of static method Invoiced\\\\Util\\:\\:buildObjects\\(\\) expects array\\<array\\>, mixed given\\.$#"
+			count: 1
+			path: src/Webhook.php
+
+		-
+			message: "#^Parameter \\#2 \\$totalCount of class Invoiced\\\\Collection constructor expects int, mixed given\\.$#"
+			count: 1
+			path: src/Webhook.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/ChargeTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/ContactTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/ContactTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/ContactTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/CouponTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/CouponTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/CouponTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/CreditBalanceAdjustmentTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/CreditBalanceAdjustmentTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/CreditBalanceAdjustmentTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Cannot access property \\$id on mixed\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Cannot access property \\$total_count on mixed\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
+			count: 1
+			path: tests/CreditNoteTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomFieldTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomFieldTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomFieldTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomerChasingCadenceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomerChasingCadenceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomerChasingCadenceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 9
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Cannot access offset 1 on mixed\\.$#"
+			count: 2
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Cannot access property \\$id on mixed\\.$#"
+			count: 4
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Cannot access property \\$total_count on mixed\\.$#"
+			count: 4
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Cannot call method getEndpoint\\(\\) on mixed\\.$#"
+			count: 5
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
+			count: 4
+			path: tests/CustomerTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/EmailTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/EmailTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/EmailTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Cannot access property \\$id on mixed\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Cannot access property \\$total_count on mixed\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
+			count: 1
+			path: tests/EstimateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/EventTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/EventTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/FileTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/FileTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/GlAccountTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/GlAccountTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/GlAccountTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/InboxTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/InboxTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/InvoiceChasingCadenceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/InvoiceChasingCadenceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/InvoiceChasingCadenceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 3
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Cannot access property \\$id on mixed\\.$#"
+			count: 2
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Cannot access property \\$total_count on mixed\\.$#"
+			count: 2
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Cannot call method getEndpoint\\(\\) on mixed\\.$#"
+			count: 1
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
+			count: 2
+			path: tests/InvoiceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/ItemTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/ItemTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/ItemTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/LateFeeScheduleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/LateFeeScheduleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/LateFeeScheduleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/LineItemTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/LineItemTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/LineItemTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/MemberTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/MemberTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/MemberTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/MerchantAccountTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/MerchantAccountTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/MerchantAccountTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentMethodTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentMethodTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentPlanTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentPlanTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentSourceTest.php
+
+		-
+			message: "#^Cannot access offset 0 on mixed\\.$#"
+			count: 2
+			path: tests/PaymentSourceTest.php
+
+		-
+			message: "#^Cannot access offset 1 on mixed\\.$#"
+			count: 1
+			path: tests/PaymentSourceTest.php
+
+		-
+			message: "#^Cannot access property \\$id on mixed\\.$#"
+			count: 1
+			path: tests/PaymentSourceTest.php
+
+		-
+			message: "#^Cannot access property \\$total_count on mixed\\.$#"
+			count: 1
+			path: tests/PaymentSourceTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
+			count: 1
+			path: tests/PaymentSourceTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/PaymentTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/PdfTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/PdfTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/PdfTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/PlanTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/PlanTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/PlanTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/RefundTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/ReportTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/ReportTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/RoleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/RoleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/RoleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/SignUpPageTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/SignUpPageTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/SignUpPageTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/SmsTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/SmsTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/SmsTemplateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/SubscriptionTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/SubscriptionTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/SubscriptionTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/TaxRateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/TaxRateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/TaxRateTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/TaxRuleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/TaxRuleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/TaxRuleTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/ThemeTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/ThemeTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/ThemeTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: tests/WebhookTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: tests/WebhookTest.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getEndpoint\\(\\)\\.$#"
+			count: 1
+			path: tests/WebhookTest.php
+

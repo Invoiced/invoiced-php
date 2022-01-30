@@ -4,9 +4,9 @@ namespace Invoiced\Tests;
 
 use Invoiced\BaseObject;
 use Invoiced\Client;
-use PHPUnit_Framework_TestCase;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-class BaseObjectTest extends PHPUnit_Framework_TestCase
+class BaseObjectTest extends TestCase
 {
     /**
      * @var Client
@@ -16,7 +16,7 @@ class BaseObjectTest extends PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public static function setUpBeforeClass()
+    public static function set_up_before_class()
     {
         self::$invoiced = new Client('API_KEY');
     }
@@ -48,7 +48,7 @@ class BaseObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testMagic()
     {
-        $this->setExpectedException('Exception');
+        $this->expectException('Exception');
 
         $object = new BaseObject(self::$invoiced, 123);
 
@@ -107,7 +107,7 @@ class BaseObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testCannotSetEmpty()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $object = new BaseObject(self::$invoiced, 123);
         $object->test = ''; /* @phpstan-ignore-line */

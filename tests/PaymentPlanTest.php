@@ -22,7 +22,7 @@ class PaymentPlanTest extends AbstractEndpointTestCase
      */
     public function testRetrieve()
     {
-        $this->setExpectedException('BadMethodCallException');
+        $this->expectException('BadMethodCallException');
 
         $plan = new PaymentPlan($this->makeClient(), null, []);
         $paymentPlan = $plan->retrieve(456);

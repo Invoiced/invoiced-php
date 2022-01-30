@@ -11,7 +11,7 @@ trait RetrieveTrait
      */
     public function testRetrieveNoId()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         $client = $this->makeClient();
         $class = self::OBJECT_CLASS;
         (new $class($client))->retrieve('');
