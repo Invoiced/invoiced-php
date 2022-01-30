@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: gd,mailparse,mbstring,redis
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            bin/.phpunit
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          mkdir -p build/logs
+
+      - name: PHPUnit
+        run: |
+          bin/phpunit
+
+      - name: PHPStan
+        run: |
+          vendor/bin/phpstan analyse --memory-limit=-1 --no-progress
+
+      - name: Coveralls
+        run: |
+          vendor/bin/php-coveralls
