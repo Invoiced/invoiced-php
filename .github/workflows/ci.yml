@@ -46,7 +46,7 @@ jobs:
       - name: Install dependencies
         run: |
           # PHPStan is only supported on 7.1+
-          if [ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ]; then composer remove phpstan/phpstan --dev; fi
+          if [ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ] || [ "${{ matrix.php-version }}" == "7.0" ]; then composer remove phpstan/phpstan --dev; fi
           # Only report on 7.4
           if ! [ "${{ matrix.php-version }}" == "7.4" ]; then composer remove phpstan/phpstan --dev; fi
           composer install --prefer-dist --no-progress --no-interaction --no-scripts
@@ -59,7 +59,7 @@ jobs:
       - name: PHPStan
         run: |
           # PHPStan is only supported on 7.1+
-          if ! ([ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ]); then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
+          if ! ([ "${{ matrix.php-version }}" == "5.5" ] || [ "${{ matrix.php-version }}" == "5.6" ] || [ "${{ matrix.php-version }}" == "7.0" ]); then vendor/bin/phpstan analyse --memory-limit=-1 --no-progress; fi
 
       - name: Coveralls
         run: |
