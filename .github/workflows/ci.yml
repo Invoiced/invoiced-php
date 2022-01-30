@@ -25,7 +25,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ php-version }}
+          php-version: ${{ matrix.php-version }}
           extensions: gd,mailparse,mbstring,redis
 
       - name: Get Composer Cache Directory
