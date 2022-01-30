@@ -67,7 +67,7 @@ jobs:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
           # Only report on 7.4
-          if [ "${{ matrix.php-version }}" == "7.4" ]; then composer global require php-coveralls/php-coveralls && php-coveralls -v; fi
+          if [ "${{ matrix.php-version }}" == "7.4" ]; then composer global require php-coveralls/php-coveralls && php-coveralls || true -v; fi
 
   phpstan:
     runs-on: ubuntu-latest
