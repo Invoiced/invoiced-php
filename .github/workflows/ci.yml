@@ -68,7 +68,7 @@ jobs:
         continue-on-error: true
         run: |
           composer global require php-coveralls/php-coveralls
-          php-coveralls -v
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
 
   phpstan:
     runs-on: ubuntu-latest
