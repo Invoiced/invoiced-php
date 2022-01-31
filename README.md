@@ -56,3 +56,7 @@ $invoiced = new Invoiced\Client("{SANDBOX_API_KEY}", true);
 ## Developing
 
 The test suite can be ran with `phpunit`
+
+## Deploying
+
+In order to deploy a new version to Packagist, a new release must be created in GitHub.
