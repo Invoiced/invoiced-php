@@ -156,6 +156,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($k, $v)
     {
         $this->$k = $v;
@@ -166,6 +167,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($k)
     {
         return array_key_exists($k, $this->_values);
@@ -176,6 +178,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($k)
     {
         unset($this->$k);
@@ -186,6 +189,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($k)
     {
         return array_key_exists($k, $this->_values) ? $this->_values[$k] : null;
@@ -204,6 +208,7 @@ class BaseObject implements ArrayAccess, JsonSerializable
     /**
      * @return array<mixed>
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->__toArray();
