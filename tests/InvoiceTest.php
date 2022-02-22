@@ -49,7 +49,7 @@ class InvoiceTest extends AbstractEndpointTestCase
             new Response(201, [], '[{"id":6789,"state":"queued"}]'),
             new Response(201, [], '{"id":1212,"notes":"test"}'),
             new Response(200, [], '{"id":"1212","notes":"test"}'),
-            new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/invoices/456/notes?per_page=25&page=1>; rel="self", <https://api.invoiced.com/invoices/456/notes?per_page=25&page=1>; rel="first", <https://api.invoiced.com/invoices/456/notes?per_page=25&page=1>; rel="last"'], '[{"id":1212,"notes":"test"}]'),
+            new Response(200, ['X-Total-Count' => '15', 'Link' => '<https://api.invoiced.com/invoices/456/notes?per_page=25&page=1>; rel="self", <https://api.invoiced.com/invoices/456/notes?per_page=25&page=1>; rel="first", <https://api.invoiced.com/invoices/456/notes?per_page=25&page=1>; rel="last"'], '[{"id":1212,"notes":"test"}]'),
         ]);
 
         self::$invoiced = new Client('API_KEY', false, null, $mock);

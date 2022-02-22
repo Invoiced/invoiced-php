@@ -18,7 +18,7 @@ class PaymentSourceTest extends AbstractEndpointTestCase
      */
     public function testAll()
     {
-        $client = $this->makeClient(new Response(200, ['X-Total-Count' => 15, 'Link' => '<https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="last"'], '[{"id":1231,"object":"card"}, {"id": 2342,"object":"bank_account"}]'));
+        $client = $this->makeClient(new Response(200, ['X-Total-Count' => '15', 'Link' => '<https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="self", <https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="first", <https://api.invoiced.com/customers/12/payment_sources?per_page=25&page=1>; rel="last"'], '[{"id":1231,"object":"card"}, {"id": 2342,"object":"bank_account"}]'));
         $source = new PaymentSource($client);
         list($sources, $metadata) = $source->all();
 

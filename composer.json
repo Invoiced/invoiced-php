@@ -28,7 +28,7 @@
     "php": ">=5.4",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "guzzlehttp/guzzle": "~6.0",
+    "guzzlehttp/guzzle": "^6.0|^7.0",
     "firebase/php-jwt": "~5.0"
   },
   "require-dev": {
