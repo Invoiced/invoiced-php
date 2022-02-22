@@ -74,6 +74,8 @@ class Client
     public $Role;
     /** @var SignUpPage */
     public $SignUpPage;
+    /** @var SignUpPageAddon */
+    public $SignUpPageAddon;
     /** @var SmsTemplate */
     public $SmsTemplate;
     /** @var Subscription */
