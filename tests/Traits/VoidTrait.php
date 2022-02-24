@@ -3,8 +3,6 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
-use Invoiced\BaseObject;
-use Invoiced\Operations\VoidDocument;
 
 trait VoidTrait
 {

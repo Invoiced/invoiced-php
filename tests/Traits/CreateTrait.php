@@ -3,7 +3,6 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
-use Invoiced\BaseObject;
 
 trait CreateTrait
 {
