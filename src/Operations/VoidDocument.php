@@ -2,10 +2,14 @@
 
 namespace Invoiced\Operations;
 
+use Invoiced\Error\ErrorBase;
+
 trait VoidDocument
 {
     /**
      * Voids the document.
+     *
+     * @throws ErrorBase
      *
      * @return bool
      */

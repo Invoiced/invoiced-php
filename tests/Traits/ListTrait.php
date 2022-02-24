@@ -3,6 +3,7 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
+use Invoiced\BaseObject;
 
 trait ListTrait
 {
@@ -14,7 +15,7 @@ trait ListTrait
         $client = $this->makeClient(new Response(200, ['X-Total-Count' => '15', 'Link' => '<https://api.invoiced.com/objects?per_page=25&page=1>; rel="self", <https://api.invoiced.com/objects?per_page=25&page=1>; rel="first", <https://api.invoiced.com/objects?per_page=25&page=1>; rel="last"'], '[{"id":123}]'));
 
         $class = static::OBJECT_CLASS;
-        list($objects, $metadata) = (new $class($client))->all();
+        list($objects, $metadata) = (new $class($client))->all(); /* @phpstan-ignore-line */
 
         $this->assertTrue(is_array($objects));
         $this->assertCount(1, $objects);

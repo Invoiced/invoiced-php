@@ -3,6 +3,7 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
+use Invoiced\BaseObject;
 
 trait UpdateTrait
 {
@@ -14,7 +15,7 @@ trait UpdateTrait
         $client = $this->makeClient();
         $class = self::OBJECT_CLASS;
         $obj = new $class($client, 456, []);
-        $this->assertFalse($obj->save());
+        $this->assertFalse($obj->save()); /* @phpstan-ignore-line */
     }
 
     /**
@@ -27,7 +28,7 @@ trait UpdateTrait
         $class = self::OBJECT_CLASS;
         $obj = new $class($client, 456, []);
         $obj->name = 'Nancy Drew'; /* @phpstan-ignore-line */
-        $this->assertTrue($obj->save());
+        $this->assertTrue($obj->save()); /* @phpstan-ignore-line */
 
         $this->assertEquals('Nancy Drew', $obj->name);
     }
@@ -43,6 +44,6 @@ trait UpdateTrait
         $class = self::OBJECT_CLASS;
         $obj = new $class($client, 456, []);
         $obj->name = 'Nancy Drew'; /* @phpstan-ignore-line */
-        $obj->save();
+        $obj->save(); /* @phpstan-ignore-line */
     }
 }

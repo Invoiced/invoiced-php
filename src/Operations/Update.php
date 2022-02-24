@@ -2,6 +2,8 @@
 
 namespace Invoiced\Operations;
 
+use Invoiced\Error\ErrorBase;
+
 trait Update
 {
     /**
@@ -9,6 +11,8 @@ trait Update
      *
      * @param array<mixed> $params
      * @param array<mixed> $opts
+     *
+     * @throws ErrorBase
      *
      * @return bool
      */

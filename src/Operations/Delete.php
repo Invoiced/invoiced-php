@@ -2,10 +2,14 @@
 
 namespace Invoiced\Operations;
 
+use Invoiced\Error\ErrorBase;
+
 trait Delete
 {
     /**
      * Deletes the object.
+     *
+     * @throws ErrorBase
      *
      * @return bool
      */

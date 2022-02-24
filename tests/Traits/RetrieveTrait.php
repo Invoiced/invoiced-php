@@ -3,6 +3,7 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
+use Invoiced\BaseObject;
 
 trait RetrieveTrait
 {
@@ -13,6 +14,7 @@ trait RetrieveTrait
     {
         $this->expectException('InvalidArgumentException');
         $client = $this->makeClient();
+        /** @var BaseObject $class */
         $class = self::OBJECT_CLASS;
         (new $class($client))->retrieve('');
     }
@@ -24,10 +26,11 @@ trait RetrieveTrait
     {
         $client = $this->makeClient(new Response(200, [], '{"id":456}'));
 
+        /** @var BaseObject $class */
         $class = self::OBJECT_CLASS;
         $obj = (new $class($client))->retrieve(456);
 
-        $this->assertInstanceOf($class, $obj);
+        $this->assertInstanceOf(self::OBJECT_CLASS, $obj);
         $this->assertEquals(456, $obj->id);
     }
 }

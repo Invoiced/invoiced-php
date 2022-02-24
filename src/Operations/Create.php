@@ -2,6 +2,7 @@
 
 namespace Invoiced\Operations;
 
+use Invoiced\Error\ErrorBase;
 use Invoiced\Util;
 
 trait Create
@@ -11,6 +12,8 @@ trait Create
      *
      * @param array<mixed> $params
      * @param array<mixed> $opts
+     *
+     * @throws ErrorBase
      *
      * @return static newly created object
      */

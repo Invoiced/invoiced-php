@@ -3,6 +3,8 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
+use Invoiced\BaseObject;
+use Invoiced\Operations\VoidDocument;
 
 trait VoidTrait
 {
@@ -14,7 +16,7 @@ trait VoidTrait
         $client = $this->makeClient(new Response(200, [], '{"id":"1234","status":"voided"}'));
         $class = self::OBJECT_CLASS;
         $obj = new $class($client, 1234, []);
-        $this->assertTrue($obj->void());
+        $this->assertTrue($obj->void()); /* @phpstan-ignore-line */
         $this->assertEquals('voided', $obj->status);
     }
 }

@@ -53,10 +53,10 @@ abstract class BaseDocument extends BaseObject
 
         // build attachment objects
         $attachment = new Attachment($this->_client);
-        $attachments = Util::buildObjects($attachment, $body);
+        $attachments = Util::buildObjects($attachment, $body); /* @phpstan-ignore-line */
 
         // store the metadata from the list operation
-        $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']);
+        $metadata = new Collection($response['headers']['Link'], $response['headers']['X-Total-Count']); /* @phpstan-ignore-line */
 
         return [$attachments, $metadata];
     }

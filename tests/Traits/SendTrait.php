@@ -3,6 +3,7 @@
 namespace Invoiced\Tests\Traits;
 
 use GuzzleHttp\Psr7\Response;
+use Invoiced\BaseObject;
 
 trait SendTrait
 {
@@ -14,7 +15,7 @@ trait SendTrait
         $client = $this->makeClient(new Response(201, [], '[{"id":4567,"email":"test@example.com"}]'));
 
         $class = self::OBJECT_CLASS;
-        $emails = (new $class($client, 123))->send();
+        $emails = (new $class($client, 123))->send(); /* @phpstan-ignore-line */
 
         $this->assertTrue(is_array($emails));
         $this->assertCount(1, $emails);
