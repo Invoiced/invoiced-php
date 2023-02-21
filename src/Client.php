@@ -332,6 +332,6 @@ class Client
             'exp' => time() + $ttl,
         ];
 
-        return JWT::encode($params, $this->ssoKey);
+        return JWT::encode($params, $this->ssoKey, 'HS256');
     }
 }

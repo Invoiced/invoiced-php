@@ -3,6 +3,7 @@
 namespace Invoiced\Tests;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
@@ -256,7 +257,7 @@ class ClientTest extends TestCase
         $t = time();
         $token = $client->generateSignInToken(1234, 3600);
 
-        $decrypted = (array) JWT::decode($token, $ssoKey, ['HS256']);
+        $decrypted = (array) JWT::decode($token, new Key($ssoKey, 'HS256'));
 
         $this->assertLessThan(3, $decrypted['exp'] - $t - 3600); // this accounts for slow running tests
         unset($decrypted['exp']);
