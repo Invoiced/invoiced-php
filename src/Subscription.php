@@ -19,7 +19,7 @@ namespace Invoiced;
  * @property object      $metadata
  * @property float       $mrr
  * @property string      $object
- * @property int         $paused
+ * @property bool        $paused
  * @property int|null    $period_end
  * @property int|null    $period_start
  * @property string      $plan
