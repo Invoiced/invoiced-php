@@ -46,13 +46,13 @@ jobs:
         run: |
           composer remove --dev phpstan/phpstan
           # PHPUnit 9 for 8
-          if [ "${{ matrix.php-version }}" == "8.0" ]; then composer require --dev -W "phpunit/phpunit:^9"; fi
+          if [ "${{ matrix.php-version }}" == "8.0" ]; then composer require --dev -W "phpunit/phpunit:^9.6.34"; fi
           # PHPUnit 10 for 8.1
-          if [ "${{ matrix.php-version }}" == "8.1" ]; then composer require --dev -W "phpunit/phpunit:^10"; fi
+          if [ "${{ matrix.php-version }}" == "8.1" ]; then composer require --dev -W "phpunit/phpunit:^10.5.64"; fi
           # PHPUnit 11 for 8.2
-          if [ "${{ matrix.php-version }}" == "8.2" ]; then composer require --dev -W "phpunit/phpunit:^11"; fi
+          if [ "${{ matrix.php-version }}" == "8.2" ]; then composer require --dev -W "phpunit/phpunit:^11.5.55"; fi
           # PHPUnit 12 for 8.3
-          if [ "${{ matrix.php-version }}" == "8.3" ]; then composer require --dev -W "phpunit/phpunit:^12"; fi
+          if [ "${{ matrix.php-version }}" == "8.3" ]; then composer require --dev -W "phpunit/phpunit:^12.5.14"; fi
           # PHPUnit 13 for 8.4
           if [ "${{ matrix.php-version }}" == "8.4" ]; then composer require --dev -W "phpunit/phpunit:^13"; fi
           composer install --prefer-dist --no-progress --no-interaction --no-scripts
