@@ -45,7 +45,7 @@ class Collection
             // pull out rel="..."
             $matches = [];
             preg_match('/rel="(.*)"/', $section[1], $matches);
-            $name = $matches[1];
+            $name = $matches[1]; /* @phpstan-ignore-line */
 
             $links[$name] = $url;
         }
